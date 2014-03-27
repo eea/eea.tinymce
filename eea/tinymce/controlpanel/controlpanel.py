@@ -1,6 +1,5 @@
 from eea.app.visualization.config import EEAMessageFactory as _
 from eea.tinymce.interfaces import ITinyMCEPlugin
-from persistent.dict import PersistentDict
 from zope import schema
 from zope.formlib.form import FormFields
 from zope.interface import implements
