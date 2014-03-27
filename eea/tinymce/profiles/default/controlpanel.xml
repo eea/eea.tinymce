@@ -2,12 +2,12 @@
 <object name="portal_controlpanel">
 
   <configlet
-    title="EEA TinyMCE Settings"
-    action_id="eea.tinymce.settings"
+    title="EEA TinyMCE Plugins Settings"
+    action_id="eea.tinymce.tinymcepluginssettings"
     appId="eea.tinymce"
     category="Products"
     condition_expr=""
-    url_expr="string:$portal_url/@@tinymce-controlpanel"
+    url_expr="string:$portal_url/@@tinymceplugins-settings"
     visible="True">
       <permission>Manage portal</permission>
   </configlet>

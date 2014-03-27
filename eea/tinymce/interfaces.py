@@ -1,8 +1,8 @@
 """ Public interfaces
 """
 # Control Panel
-from eea.tinymce.controlpanel.interfaces import ISettings
+from eea.tinymce.controlpanel.interfaces import ITinyMCEPlugin
 
 __all__ = [
-    ISettings.__name__,
+    ITinyMCEPlugin.__name__,
 ]

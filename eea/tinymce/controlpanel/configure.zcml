@@ -6,15 +6,15 @@
   <include package="Products.CMFCore" file="permissions.zcml"/>
 
   <browser:page
-    name="tinymce-controlpanel"
+    name="tinymceplugins-settings"
     for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    class=".settings.ControlPanel"
+    class=".tinymcepluginssettings.TinyMCEPluginsEditForm"
     permission="cmf.ManagePortal"
     />
-
-  <adapter
-    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    provides="eea.tinymce.interfaces.ISettings"
-    factory=".settings.ControlPanelAdapter" />
+  
+  <utility
+    name="eea.tinymce.eeacharplugin"
+    factory=".controlpanel.EEACharPlugin"
+    />
 
 </configure>
