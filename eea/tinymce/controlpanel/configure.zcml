@@ -17,4 +17,9 @@
     factory=".controlpanel.EEACharPlugin"
     />
 
+  <utility
+    name="eea.tinymce.eeatogglefullscreen"
+    factory=".controlpanel.EEAToggleFullscreen"
+    />
+
 </configure>
