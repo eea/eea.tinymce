@@ -10,4 +10,23 @@
     permission="zope2.View" 
     />
 
+  <browser:page 
+    name="available_ctypes.json" 
+    for="*" 
+    class=".app.views.AvailableCTypes" 
+    permission="zope2.View" 
+    />
+
+  <browser:page 
+    name="ct_richfields.json" 
+    for="*" 
+    class=".app.views.CTRichFields" 
+    permission="zope2.View" 
+    />
+
+  <browser:resource
+    name="eea.tinymce.eeacharpluginform.js"
+    file="./js/eeacharpluginform.js"
+   />
+
 </configure>

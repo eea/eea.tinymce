@@ -13,13 +13,13 @@
     />
   
   <utility
-    name="eea.tinymce.eeacharplugin"
-    factory=".controlpanel.EEACharPlugin"
+    name="eea.tinymce.eeatogglefullscreen"
+    factory=".controlpanel.EEAToggleFullscreen"
     />
 
   <utility
-    name="eea.tinymce.eeatogglefullscreen"
-    factory=".controlpanel.EEAToggleFullscreen"
+    name="eea.tinymce.eeacharplugin"
+    factory=".controlpanel.EEACharPlugin"
     />
 
 </configure>
