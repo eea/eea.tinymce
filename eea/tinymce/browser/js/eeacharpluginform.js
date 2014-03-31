@@ -22,13 +22,13 @@ function populateThresholds(settings, ct, field) {
 }
 
 function validate_thresholds(low_threshold, high_threshold) {
-    if (isNaN(parseInt(low_threshold))) {
+    if (isNaN(parseInt(low_threshold, 10))) {
         jQuery('#low_threshold_error').text('Invalid low threshold value');
         jQuery('#low_threshold_error').show();
         return false;
     }
     jQuery('#low_threshold_error').hide();
-    if (isNaN(parseInt(high_threshold))) {
+    if (isNaN(parseInt(high_threshold, 10))) {
         jQuery('#high_threshold_error').text('Invalid high threshold value');
         jQuery('#high_threshold_error').show();
         return false;
@@ -45,6 +45,11 @@ function updateSettings(settings) {
         var field = jQuery('#ct_fields').val();
         var field_setting = false;
         var ctype_setting = false;
+        var ct_setting = {ctype: ctype, settings: [
+                    {fieldname: field,
+                     low_threshold: low_threshold,
+                     high_threshold: high_threshold }
+                     ]};
 
         jQuery.each(settings, function(idx, option) {
             if (option.ctype === ctype) {
@@ -68,14 +73,15 @@ function updateSettings(settings) {
                 ctype_setting = false;
                 return ctype_setting;
             } else {
-                ctype_setting = {ctype: ctype, settings: [
-                    {fieldname: field,
-                     low_threshold: low_threshold,
-                     high_threshold: high_threshold }
-                     ]};
+                ctype_setting = ct_setting;
             }
         });
-        if (ctype_setting !== false) {
+
+        if (settings.length <= 0) {
+            ctype_setting = ct_setting;
+        }
+
+        if ((ctype_setting !== false)) {
             settings.push(ctype_setting);
         }
 
@@ -157,7 +163,7 @@ function buildForm(settings, parent) {
         'id': 'low_threshold'
     });
     var low_threshold_error = jQuery('<span/>', {
-        'class': 'error',
+        'class': 'eea-icon error',
         'id': 'low_threshold_error'
     });
     var label_high_threshold = jQuery('<label/>', {
@@ -171,14 +177,16 @@ function buildForm(settings, parent) {
         'id': 'high_threshold'
     });
     var high_threshold_error = jQuery('<span/>', {
-        'class': 'error',
+        'class': 'eea-icon error',
         'id': 'high_threshold_error'
     });
+
     label_low_threshold.appendTo(parent);
     low_threshold.appendTo(parent);
     low_threshold_error.appendTo(parent);
     low_threshold_error.hide();
     parent.append('<br />');
+    
     label_high_threshold.appendTo(parent);
     high_threshold.appendTo(parent);
     high_threshold_error.appendTo(parent);
@@ -215,7 +223,9 @@ function buildForm(settings, parent) {
         populateThresholds(self.settings, ct, field);
     });
 
-    var update_settings = jQuery('<a />');
+    var update_settings = jQuery('<a />', {
+        'href': 'javascript:void(0)'
+    });
     var refresh_icon = jQuery('<span />', {
         'class': 'eea-icon eea-icon-refresh',
         'text': 'Update'
@@ -229,10 +239,10 @@ function buildForm(settings, parent) {
     });
 }
 
-
 jQuery(document).ready(function() {
     var textarea = jQuery('textarea[name="tinymcepluginssettings.eea_char_limit"');
     textarea.hide();
-    var charlimit_settings = jQuery.parseJSON(textarea.text());
+    var charlimit_settings = textarea.text() || '[]';
+    var charlimit_settings = jQuery.parseJSON(charlimit_settings);
     buildForm(charlimit_settings, textarea.parent());
 });

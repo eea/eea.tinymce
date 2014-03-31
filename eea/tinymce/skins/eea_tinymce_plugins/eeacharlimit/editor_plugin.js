@@ -23,6 +23,8 @@ if (!Array.prototype.indexOf) {
     tinymce.create('tinymce.plugins.EEACharLimitPlugin', {
         init : function(ed) {
             var self = this;
+            var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeacharlimit/css/eeacharlimit.css';
+            tinymce.DOM.loadCSS(css_url);
 
             //Update the status_box with the required info
             function status_update(status_box, low_threshold, high_threshold) {
@@ -41,7 +43,7 @@ if (!Array.prototype.indexOf) {
                         status_box.removeClass('charlimit-exceeded');
                     }
                 } else if (char_num > low_threshold && char_num <= high_threshold) {
-                    message = ' (warning, we aim for 8000 characters)';
+                    message = ' (warning, we aim for ' + low_threshold + ' characters)';
                     
                     if (status_box.hasClass('charlimit-exceeded')) {
                         status_box.removeClass('charlimit-exceeded');
@@ -73,15 +75,16 @@ if (!Array.prototype.indexOf) {
             }
 
             ed.onInit.add(function() {
-
-                //Check for eeacharlimit_options object
-                if (typeof eeacharlimit_options != 'undefined') {
-
+                var eeacharlimit_options = eeatinymceplugins.settings['eea_char_limit'];
+                if (eeacharlimit_options !== undefined) {
+                    eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
                     jQuery.each(eeacharlimit_options, function( index, value ) {
                         var body_class = jQuery('body').attr('class');
-                        var marker = 'portaltype-' + value.ctype;
+                        var marker = 'portaltype-' + value.ctype.toLowerCase();
                         var field_id = ed.editorId;
                         var row_id = 'charlimit-row-' + field_id;
+                        var field_active = false;
+                        var field_settings;
 
                         //If we're in fullscreen mode, check which field we're editing
                         if (ed.getParam('fullscreen_is_enabled')) {
@@ -89,10 +92,18 @@ if (!Array.prototype.indexOf) {
                             row_id = 'charlimit-row-' + field_id;
                         }
 
+                        jQuery.each(value.settings, function(key, val) {
+                            if (val.fieldname === field_id) {
+                                field_active = true;
+                                field_settings = val;
+                                return false;
+                            }
+                        });
+
                         //Check if we should activate for this CT and field
-                        if (body_class.indexOf(marker) >= 0 && value.fields.indexOf(field_id) >=0 ) {
-                            var high_threshold = value.high_threshold;
-                            var low_threshold = value.low_threshold;
+                        if (body_class.indexOf(marker) >= 0 && field_active === true ) {
+                            var high_threshold = field_settings.high_threshold;
+                            var low_threshold = field_settings.low_threshold;
                             var tinymce_row = jQuery('#' + row_id);
                             var status_box = jQuery('#info-' + field_id);
 

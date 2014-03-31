@@ -32,10 +32,7 @@ class TinyMCEPluginsSettings(BrowserView):
         for x in getUtilitiesFor(ITinyMCEPlugin):
             settingsdict.update(plugin_settings.get(x[1].prefix, {}))
 
-        return jsonify({
-            "name": "EEA TinyMCE Plugins",
-            "settings": settingsdict
-            }, self.request.response)
+        return jsonify(settingsdict, self.request.response)
 
 
 class AvailableCTypes(BrowserView):

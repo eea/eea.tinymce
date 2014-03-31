@@ -1,3 +1,5 @@
+// jslint:disable
+
 (function () {
 
     function triggerEvent (node, type) {
@@ -11,75 +13,97 @@
         }
     }
 
-    var debounce = function (func, threshold, execAsap) {
-        //http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
-        var timeout;
-        return function debounced () {
-            var obj = this;
-
-            function delayed () {
-                if (!execAsap)
-                    func.apply(obj, arguments);
-                timeout = null;
-            }
-
-            if (timeout)
-                clearTimeout(timeout);
-            else if (execAsap)
-                func.apply(obj, arguments);
-
-            timeout = setTimeout(delayed, threshold || 100);
-        };
-
-    };
 
     tinymce.create("tinymce.plugins.EEAToggleFullScreenPlugin", {
-        init: function (d) {
-            ed = d;
-            var tinymce_container = document.getElementById('mce_fullscreen_container'),
-                $tinymce_container,
-                setHeight,
-                debouncedSetHeight;
+        init: function (ed) {
+            var self = this;
+            self.ed = ed;
 
-            if (tinymce_container) {
-                tinymce_container.onclick = function (e) {
-                    if (e.target.id === "mce_fullscreen_parent") {
-                        var fullscreen_button = document.getElementById('mce_fullscreen_fullscreen');
-                        tinymce_container.onclick = null;
-                        triggerEvent(fullscreen_button, 'click');
-                    }
-                };
-                $tinymce_container = $(tinymce_container);
+            ed.addCommand("mceFullScreen", function () {
+                var container = this.container;
+                var $container = $(container);
+                if (container.className.indexOf('mceFullScreen') === -1) {
+                    $container.addClass("mceFullScreen")
+                        .find('.mceLayout').addClass("mceFullScreen").end()
+                        .find('.mce_fullscreen').addClass("mceButtonActive");
+                    self.setHeight($container);
+                    $(window).on('resize.fullscreenSetHeight', self.debouncedSetHeight());
+                }
+                else {
+                    $container.removeClass("mceFullScreen")
+                        .find('.mceLayout').removeClass("mceFullScreen").end()
+                        .find('iframe').css('height', '').end()
+                        .find('.mce_fullscreen').removeClass("mceButtonActive");
 
-                setHeight = function (evt) {
-                    $tinymce_container.find('iframe').css({ 'height': $tinymce_container.height() - 85});
-                };
-                debouncedSetHeight = debounce(setHeight, 200, false);
-
-                window.addEventListener('resize', debouncedSetHeight);
-            }
+                    $(window).off('resize.fullscreenSetHeight');
+                }
+            });
+            ed.addButton("fullscreen", {
+                title: "fullscreen.desc",
+                cmd: "mceFullScreen"
+            });
 
             ed.onLoadContent.add(this.loadContent, this);
+
+        },
+
+        debounce: function (func, threshold, execAsap) {
+            //http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+            var timeout;
+
+            var obj = this;
+            return function debounced () {
+
+                function delayed () {
+                    if (!execAsap)
+                        func.apply(obj, arguments);
+                    timeout = null;
+                }
+
+                if (timeout)
+                    clearTimeout(timeout);
+                else if (execAsap)
+                    func.apply(obj, arguments);
+
+                timeout = setTimeout(delayed, threshold || 100);
+            };
 
         },
 
         getInfo: function () {
             return {
                 longname: "EEA Toggle Fullscreen",
-                author: "Moxiecode Systems AB",
+                author: "David Ichim",
                 authorurl: "http://tinymce.moxiecode.com",
                 infourl: "http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/fullscreen",
                 version: tinymce.majorVersion + "." + tinymce.minorVersion
             }
         },
+
+        setHeight: function () {
+            $(this.ed.container).find('iframe').css({ 'height': $(window).height() - 110});
+        },
+
+        debouncedSetHeight: function () {
+            return this.debounce(this.setHeight, 200, false);
+        },
+
         loadContent: function (ed) {
             var body = ed.getBody();
             var container = ed.getContainer();
+
+            if (container) {
+                container.onclick = function (e) {
+                    if (e.target.className.indexOf('mceEditor') !== -1) {
+                        ed.execCommand('mceFullScreen');
+                    }
+                };
+            }
             if (ed.getParam('fullscreen_for')) {
-                if (!document.getElementById('mce_fullscreen_fullscreen')) {
+                if (container.className.indexOf('mceFullScreen') === -1) {
                     $(body).click(function () {
                         var fullscreen_button = container.querySelector('.mceButton.mce_fullscreen');
-                        if (!document.getElementById('mce_fullscreen_fullscreen')) {
+                        if (container.className.indexOf('mceFullScreen') === -1) {
                             triggerEvent(fullscreen_button, 'click');
                         }
                     });

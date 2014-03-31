@@ -29,4 +29,9 @@
     file="./js/eeacharpluginform.js"
    />
 
+  <browser:resource
+    name="eea.tinymce.plugins.js"
+    file="./js/eeatinymceplugins.js"
+   />
+
 </configure>
