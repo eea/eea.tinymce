@@ -58,6 +58,9 @@ function deleteSetting(settings, ctype, field) {
         jQuery('#high_threshold').val('');
         jQuery('#status_text').text('Value removed');
         jQuery('#status_text').show();
+        
+        var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
+        populateCtypesEnabled(settings, ctypes_enabled);
     }
 }
 
@@ -112,7 +115,36 @@ function updateSettings(settings) {
         jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
         jQuery('#status_text').text('Settings updated');
         jQuery('#status_text').show();
+
+        var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
+        populateCtypesEnabled(settings, ctypes_enabled);
     }
+}
+
+function populateCtypesEnabled(settings, ctypes_enabled_select) {
+    ctypes_enabled_select.html('');
+
+    for(var i = 0; i < settings.length; i++) {
+        var obj = settings[i];
+        var e_options = jQuery('<option>', {
+            'value': obj.ctype,
+            'text': obj.ctype
+        });
+        e_options.appendTo(ctypes_enabled_select);
+    }
+}
+
+function populateCtypesAvailable(avail_ct_select) {
+    var avail_ct_url = portal_url + '/available_ctypes.json';
+
+    jQuery.getJSON( avail_ct_url, function(data) {
+        var items = [];
+        jQuery.each( data, function(key, val) {
+            items.push( "<option value='" + val + "'>" + val + "</option>" );
+        });
+        avail_ct_select.html(items.join(''));
+    });
+
 }
 
 function buildForm(settings, parent) {
@@ -133,15 +165,7 @@ function buildForm(settings, parent) {
     avail_ct_select.appendTo(parent);
     parent.append('<br />');
 
-    var avail_ct_url = portal_url + '/available_ctypes.json';
-
-    jQuery.getJSON( avail_ct_url, function(data) {
-        var items = [];
-        jQuery.each( data, function(key, val) {
-            items.push( "<option value='" + val + "'>" + val + "</option>" );
-        });
-        avail_ct_select.html(items.join(''));
-    });
+    populateCtypesAvailable(avail_ct_select);
 
     var label_enabled_ct = jQuery('<label/>', {
         'for': 'charlimit_ctypes_enabled',
@@ -154,14 +178,7 @@ function buildForm(settings, parent) {
         'class': 'ctypes'
         });
 
-    for(var i = 0; i < settings.length; i++) {
-        var obj = settings[i];
-        var e_options = jQuery('<option>', {
-            'value': obj.ctype,
-            'text': obj.ctype
-        });
-        e_options.appendTo(ctypes_enabled);
-    }
+    populateCtypesEnabled(settings, ctypes_enabled);
     ctypes_enabled.appendTo(parent);
     parent.append('<br />');
 
@@ -282,7 +299,7 @@ function buildForm(settings, parent) {
         var field = jQuery('#ct_fields').val();
         deleteSetting(settings, ctype, field);
     });
-    
+
     parent.append('<br />');
     var status_text = jQuery('<span />', {
         'class': 'eea-icon eea-icon-info-circle',

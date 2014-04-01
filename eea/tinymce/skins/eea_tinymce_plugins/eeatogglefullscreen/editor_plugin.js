@@ -1,18 +1,5 @@
 // jslint:disable
-
 (function () {
-
-    function triggerEvent (node, type) {
-        var evt;
-        if (document.createEvent) {
-            evt = document.createEvent('MouseEvents');
-            evt.initEvent(type, true, false);
-            node.dispatchEvent(evt);
-        } else if (document.createEventObject) {
-            node.fireEvent('on' + type);
-        }
-    }
-
 
     tinymce.create("tinymce.plugins.EEAToggleFullScreenPlugin", {
         init: function (ed) {
@@ -116,10 +103,9 @@
 
             if (fullscreen_for) {
                 if (container.className.indexOf('mceFullScreen') === -1) {
-                    $(body).focus(function () {
-                        var fullscreen_button = container.querySelector('.mceButton.mce_fullscreen');
+                    $(body).on('focus mouseup', function () {
                         if (container.className.indexOf('mceFullScreen') === -1) {
-                            triggerEvent(fullscreen_button, 'click');
+                            ed.execCommand('mceFullScreen');
                         }
                     });
                 }
