@@ -37,6 +37,30 @@ function validate_thresholds(low_threshold, high_threshold) {
     return true;
 }
 
+function deleteSetting(settings, ctype, field) {
+    var low_threshold = jQuery('#low_threshold').val();
+    var high_threshold = jQuery('#high_threshold').val();
+    if (low_threshold !== '' && high_threshold !== '') {
+        jQuery.each(settings, function(idx, option) {
+            if (option.ctype === ctype) {
+                jQuery.each(option.settings, function(key, val) {
+                        if (val.fieldname === field) {
+                            option.settings.splice(key, 1);
+                        }
+                });
+            }
+            if (option.settings.length <= 0) {
+                settings.splice(idx, 1);
+            }
+        });
+        jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
+        jQuery('#low_threshold').val('');
+        jQuery('#high_threshold').val('');
+        jQuery('#status_text').text('Value removed');
+        jQuery('#status_text').show();
+    }
+}
+
 function updateSettings(settings) {
     var low_threshold = jQuery('#low_threshold').val();
     var high_threshold = jQuery('#high_threshold').val();
@@ -85,7 +109,9 @@ function updateSettings(settings) {
             settings.push(ctype_setting);
         }
 
-        jQuery('textarea[name="tinymcepluginssettings.eea_char_limit"').text(JSON.stringify(settings));
+        jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
+        jQuery('#status_text').text('Settings updated');
+        jQuery('#status_text').show();
     }
 }
 
@@ -192,7 +218,7 @@ function buildForm(settings, parent) {
     high_threshold_error.appendTo(parent);
     high_threshold_error.hide();
 
-    jQuery('body').on('change', '.ctypes', function() {
+    jQuery('body').on('focus change', '.ctypes', function() {
         var selected = jQuery(this).val();
         var ct_richfields_url = portal_url + '/ct_richfields.json';
         jQuery.ajax({
@@ -201,7 +227,6 @@ function buildForm(settings, parent) {
                 data: { ctype:  selected }
             })
             .done(function(data) {
-                var fields = jQuery.parseJSON(data);
                 var items = [];
 
                 jQuery.each( data, function( key, val ) {
@@ -214,17 +239,19 @@ function buildForm(settings, parent) {
 
                 label_rich_fields.text('Available rich fields for ' + selected + ':');
                 populateThresholds(self.settings, selected, field);
+                status_text.hide();
           });
     });
 
-    jQuery('body').on('change', '#ct_fields', function() {
+    jQuery('body').on('focus change', '#ct_fields', function() {
         var ct = ct_fields.attr('data-ct');
         var field = ct_fields.val();
         populateThresholds(self.settings, ct, field);
+        status_text.hide();
     });
 
     var update_settings = jQuery('<a />', {
-        'href': 'javascript:void(0)'
+        'href': '#'
     });
     var refresh_icon = jQuery('<span />', {
         'class': 'eea-icon eea-icon-refresh',
@@ -234,15 +261,42 @@ function buildForm(settings, parent) {
     refresh_icon.appendTo(update_settings);
     update_settings.appendTo(parent);
 
-    update_settings.on('click', function() {
-        updateSettings(self.settings);
+    var remove_settings = jQuery('<a />', {
+        'href': '#'
     });
+    var remove_icon = jQuery('<span />', {
+        'class': 'eea-icon eea-icon-trash-o',
+        'text': 'Remove'
+    });
+    remove_icon.appendTo(remove_settings);
+    remove_settings.appendTo(parent);
+
+    update_settings.on('click', function(evt) {
+        evt.preventDefault();
+        updateSettings(settings);
+    });
+
+    remove_settings.on('click', function(evt) {
+        evt.preventDefault();
+        var ctype = jQuery('#ct_fields').attr('data-ct');
+        var field = jQuery('#ct_fields').val();
+        deleteSetting(settings, ctype, field);
+    });
+    
+    parent.append('<br />');
+    var status_text = jQuery('<span />', {
+        'class': 'eea-icon eea-icon-info-circle',
+        'id': 'status_text',
+        'text': ''
+    });
+    status_text.appendTo(parent);
+    status_text.hide();
 }
 
 jQuery(document).ready(function() {
-    var textarea = jQuery('textarea[name="tinymcepluginssettings.eea_char_limit"');
+    var textarea = jQuery("[id='tinymcepluginssettings.eea_char_limit']");
     textarea.hide();
     var charlimit_settings = textarea.text() || '[]';
-    var charlimit_settings = jQuery.parseJSON(charlimit_settings);
+    charlimit_settings = jQuery.parseJSON(charlimit_settings);
     buildForm(charlimit_settings, textarea.parent());
 });

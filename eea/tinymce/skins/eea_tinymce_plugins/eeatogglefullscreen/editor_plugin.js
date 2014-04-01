@@ -17,7 +17,9 @@
     tinymce.create("tinymce.plugins.EEAToggleFullScreenPlugin", {
         init: function (ed) {
             var self = this;
+            var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeatogglefullscreen/css/eeatogglefullscreen.css';
             self.ed = ed;
+            tinymce.DOM.loadCSS(css_url);
 
             ed.addCommand("mceFullScreen", function () {
                 var container = this.container;
@@ -91,6 +93,7 @@
         loadContent: function (ed) {
             var body = ed.getBody();
             var container = ed.getContainer();
+            var fullscreen_for = false;
 
             if (container) {
                 container.onclick = function (e) {
@@ -99,7 +102,19 @@
                     }
                 };
             }
-            if (ed.getParam('fullscreen_for')) {
+            var fullscreen_options = eeatinymceplugins.settings['eea_toggle_fullscreen'];
+            if (fullscreen_options !== undefined) {
+                jQuery.each(fullscreen_options, function( index, value ) {
+                    var body_class = jQuery('body').attr('class');
+                    var marker = 'portaltype-' + value.toLowerCase();
+                    if (body_class.indexOf(marker) >= 0) {
+                        fullscreen_for = true;
+                        return false;
+                    }
+                });
+            }
+
+            if (fullscreen_for) {
                 if (container.className.indexOf('mceFullScreen') === -1) {
                     $(body).click(function () {
                         var fullscreen_button = container.querySelector('.mceButton.mce_fullscreen');

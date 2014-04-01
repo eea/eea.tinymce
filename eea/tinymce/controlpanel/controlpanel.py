@@ -45,6 +45,7 @@ class EEACharPlugin(object):
                 __name__='eea_char_limit',
                 title=_(u"EEA CharLimit for Portal Types"),
                 description=_(u"EEA Charlimit settings"),
+                required=False,
                 ),
             )
         field = self.form_fields.__FormFields_byname__['eea_char_limit']

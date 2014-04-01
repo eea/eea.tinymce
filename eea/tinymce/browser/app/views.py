@@ -59,6 +59,7 @@ class CTRichFields(BrowserView):
 
     def __call__(self):
         ctype_name = self.request.form.get('ctype')
+        result = []
         if ctype_name:
             catalog = getToolByName(self, 'portal_catalog')
             brains = catalog({'portal_type': ctype_name})
@@ -69,4 +70,6 @@ class CTRichFields(BrowserView):
                 for field in schema.fields():
                     if 'RichWidget' in field.widget.getType():
                         result.append(field.getName())
-                return jsonify(result, self.request.response)
+
+        return jsonify(result, self.request.response)
+

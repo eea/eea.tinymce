@@ -1,0 +1,31 @@
+/* #16661; override px based width from ui.css of tinymce */
+/* #18189 override inline style that gets applied when resizing browser window */
+.mceLayout,
+.ploneSkin iframe {
+    width: 100% !important;
+    min-height: 400px;
+}
+ 
+.ploneSkin table.mceLayout td.mceToolbar {
+    height: 85px;
+}
+ 
+/* #18086: Improvements to the tinymce fullscreen mode
+**  center editor since we have a fixed width layout
+*/
+ 
+.mceEditor.mceFullScreen {
+    background-color: #ececec !important; /* in order to override ui.css */
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 10;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+ 
+.mceLayout.mceFullScreen {
+    margin: 0 auto;
+    background-color: #FFF;
+}

@@ -9,6 +9,11 @@
 
 <body>
 <metal:main fill-slot="prefs_configlet_main">
+  <a href=""
+    class="link-parent"
+    tal:attributes="href string:$portal_url/@@overview-controlpanel"
+    i18n:translate="">Up to Site Setup</a>
+
 <metal:form metal:define-macro="form">
 <metal:override define-slot="main">
 
