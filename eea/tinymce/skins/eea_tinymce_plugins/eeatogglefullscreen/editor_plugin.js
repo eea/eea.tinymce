@@ -116,7 +116,7 @@
 
             if (fullscreen_for) {
                 if (container.className.indexOf('mceFullScreen') === -1) {
-                    $(body).click(function () {
+                    $(body).focus(function () {
                         var fullscreen_button = container.querySelector('.mceButton.mce_fullscreen');
                         if (container.className.indexOf('mceFullScreen') === -1) {
                             triggerEvent(fullscreen_button, 'click');
