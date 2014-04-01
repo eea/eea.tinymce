@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.1-dev - (unreleased)
+----------------------
+
 1.0 - (2014-04-01)
 ------------------
 - Added eeacharlimit tinymce plugin [olimpiurob]
