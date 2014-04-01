@@ -21,6 +21,19 @@ function populateThresholds(settings, ct, field) {
     });
 }
 
+function populateCtypesEnabled(settings, ctypes_enabled_select) {
+    ctypes_enabled_select.html('');
+
+    for(var i = 0; i < settings.length; i++) {
+        var obj = settings[i];
+        var e_options = jQuery('<option>', {
+            'value': obj.ctype,
+            'text': obj.ctype
+        });
+        e_options.appendTo(ctypes_enabled_select);
+    }
+}
+
 function validate_thresholds(low_threshold, high_threshold) {
     if (isNaN(parseInt(low_threshold, 10))) {
         jQuery('#low_threshold_error').text('Invalid low threshold value');
@@ -118,19 +131,6 @@ function updateSettings(settings) {
 
         var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
         populateCtypesEnabled(settings, ctypes_enabled);
-    }
-}
-
-function populateCtypesEnabled(settings, ctypes_enabled_select) {
-    ctypes_enabled_select.html('');
-
-    for(var i = 0; i < settings.length; i++) {
-        var obj = settings[i];
-        var e_options = jQuery('<option>', {
-            'value': obj.ctype,
-            'text': obj.ctype
-        });
-        e_options.appendTo(ctypes_enabled_select);
     }
 }
 

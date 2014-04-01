@@ -2,11 +2,11 @@
 http://adamscheller.com/tinymce-count-characters-plugin/
 
 This plugin is counting the characters entered in a fiche's RichWidget fields.
-In order for the plugin to be active, a eeacharlimit_options javascript object
+In order for the plugin to be active, a javascript object configuration object
 needs to be present and the content type, richwidget fields and threshold limits
 need to be defined.
  */
-/*global jQuery, tinymce, eeacharlimit_options */
+/*global jQuery, tinymce */
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(obj, start) {

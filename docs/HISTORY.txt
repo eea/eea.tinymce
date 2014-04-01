@@ -3,4 +3,7 @@ Changelog
 
 1.0-dev - (unreleased)
 ----------------------
+- Added eeacharlimit tinymce plugin [olimpiurob]
+- Added eeatogglefullscreen tinymce plugin [olimpiurob]
+- Added eeaplonestyle tinymce plugin [olimpiurob]
 - Initial release
