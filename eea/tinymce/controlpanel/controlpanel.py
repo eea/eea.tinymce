@@ -1,3 +1,5 @@
+""" Control Panel
+"""
 from eea.tinymce.config import EEAMessageFactory as _
 from eea.tinymce.interfaces import ITinyMCEPlugin
 from zope import schema
@@ -5,9 +7,12 @@ from zope.formlib.form import FormFields
 from zope.formlib.textwidgets import TextAreaWidget
 from zope.interface import implements
 from zope.browserpage import ViewPageTemplateFile
+from Products.Five.browser import BrowserView
 
 
-class EEACharPluginView:
+class EEACharPluginView(BrowserView):
+    """ EEACharPlugin View
+    """
 
     template = ViewPageTemplateFile('eeacharplugin.pt')
 
@@ -20,6 +25,9 @@ class EEACharPluginView:
 
 
 class EEACharPluginWidget(TextAreaWidget):
+    """ EEACharPlugin Widget
+    """
+
     def __init__(self, context, request, **kw):
         super(EEACharPluginWidget, self).__init__(context, request)
 

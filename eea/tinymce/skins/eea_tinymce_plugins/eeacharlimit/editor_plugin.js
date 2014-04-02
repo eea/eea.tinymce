@@ -6,7 +6,7 @@ In order for the plugin to be active, a javascript object configuration object
 needs to be present and the content type, richwidget fields and threshold limits
 need to be defined.
  */
-/*global jQuery, tinymce */
+/*global jQuery, tinymce, eeatinymceplugins, portal_url */
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(obj, start) {
@@ -23,6 +23,7 @@ if (!Array.prototype.indexOf) {
     tinymce.create('tinymce.plugins.EEACharLimitPlugin', {
         init : function(ed) {
             var self = this;
+
             var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeacharlimit/css/eeacharlimit.css';
             tinymce.DOM.loadCSS(css_url);
 
@@ -75,7 +76,7 @@ if (!Array.prototype.indexOf) {
             }
 
             ed.onInit.add(function() {
-                var eeacharlimit_options = eeatinymceplugins.settings['eea_char_limit'];
+                var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
                 if (eeacharlimit_options) {
                     eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
                     jQuery.each(eeacharlimit_options, function( index, value ) {

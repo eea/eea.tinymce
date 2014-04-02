@@ -1,4 +1,4 @@
-""" Control Panel
+""" Control Panel TinyMCE Plugins Settings
 """
 from eea.tinymce.interfaces import ITinyMCEPlugin
 from persistent.dict import PersistentDict
