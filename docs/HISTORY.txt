@@ -3,6 +3,12 @@ Changelog
 
 1.1-dev - (unreleased)
 ----------------------
+- Fixed eeacharlimit plugin test for true value
+  [olimpiurob refs #18641]
+- Manual Upgrade Step required for installation:
+    - After installation, one needs to go to @@tinymceplugins-settings
+    and update/save the necessary settings for the plugins.
+  [olimpiurob refs #18641]
 
 1.0 - (2014-04-01)
 ------------------

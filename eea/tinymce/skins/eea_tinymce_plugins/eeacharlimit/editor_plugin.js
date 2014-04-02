@@ -76,7 +76,7 @@ if (!Array.prototype.indexOf) {
 
             ed.onInit.add(function() {
                 var eeacharlimit_options = eeatinymceplugins.settings['eea_char_limit'];
-                if (eeacharlimit_options !== undefined) {
+                if (eeacharlimit_options) {
                     eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
                     jQuery.each(eeacharlimit_options, function( index, value ) {
                         var body_class = jQuery('body').attr('class');
