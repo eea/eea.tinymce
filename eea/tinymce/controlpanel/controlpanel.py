@@ -1,4 +1,4 @@
-from eea.app.visualization.config import EEAMessageFactory as _
+from eea.tinymce.config import EEAMessageFactory as _
 from eea.tinymce.interfaces import ITinyMCEPlugin
 from zope import schema
 from zope.formlib.form import FormFields
