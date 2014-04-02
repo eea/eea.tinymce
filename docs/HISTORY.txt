@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1-dev - (unreleased)
-----------------------
+1.1 - (2014-04-01)
+------------------
 - Fixed eeacharlimit plugin test for true value
   [olimpiurob refs #18641]
 - Manual Upgrade Step required for installation:
