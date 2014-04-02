@@ -16,24 +16,6 @@ def test_suite():
     suite.addTests([
         layered(
             doctest.DocFileSuite(
-                'interfaces.py',
-                optionflags=OPTIONFLAGS,
-                package='eea.tinymce'),
-            layer=FUNCTIONAL_TESTING),
-        layered(
-            doctest.DocFileSuite(
-                'browser/interfaces.py',
-                optionflags=OPTIONFLAGS,
-                package='eea.tinymce'),
-            layer=FUNCTIONAL_TESTING),
-        layered(
-            doctest.DocFileSuite(
-                'content/interfaces.py',
-                optionflags=OPTIONFLAGS,
-                package='eea.tinymce'),
-            layer=FUNCTIONAL_TESTING),
-        layered(
-            doctest.DocFileSuite(
                 'controlpanel/interfaces.py',
                 optionflags=OPTIONFLAGS,
                 package='eea.tinymce'),
