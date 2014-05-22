@@ -5,12 +5,13 @@
     i18n_domain="eea">
 
   <includeDependencies package="."/>
-  
+
   <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
-  
+
   <include file="profiles.zcml" />
 
   <include package=".browser" />
   <include package=".controlpanel" />
+  <include package=".upgrades" />
 
 </configure>
