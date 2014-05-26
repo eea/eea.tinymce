@@ -5,6 +5,13 @@ Changelog
 ----------------------
 - Bug fix: Ignore html comments when counting the characters
   [olimpiurob refs #19853]
+- Manual Upgrade Step required for installation:
+    - After upgrade, one needs to go to @@tinymce-controlpanel -> Resource
+    Types and change the path for eeacharlimit in Custom Plugins area from:
+    eeacharlimit|portal_skins/custom/editor_plugin.js
+    to:
+    eeacharlimit|portal_skins/eea_tinymce_plugins/eeacharlimit/editor_plugin.js
+  [olimpiurob refs #19853]
 - Fix jsregistry condition that doesn't work on translations
   [voineali refs #19825]
 
