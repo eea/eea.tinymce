@@ -151,11 +151,17 @@ if (!Array.prototype.indexOf) {
             //Count the characters entered by the user, strip out the html and convert
             //chars like &nbsp to a single character
             self.getCountCharacters = function() {
-                var strip = ed.getContent({format: 'raw'}).replace(/<.[^<>]*?>/g, '').replace(/&[^;]+;/g, '?');
+                var raw_content = ed.getContent({format: 'raw'});
+
+                // remove html comments
+                var strip = raw_content.replace(/<!--[\s\S]*?-->/g, '');
+
+                // strip html
+                strip = strip.replace(/<.[^<>]*?>/g, '').replace(/&[^;]+;/g, '?');
+
                 return strip.length;
                 };
             },
-
         getInfo : function() {
             return {
                 longname : 'TinyMCE Character limit',
