@@ -3,34 +3,35 @@ Changelog
 
 1.4-dev - (unreleased)
 ----------------------
+* Bug fix: fixed RST markup of HISTORY.txt
+  [ghicaale refs #19993]
 
 1.3 - (2014-06-06)
 ------------------
-- Bug fix: Ignore html comments when counting the characters
+* Bug fix: Ignore html comments when counting the characters
   [olimpiurob refs #19853]
-- Manual Upgrade Step required for installation:
-    - After upgrade, one needs to go to @@tinymce-controlpanel -> Resource
-    Types and change the path for eeacharlimit in Custom Plugins area from:
-    eeacharlimit|portal_skins/custom/editor_plugin.js
-    to:
-    eeacharlimit|portal_skins/eea_tinymce_plugins/eeacharlimit/editor_plugin.js
-  [olimpiurob refs #19853]
-- Fix jsregistry condition that doesn't work on translations
+* Manual Upgrade Step required for installation:
+    * After upgrade, one needs to go to @@tinymce-controlpanel -> Resource
+      Types and change the path for eeacharlimit in Custom Plugins area from:
+      eeacharlimit|portal_skins/custom/editor_plugin.js
+      to:
+      eeacharlimit|portal_skins/eea_tinymce_plugins/eeacharlimit/editor_plugin.js
+    * [olimpiurob refs #19853]
+* Fix jsregistry condition that doesn't work on translations
   [voineali refs #19825]
 
 1.1 - (2014-04-01)
 ------------------
-- Fixed eeacharlimit plugin test for true value
+* Fixed eeacharlimit plugin test for true value
   [olimpiurob refs #18641]
-- Manual Upgrade Step required for installation:
-    - After installation, one needs to go to @@tinymceplugins-settings
-    and update/save the necessary settings for the plugins.
-  [olimpiurob refs #18641]
+* Manual Upgrade Step required for installation:
+    * After installation, one needs to go to @@tinymceplugins-settings
+      and update/save the necessary settings for the plugins.
+    * [olimpiurob refs #18641]
 
 1.0 - (2014-04-01)
 ------------------
-- Added eeacharlimit tinymce plugin [olimpiurob]
-- Added eeatogglefullscreen tinymce plugin [olimpiurob]
-- Added eeaplonestyle tinymce plugin [olimpiurob]
-- Initial release
-
+* Added eeacharlimit tinymce plugin [olimpiurob]
+* Added eeatogglefullscreen tinymce plugin [olimpiurob]
+* Added eeaplonestyle tinymce plugin [olimpiurob]
+* Initial release
