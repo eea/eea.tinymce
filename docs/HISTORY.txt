@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.4-dev - (unreleased)
-----------------------
+1.4 - (2014-06-10)
+------------------
 * Bug fix: fixed RST markup of HISTORY.txt
   [ghicaale refs #19993]
 
@@ -35,3 +35,4 @@ Changelog
 * Added eeatogglefullscreen tinymce plugin [olimpiurob]
 * Added eeaplonestyle tinymce plugin [olimpiurob]
 * Initial release
+
