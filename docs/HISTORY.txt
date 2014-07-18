@@ -3,6 +3,8 @@ Changelog
 
 1.5-dev - (unreleased)
 ----------------------
+* Bug fix: Fix tinymceplugins.json when called on Site Root
+  [avoinea]
 
 1.4 - (2014-06-10)
 ------------------

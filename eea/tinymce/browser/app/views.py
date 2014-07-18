@@ -3,7 +3,7 @@
 from Products.Five import BrowserView
 from Products.TinyMCE.interfaces.utility import ITinyMCE
 from eea.tinymce.interfaces import ITinyMCEPlugin
-from zope.component import getUtility
+from zope.component import queryUtility
 from zope.component import getUtilitiesFor
 from Products.CMFCore.utils import getToolByName
 import json
@@ -24,7 +24,7 @@ class TinyMCEPluginsSettings(BrowserView):
     """
 
     def __call__(self, **kwargs):
-        utility = getUtility(ITinyMCE)
+        utility = queryUtility(ITinyMCE)
         plugin_settings = getattr(utility, 'eea_plugin_settings', {})
 
         settingsdict = {}
