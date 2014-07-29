@@ -1,25 +1,29 @@
 <configure
-  xmlns="http://namespaces.zope.org/zope"
-  xmlns:browser="http://namespaces.zope.org/browser"
-  i18n_domain="eea">
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:browser="http://namespaces.zope.org/browser"
+        i18n_domain="eea">
 
-  <include package="Products.CMFCore" file="permissions.zcml"/>
+    <include package="Products.CMFCore" file="permissions.zcml"/>
 
-  <browser:page
-    name="tinymceplugins-settings"
-    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    class=".tinymcepluginssettings.TinyMCEPluginsEditForm"
-    permission="cmf.ManagePortal"
-    />
-  
-  <utility
-    name="eea.tinymce.eeatogglefullscreen"
-    factory=".controlpanel.EEAToggleFullscreen"
-    />
+    <browser:page
+            name="tinymceplugins-settings"
+            for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+            class=".tinymcepluginssettings.TinyMCEPluginsEditForm"
+            permission="cmf.ManagePortal"
+            />
 
-  <utility
-    name="eea.tinymce.eeacharplugin"
-    factory=".controlpanel.EEACharPlugin"
-    />
+    <utility
+            name="eea.tinymce.eeatogglefullscreen"
+            factory=".controlpanel.EEAToggleFullscreen"
+            />
 
+    <utility
+            name="eea.tinymce.eeacharplugin"
+            factory=".controlpanel.EEACharPlugin"
+            />
+
+    <utility
+            name="eea.tinymce.eeasavereminder"
+            factory=".controlpanel.EEASaveReminder"
+            />
 </configure>

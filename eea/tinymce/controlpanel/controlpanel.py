@@ -80,3 +80,23 @@ class EEAToggleFullscreen(object):
                     vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes")
                 )
             )
+
+
+class EEASaveReminder(object):
+    """ EEA Save Reminder  Settings Section
+    """
+    implements(ITinyMCEPlugin)
+    prefix = 'eeasavereminder'
+    title = 'EEA Save Reminder'
+
+    def __init__(self):
+        self.form_fields = FormFields(
+            schema.Int(
+                __name__=u'eea_save_reminder',
+                title=_(u"EEA Save Reminder"),
+                description=_(u"Show Reminder after how many minutes?"),
+                default=20,
+                required=False,
+                ),
+            )
+
