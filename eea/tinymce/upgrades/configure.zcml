@@ -1,18 +1,31 @@
 <configure
-  xmlns="http://namespaces.zope.org/zope"
-  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-  i18n_domain="eea">
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+        i18n_domain="eea">
 
-  <genericsetup:upgradeSteps
-    source="1.2"
-    destination="1.3"
-    profile="eea.tinymce:default">
+    <genericsetup:upgradeSteps
+            source="1.2"
+            destination="1.3"
+            profile="eea.tinymce:default">
 
-    <genericsetup:upgradeDepends
-      title="Import steps with changes: jsregistry"
-      import_steps="jsregistry"
-      />
+        <genericsetup:upgradeDepends
+                title="Import steps with changes: jsregistry"
+                import_steps="jsregistry"
+                />
 
-  </genericsetup:upgradeSteps>
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+            source="1.3"
+            destination="1.5"
+            profile="eea.tinymce:default">
+
+        <genericsetup:upgradeDepends
+                title="Import all steps from eea.tinymce profile upgrade 1.5"
+                description="Add eeasavereminder plugin"
+                import_profile="eea.tinymce:upgrade150"
+                />
+
+    </genericsetup:upgradeSteps>
 
 </configure>

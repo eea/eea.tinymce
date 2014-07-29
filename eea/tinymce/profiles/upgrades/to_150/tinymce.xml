@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object>
+    <resourcetypes purge="False">
+        <customplugins purge="False">
+            <element value="eeasavereminder|portal_skins/eea_tinymce_plugins/eeasavereminder/editor_plugin.js"/>
+        </customplugins>
+    </resourcetypes>
+</object>
