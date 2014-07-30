@@ -3,6 +3,10 @@ Changelog
 
 1.5-dev - (unreleased)
 ----------------------
+* Change: take into consideration for the tinymceplugins that 
+  the settings object might not be available in which case we return
+  out of the plugin logic
+  [ichimdav refs #20258]
 * Bug fix: Fix tinymceplugins.json when called on Site Root
   [avoinea]
 

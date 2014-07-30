@@ -76,6 +76,10 @@ if (!Array.prototype.indexOf) {
             }
 
             ed.onInit.add(function() {
+                var eeatinymceplugins = eeatinymceplugins || "";
+                if (!eeatinymceplugins) {
+                    return;
+                }
                 var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
                 if (eeacharlimit_options) {
                     eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);

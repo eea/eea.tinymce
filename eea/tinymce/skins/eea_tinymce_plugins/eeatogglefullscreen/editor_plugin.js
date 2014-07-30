@@ -1,4 +1,5 @@
 // jslint:disable
+/*global jQuery, tinymce, eeatinymceplugins, portal_url */
 (function () {
 
     tinymce.create("tinymce.plugins.EEAToggleFullScreenPlugin", {
@@ -88,6 +89,10 @@
                         ed.execCommand('mceFullScreen');
                     }
                 };
+            }
+            var eeatinymceplugins = eeatinymceplugins || "";
+            if (!eeatinymceplugins) {
+                return;
             }
             var fullscreen_options = eeatinymceplugins.settings['eea_toggle_fullscreen'];
             if (fullscreen_options !== undefined) {
