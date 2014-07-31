@@ -1,5 +1,5 @@
 // jslint:disable
-/*global jQuery, tinymce, eeatinymceplugins, portal_url */
+/*global jQuery, tinymce, eeatinymceplugins, portal_url, window */
 (function () {
 
     tinymce.create("tinymce.plugins.EEAToggleFullScreenPlugin", {
@@ -45,16 +45,18 @@
             return function debounced () {
 
                 function delayed () {
-                    if (!execAsap)
+                    if (!execAsap) {
                         func.apply(obj, arguments);
+                    }
                     timeout = null;
                 }
 
-                if (timeout)
+                if (timeout) {
                     clearTimeout(timeout);
-                else if (execAsap)
+                }
+                else if (execAsap) {
                     func.apply(obj, arguments);
-
+                }
                 timeout = setTimeout(delayed, threshold || 100);
             };
 
@@ -67,7 +69,7 @@
                 authorurl: "http://tinymce.moxiecode.com",
                 infourl: "http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/fullscreen",
                 version: tinymce.majorVersion + "." + tinymce.minorVersion
-            }
+            };
         },
 
         setHeight: function () {
@@ -90,11 +92,17 @@
                     }
                 };
             }
-            var eeatinymceplugins = eeatinymceplugins || "";
+            var eeatinymceplugins = window.eeatinymceplugins || "";
+            var missing_settings_message;
             if (!eeatinymceplugins) {
-                return;
+                (function(){
+                    missing_settings_message = "Couldn't load tinymceplugins.json";
+                    return window.console ?
+                            window.console.log(missing_settings_message) :
+                            window.alert(missing_settings_message);
+                }());
             }
-            var fullscreen_options = eeatinymceplugins.settings['eea_toggle_fullscreen'];
+            var fullscreen_options = eeatinymceplugins.settings.eea_toggle_fullscreen;
             if (fullscreen_options !== undefined) {
                 jQuery.each(fullscreen_options, function( index, value ) {
                     var body_class = jQuery('body').attr('class');
@@ -118,4 +126,4 @@
         }
     });
     tinymce.PluginManager.add("eeatogglefullscreen", tinymce.plugins.EEAToggleFullScreenPlugin);
-})();
+}());

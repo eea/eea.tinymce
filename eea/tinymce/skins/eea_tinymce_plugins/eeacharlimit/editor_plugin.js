@@ -6,12 +6,13 @@ In order for the plugin to be active, a javascript object configuration object
 needs to be present and the content type, richwidget fields and threshold limits
 need to be defined.
  */
-/*global jQuery, tinymce, eeatinymceplugins, portal_url */
+/*global jQuery, tinymce, eeatinymceplugins, portal_url, window */
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(obj, start) {
          'use strict';
-         for (var i = (start || 0), j = this.length; i < j; i++) {
+         var i, j;
+         for (i = (start || 0), j = this.length; i < j; i += 1) {
              if (this[i] === obj) { return i; }
          }
          return -1;
@@ -76,9 +77,15 @@ if (!Array.prototype.indexOf) {
             }
 
             ed.onInit.add(function() {
-                var eeatinymceplugins = eeatinymceplugins || "";
+                var eeatinymceplugins = window.eeatinymceplugins || "";
+                var missing_settings_message;
                 if (!eeatinymceplugins) {
-                    return;
+                    (function(){
+                        missing_settings_message = "Couldn't load tinymceplugins.json";
+                        return window.console ?
+                               window.console.log(missing_settings_message) :
+                               window.alert(missing_settings_message);
+                    }());
                 }
                 var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
                 if (eeacharlimit_options) {
@@ -179,4 +186,4 @@ if (!Array.prototype.indexOf) {
 
     // Register plugin
     tinymce.PluginManager.add('eeacharlimit', tinymce.plugins.EEACharLimitPlugin);
-})();
+}());
