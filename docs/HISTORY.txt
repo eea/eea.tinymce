@@ -3,6 +3,9 @@ Changelog
 
 1.5-dev - (unreleased)
 ----------------------
+* Change: eeaplonestyle plugin can now use styles that wrap selection instead
+  of replacing the tags of the selection
+  [ichimdav refs #20461]
 * Change: take into consideration for the tinymceplugins that 
   the settings object might not be available in which case we return
   out of the plugin logic
