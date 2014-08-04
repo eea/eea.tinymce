@@ -28,7 +28,7 @@
 
         <genericsetup:upgradeStep
                 title="Add new selection styles"
-                handler="eea.tinymce.upgrades.evolve151.add_styles"
+                handler="eea.tinymce.upgrades.evolve150.add_styles"
                 />
 
 
