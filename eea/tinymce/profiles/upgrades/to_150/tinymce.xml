@@ -5,4 +5,12 @@
             <element value="eeasavereminder|portal_skins/eea_tinymce_plugins/eeasavereminder/editor_plugin.js"/>
         </customplugins>
     </resourcetypes>
+
+    <layout purge="False">
+        <styles purge="False">
+            <element value="Wrap selection with"/>
+            <element value="No page break|div|noPageBreak"/>
+        </styles>
+    </layout>
+
 </object>
