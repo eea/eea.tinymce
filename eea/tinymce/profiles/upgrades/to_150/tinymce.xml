@@ -6,11 +6,4 @@
         </customplugins>
     </resourcetypes>
 
-    <layout purge="False">
-        <styles purge="False">
-            <element value="Wrap selection with"/>
-            <element value="No page break|div|noPageBreak"/>
-        </styles>
-    </layout>
-
 </object>
