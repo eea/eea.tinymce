@@ -8,5 +8,5 @@ def add_styles(setuptool):
     """ Adds new style definitions
     """
     tinymce = getToolByName(setuptool, 'portal_tinymce')
-    tinymce.styles.append(u'Wrap selection with')
-    tinymce.styles.append(u'No page break|div|noPageBreak')
+    styles = u'\nWrap selection with\nNo page break|div|noPageBreak'
+    tinymce.styles += styles
