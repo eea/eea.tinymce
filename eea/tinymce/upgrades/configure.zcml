@@ -20,17 +20,15 @@
             destination="1.5"
             profile="eea.tinymce:default">
 
-        <genericsetup:upgradeDepends
-                title="Import all steps from eea.tinymce profile upgrade 1.5"
-                description="Add eeasavereminder plugin"
-                import_profile="eea.tinymce:upgrade150"
-                />
-
         <genericsetup:upgradeStep
                 title="Add new selection styles"
                 handler="eea.tinymce.upgrades.evolve150.add_styles"
                 />
 
+        <genericsetup:upgradeStep
+                title="Add new template and save reminder plugins"
+                handler="eea.tinymce.upgrades.evolve150.add_plugins"
+                />
 
     </genericsetup:upgradeSteps>
 
