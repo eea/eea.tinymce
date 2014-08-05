@@ -3,6 +3,8 @@
     <resourcetypes purge="False">
         <customplugins purge="False">
             <element value="eeasavereminder|portal_skins/eea_tinymce_plugins/eeasavereminder/editor_plugin.js"/>
+            <element value="eeatemplateinit|portal_skins/eea_tinymce_plugins/eeatemplateinit/editor_plugin.js"/>
+            <element value="template|portal_skins/tinymce/plugins/template/editor_plugin.js"/>
         </customplugins>
     </resourcetypes>
 

@@ -10,3 +10,4 @@ def add_styles(setuptool):
     tinymce = getToolByName(setuptool, 'portal_tinymce')
     styles = u'\nWrap selection with\nNo page break|div|noPageBreak'
     tinymce.styles += styles
+    tinymce.customtoolbarbuttons += "template"
