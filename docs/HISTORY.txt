@@ -3,6 +3,9 @@ Changelog
 
 1.5-dev - (unreleased)
 ----------------------
+* Feature: added eeasavereminder plugin which gives an alert message after
+  a predefined time entry which warns the user of unsaved changes
+  [ichimdav refs #20302]
 * Change: eeaplonestyle plugin can now use styles that wrap selection instead
   of replacing the tags of the selection
   [ichimdav refs #20461]

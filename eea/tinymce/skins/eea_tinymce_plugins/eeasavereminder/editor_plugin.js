@@ -19,14 +19,23 @@
         },
 
         loadContent: function (ed) {
-            var body = ed.getBody();
-
             var save_reminder_options = eeatinymceplugins.settings['eea_save_reminder'];
-            if (save_reminder_options !== undefined) {
-                jQuery.each(save_reminder_options, function( index, value ) {
-
-                });
-            }
+            var timer = save_reminder_options  * 60000; /* 1min has this many miliseconds */
+            var warning_message = function() {
+                var message = "You haven't saved your changes in over 20 minutes.\n" +
+                              "In order to avoid losing your work we recommend you save often";
+                window.alert(message);
+            };
+            var startInterval = function() {
+                return window.setInterval(warning_message, timer);
+            };
+            var interval = startInterval();
+            ed.onExecCommand.add(function(ed, cmd, ui, val) {
+                if (cmd === "mceSave") {
+                    window.clearInterval(interval);
+                    interval = startInterval();
+                }
+            });
         }
     });
     tinymce.PluginManager.add("eeasavereminder", tinymce.plugins.EEASaveReminderPlugin);
