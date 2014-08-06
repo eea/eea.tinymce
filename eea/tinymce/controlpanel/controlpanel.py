@@ -98,5 +98,15 @@ class EEASaveReminder(object):
                 default=20,
                 required=False,
                 ),
+
+            schema.Text(
+                __name__=u'eea_save_reminder_message',
+                title=_(u"EEA Save Reminder Message"),
+                description=_(u"What message the user should be alerted with"),
+                default=u"You haven't saved your changes in over 20 minutes." +
+                        u"\n In order to avoid losing your work we recommend" +
+                        u" you save often",
+                required=False,
+                ),
             )
 

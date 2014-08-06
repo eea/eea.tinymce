@@ -21,9 +21,8 @@
         loadContent: function (ed) {
             var save_reminder_options = eeatinymceplugins.settings['eea_save_reminder'];
             var timer = save_reminder_options  * 60000; /* 1min has this many miliseconds */
+            var message = eeatinymceplugins.settings['eea_save_reminder_message'];
             var warning_message = function() {
-                var message = "You haven't saved your changes in over 20 minutes.\n" +
-                              "In order to avoid losing your work we recommend you save often";
                 window.alert(message);
             };
             var startInterval = function() {
