@@ -15,12 +15,11 @@ def add_plugins(setuptool):
     """ Adds new  plugins
     """
     tinymce = getToolByName(setuptool, 'portal_tinymce')
-    plugins = u'eeasavereminder|portal_skins/eea_tinymce_plugins/' + \
-              u'eeasavereminder/editor_plugin.js\n' + \
-              u'eeatemplateinit|portal_skins/eea_tinymce_plugins/' + \
+    plugins = u'eeatemplateinit|portal_skins/eea_tinymce_plugins/' + \
               u'eeatemplateinit/editor_plugin.js\n' + \
               u'template|portal_skins/tinymce/plugins/' + \
               u'template/editor_plugin.js\n'
+
     tinymce.customplugins += plugins
     buttons = u"template"
     tinymce.customtoolbarbuttons = buttons
