@@ -39,8 +39,11 @@
             ed.addCommand("mceReadabilityChecker", function() {
                 var $textarea = $(ed.getElement());
                 var $field_parent = $textarea.closest(".field");
-                var label = $field_parent.find(".formQuestion")[0].textContent;
+                var label = $field_parent.find(".formQuestion")[0].firstChild;
                 set_stats($textarea, label);
+                $('html, body').animate({
+                    scrollTop: $("#portal-column-two").offset().top
+                }, 500);
             });
             ed.addButton("eeaReadabilityChecker", {
                 title: "Text Readability Check",
