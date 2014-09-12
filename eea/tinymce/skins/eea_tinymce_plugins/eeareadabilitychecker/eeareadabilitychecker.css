@@ -1,0 +1,16 @@
+#readabilityChecker {
+    position: relative;
+    top: -22px;
+    left: 1;
+    display: block;
+    z-index: 10;
+    width: 45%;
+    color: white;
+    background-color: gray;
+    padding: 0.2em 0.5em;
+}
+
+#readabilityChecker span,
+#readabilityChecker a {
+    color: #FFF;
+}

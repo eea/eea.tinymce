@@ -19,6 +19,8 @@
             var $syllable_per_word = $("#syllables_per_word");
             var $letters_per_word = $("#letters_per_word");
 
+            var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeareadabilitychecker/eeareadabilitychecker.css';
+            tinymce.DOM.loadCSS(css_url);
             var set_stats = function($text, label) {
                 $text_portlet_title.html(label);
                 var text_count_obj = window.textstatistics($text.html());
@@ -45,6 +47,16 @@
                     scrollTop: $("#portal-column-two").offset().top
                 }, 500);
             });
+
+            ed.onInit.add(function() {
+                var $container = $(ed.getContainer());
+                var $character_limit_row = $container.find('.charlimit-row');
+                if ($character_limit_row.length < 1) {
+                    return;
+                }
+                var $el =$("<div id='readabilityChecker'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Text readability score <span id='readabilityValue'></span></div>") ;
+                $el.appendTo($character_limit_row);
+            });
             ed.addButton("eeaReadabilityChecker", {
                 title: "Text Readability Check",
                 icon: "mceIcon mce_iespell",
@@ -62,9 +74,6 @@
             }
         },
 
-        loadContent: function (ed) {
-
-        }
     });
     tinymce.PluginManager.add("eeareadabilitychecker", tinymce.plugins.EEAReadabilityChecker);
 
