@@ -4,49 +4,33 @@
 (function () {
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed, url) {
-            var $smog_index = $("#smog_index");
-            var $flesch_reading_ease = $("#flesch_kincaid_reading_ease");
-            var $kincaid_grade_level = $("#flesch_kincaid_grade_level");
-            var $text_portlet_title = $("#stats-field");
-            var $average_grade_level = $("#average_grade_level");
-            var $gunning_score = $("#gunning_fog_score");
-            var $coleman_index = $("#coleman_liau_index");
-            var $automated_index = $("#automated_readability_index");
-            var $syllable_count = $("#syllable_count");
-            var $word_count = $("#word_count");
-            var $sentence_count = $("#sentence_count");
-            var $words_per_sentance = $("#words_per_sentence");
-            var $syllable_per_word = $("#syllables_per_word");
-            var $letters_per_word = $("#letters_per_word");
 
             var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeareadabilitychecker/eeareadabilitychecker.css';
             tinymce.DOM.loadCSS(css_url);
-            var set_stats = function($text, label) {
-                $text_portlet_title.html(label);
-                var text_count_obj = window.textstatistics($text.html());
-                $smog_index.html(text_count_obj.smogIndex());
-                $flesch_reading_ease.html(text_count_obj.fleschKincaidReadingEase());
-                $kincaid_grade_level.html(text_count_obj.fleschKincaidGradeLevel());
-                $average_grade_level.html(Math.round($kincaid_grade_level.html()));
-                $gunning_score.html(text_count_obj.gunningFogScore());
-                $coleman_index.html(text_count_obj.colemanLiauIndex());
-                $automated_index.html(text_count_obj.automatedReadabilityIndex());
-                $syllable_count.html(text_count_obj.syllableCount(text_count_obj.text));
-                $word_count.html(text_count_obj.wordCount());
-                $sentence_count.html(text_count_obj.sentenceCount());
-                $words_per_sentance.html(text_count_obj.averageWordsPerSentence().toFixed(1));
-                $syllable_per_word.html(text_count_obj.averageSyllablesPerWord(text_count_obj.text).toFixed(1));
-                $letters_per_word.html(text_count_obj.averageCharactersPerWord(text_count_obj.text).toFixed(1));
+
+            var debounce = function (func, threshold, execAsap) {
+                var timeout;
+
+                var obj = this;
+                return function debounced () {
+
+                    function delayed () {
+                        if (!execAsap) {
+                            func.apply(obj, arguments);
+                        }
+                        timeout = null;
+                    }
+
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+                    else if (execAsap) {
+                        func.apply(obj, arguments);
+                    }
+                    timeout = setTimeout(delayed, threshold || 100);
+                };
+
             };
-            ed.addCommand("mceReadabilityChecker", function() {
-                var $textarea = $(ed.getElement());
-                var $field_parent = $textarea.closest(".field");
-                var label = $field_parent.find(".formQuestion")[0].firstChild;
-                set_stats($textarea, label);
-                $('html, body').animate({
-                    scrollTop: $("#portal-column-two").offset().top
-                }, 500);
-            });
 
             ed.onInit.add(function() {
                 var $container = $(ed.getContainer());
@@ -56,11 +40,28 @@
                 }
                 var $el =$("<div id='readabilityChecker'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Text readability score <span id='readabilityValue'></span></div>") ;
                 $el.appendTo($character_limit_row);
-            });
-            ed.addButton("eeaReadabilityChecker", {
-                title: "Text Readability Check",
-                icon: "mceIcon mce_iespell",
-                cmd: "mceReadabilityChecker"
+                $el.click(function(ev) {
+                    ed.windowManager.open({
+                        file: url + "/eeareadabilitychecker",
+                        width: 400 ,
+                        height: 500,
+                        inline: 1
+                    },
+                    {
+                        textstatistics: window.textstatistics
+                    });
+                });
+                var setReadabilityValue = function() {
+                    var text = ed.getContent();
+                    var text_count_obj = window.textstatistics(text);
+                    var $readability_value = $("#readabilityValue");
+                    $readability_value.html(Math.round(text_count_obj.fleschKincaidGradeLevel()));
+                };
+                setReadabilityValue();
+                // recalculate score value on keyUp every 1.2sec
+                ed.onKeyUp.add(debounce(function() {
+                    return setReadabilityValue();
+                }, 1200, false));
             });
         },
 

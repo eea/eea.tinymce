@@ -1,13 +1,13 @@
 #readabilityChecker {
     position: relative;
     top: -22px;
-    left: 1;
+    left: 1px;
     display: block;
     z-index: 10;
     width: 45%;
     color: white;
     background-color: gray;
-    padding: 0.2em 0.5em;
+    padding: 2px 5px;
 }
 
 #readabilityChecker span,

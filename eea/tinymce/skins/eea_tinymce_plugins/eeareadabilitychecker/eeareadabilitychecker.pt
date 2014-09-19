@@ -10,9 +10,6 @@
             <td><a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch_Reading_Ease" target="_blank">Flesch-Kincaid Reading Ease</a></td>
             <td id="flesch_kincaid_reading_ease">-</td>
         </tr>
-        <tr>
-            <td><a href="#" id="update-stats" class="portalButton">Refresh check</a></td>
-        </tr>
         </tbody></table>
 
     <h4>Grade Levels</h4>
@@ -83,5 +80,8 @@
             <td id="words_per_sentence">-</td>
         </tr>
         </tbody></table>
+    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="readability.js">
+    </script>
 </div>
 
