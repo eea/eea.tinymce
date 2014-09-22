@@ -6,7 +6,9 @@
         init: function (ed, url) {
 
             var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeareadabilitychecker/eeareadabilitychecker.css';
+            var charlimit_css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeacharlimit/css/eeacharlimit.css';
             tinymce.DOM.loadCSS(css_url);
+            tinymce.DOM.loadCSS(charlimit_css_url);
 
             var debounce = function (func, threshold, execAsap) {
                 var timeout;
@@ -51,12 +53,22 @@
                         textstatistics: window.textstatistics
                     });
                 });
+                var $readability_value = $("#readabilityValue");
+
                 var setReadabilityValue = function() {
                     var text = ed.getContent();
                     var text_count_obj = window.textstatistics(text);
-                    var $readability_value = $("#readabilityValue");
-                    $readability_value.html(Math.round(text_count_obj.fleschKincaidGradeLevel()));
+                    var grade = Math.round(text_count_obj.fleschKincaidGradeLevel());
+                    $readability_value.html(grade);
+                    if (grade > 14) {
+                        $el.attr('class', 'charlimit-warn');
+                    } else if (grade > 16) {
+                        $el.attr('class', 'charlimit-exceeded');
+                    } else {
+                        $el.attr('class', '');
+                    }
                 };
+
                 setReadabilityValue();
                 // recalculate score value on keyUp every 1.2sec
                 ed.onKeyUp.add(debounce(function() {
