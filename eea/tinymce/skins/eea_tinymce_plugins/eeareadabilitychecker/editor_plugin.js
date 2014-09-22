@@ -65,7 +65,7 @@
                     } else if (grade > 16) {
                         $el.attr('class', 'charlimit-exceeded');
                     } else {
-                        $el.attr('class', '');
+                        $el.attr('class', 'charlimit-info');
                     }
                 };
 
