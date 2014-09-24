@@ -41,8 +41,12 @@
                 if ($character_limit_row.length < 1) {
                     return;
                 }
-                var $el =$("<div id='readabilityChecker'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Text readability score <span id='readabilityValue'></span></div>") ;
+                var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Text readability score <span class='readabilityValue'></span></div>") ;
                 $el.appendTo($character_limit_row);
+                var $char_limit = $el.prev();
+                if ($char_limit.hasClass("charlimit-exceeded")) {
+                    $el.addClass("charlimit-expanded");
+                }
                 $el.click(function(ev) {
                     ed.windowManager.open({
                         file: url + "/eeareadabilitychecker",
@@ -54,23 +58,27 @@
                         textstatistics: window.textstatistics
                     });
                 });
-                var $readability_value = $("#readabilityValue");
+                var $readability_value = $el.find($(".readabilityValue"));
 
                 var setReadabilityValue = function() {
                     var text = ed.getContent();
                     if (!text) {
                         $readability_value.html(0);
+                        $el.addClass('charlimit-info');
                         return;
                     }
                     var text_count_obj = window.textstatistics(text);
                     var grade = Math.round(text_count_obj.fleschKincaidGradeLevel());
                     $readability_value.html(grade);
                     if (grade > 14) {
-                        $el.attr('class', 'charlimit-warn');
-                    } else if (grade > 16) {
-                        $el.attr('class', 'charlimit-exceeded');
+                        $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
+                    } else if (grade > 22) {
+                        $el.attr('class', 'readabilityChecker charlimit-info charlimit-exceeded');
                     } else {
-                        $el.attr('class', 'charlimit-info');
+                        $el.attr('class', 'readabilityChecker charlimit-info');
+                    }
+                    if ($char_limit.hasClass("charlimit-exceeded")) {
+                        $el.addClass("charlimit-expanded");
                     }
                 };
 

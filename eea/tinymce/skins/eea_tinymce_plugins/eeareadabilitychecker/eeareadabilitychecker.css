@@ -1,8 +1,14 @@
-#readabilityChecker {
+.ploneSkin .charlimit-info {
+    float: right;
+    box-sizing: border-box;
+    width: 68.5%;
+}
+
+.ploneSkin .readabilityChecker {
     position: relative;
     display: block;
     z-index: 10;
-    width: 50%;
+    width: 31.5%;
     color: white;
     padding: 0.2em;
     cursor: pointer;
@@ -13,14 +19,12 @@
     float: left;
     box-sizing: border-box;
 }
-
-.ploneSkin .charlimit-info {
-    float: right;
-    box-sizing: border-box;
-    width: 50%;
+.ploneSkin .charlimit-expanded {
+    height: 41px;
 }
-#readabilityChecker span,
-#readabilityChecker a {
+
+.ploneSkin .readabilityChecker span,
+.ploneSkin .readabilityChecker a {
     color: #FFF;
     font-weight: bold;
 }
