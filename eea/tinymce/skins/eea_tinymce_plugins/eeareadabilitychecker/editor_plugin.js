@@ -2,6 +2,30 @@
 /*global jQuery, tinymce, eeatinymceplugins, portal_url */
 
 (function () {
+    var debounce = function (func, threshold, execAsap) {
+        var timeout;
+
+        var obj = this;
+        return function debounced () {
+
+            function delayed () {
+                if (!execAsap) {
+                    func.apply(obj, arguments);
+                }
+                timeout = null;
+            }
+
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            else if (execAsap) {
+                func.apply(obj, arguments);
+            }
+            timeout = setTimeout(delayed, threshold || 100);
+        };
+
+    };
+
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed, url) {
 
@@ -10,31 +34,8 @@
             tinymce.DOM.loadCSS(css_url);
             tinymce.DOM.loadCSS(charlimit_css_url);
 
-            var debounce = function (func, threshold, execAsap) {
-                var timeout;
-
-                var obj = this;
-                return function debounced () {
-
-                    function delayed () {
-                        if (!execAsap) {
-                            func.apply(obj, arguments);
-                        }
-                        timeout = null;
-                    }
-
-                    if (timeout) {
-                        clearTimeout(timeout);
-                    }
-                    else if (execAsap) {
-                        func.apply(obj, arguments);
-                    }
-                    timeout = setTimeout(delayed, threshold || 100);
-                };
-
-            };
-
             ed.onInit.add(function() {
+
                 var $container = $(ed.getContainer());
                 var $character_limit_row = $container.find('.charlimit-row');
                 if ($character_limit_row.length < 1) {
@@ -57,6 +58,10 @@
 
                 var setReadabilityValue = function() {
                     var text = ed.getContent();
+                    if (!text) {
+                        $readability_value.html(0);
+                        return;
+                    }
                     var text_count_obj = window.textstatistics(text);
                     var grade = Math.round(text_count_obj.fleschKincaidGradeLevel());
                     $readability_value.html(grade);
@@ -74,6 +79,12 @@
                 ed.onKeyUp.add(debounce(function() {
                     return setReadabilityValue();
                 }, 1200, false));
+                // recalculate score value when content is set
+                // such as the moment when you paste markup within
+                // the html plugin
+                ed.onSetContent.add(debounce(function() {
+                    return setReadabilityValue();
+                }, 500, false));
             });
         },
 
