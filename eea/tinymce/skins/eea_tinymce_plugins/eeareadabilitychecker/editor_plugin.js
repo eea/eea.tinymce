@@ -47,7 +47,8 @@
                 if ($char_limit.hasClass("charlimit-exceeded")) {
                     $el.addClass("charlimit-expanded");
                 }
-                $el.click(function(ev) {
+                $el.click(function() {
+                    ed.focus();
                     ed.windowManager.open({
                         file: url + "/eeareadabilitychecker",
                         width: 400 ,

@@ -19,6 +19,9 @@ var syllable_per_word = $("syllables_per_word");
 var letters_per_word = $("letters_per_word");
 
 var set_stats = function($text) {
+    if (!$text) {
+        return;
+    }
     var text_count_obj = window.textstatistics($text);
     smog_index.innerHTML = text_count_obj.smogIndex();
     flesch_reading_ease.innerHTML = text_count_obj.fleschKincaidReadingEase();
