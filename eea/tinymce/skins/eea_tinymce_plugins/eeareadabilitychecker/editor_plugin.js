@@ -41,7 +41,7 @@
                 if ($character_limit_row.length < 1) {
                     return;
                 }
-                var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Text readability score <span class='readabilityValue'></span></div>") ;
+                var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Readability score <span class='readabilityValue'></span> (<span class='readabilityLevel'></span>)</div>") ;
                 $el.appendTo($character_limit_row);
                 var $char_limit = $el.prev();
                 if ($char_limit.hasClass("charlimit-exceeded")) {
@@ -69,7 +69,7 @@
                         return;
                     }
                     var text_count_obj = window.textstatistics(text);
-                    var grade = Math.round(text_count_obj.fleschKincaidGradeLevel());
+                    var grade = text_count_obj.fleschKincaidReadingEase();
                     $readability_value.html(grade);
                     if (grade > 14) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');

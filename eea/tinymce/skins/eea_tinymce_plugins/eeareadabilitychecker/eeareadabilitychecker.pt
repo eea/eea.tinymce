@@ -12,46 +12,6 @@
         </tr>
         </tbody></table>
 
-    <h4>Grade Levels</h4>
-    <p>A grade level (based on the USA education system) is equivalent to the number of years of education a person has had. Scores over 22 should generally be taken to mean graduate level text.</p>
-    <table border="0" cellspacing="0" cellpadding="5">
-
-        <tbody><tr>
-            <th style="width: 75%;">Readability Formula</th>
-            <th style="width: 25%;">Grade</th>
-        </tr>
-        <tr>
-            <td><a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch.E2.80.93Kincaid_Grade_Level" target="_blank">Flesch-Kincaid Grade Level</a></td>
-            <td id="flesch_kincaid_grade_level">-</td>
-        </tr>
-
-        <tr>
-            <td><a href="http://en.wikipedia.org/wiki/Gunning-Fog_Index" target="_blank">Gunning-Fog Score</a></td>
-            <td id="gunning_fog_score">-</td>
-        </tr>
-
-        <tr>
-            <td><a href="http://en.wikipedia.org/wiki/Coleman-Liau_Index" target="_blank">Coleman-Liau Index</a></td>
-            <td id="coleman_liau_index">-</td>
-        </tr>
-
-        <tr>
-            <td><a href="http://en.wikipedia.org/wiki/SMOG_Index" target="_blank">SMOG Index</a></td>
-            <td id="smog_index">-</td>
-        </tr>
-
-        <tr>
-            <td><a href="http://en.wikipedia.org/wiki/Automated_Readability_Index" target="_blank">Automated Readability Index</a></td>
-            <td id="automated_readability_index">-</td>
-        </tr>
-
-        <tr>
-            <td><strong>Average Grade Level</strong></td>
-            <td><strong id="average_grade_level">-</strong></td>
-        </tr>
-
-        </tbody></table>
-
     <h4>Text Statistics</h4>
     <table border="0" cellspacing="0" cellpadding="5" class="last_table">
         <tbody>
