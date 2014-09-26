@@ -60,6 +60,7 @@
                     });
                 });
                 var $readability_value = $el.find($(".readabilityValue"));
+                var $readability_level = $el.find($(".readabilityLevel"));
 
                 var setReadabilityValue = function() {
                     var text = ed.getContent();
@@ -71,14 +72,17 @@
                     var text_count_obj = window.textstatistics(text);
                     var grade = text_count_obj.fleschKincaidReadingEase();
                     $readability_value.html(grade);
-                    if (grade > 14) {
-                        $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
-                    } else if (grade > 22) {
+                    if (grade < 30) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-exceeded');
+                        $readability_level.text("low");
+                    } else if (grade < 60) {
+                        $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
+                        $readability_level.text("normal");
                     } else {
                         $el.attr('class', 'readabilityChecker charlimit-info');
+                        $readability_level.text("high");
                     }
-                    if ($char_limit.hasClass("charlimit-exceeded")) {
+                    if ($char_limit.hasClass("charlimit-exceeded") || $char_limit.hasClass("charlimit-warn")) {
                         $el.addClass("charlimit-expanded");
                     }
                 };

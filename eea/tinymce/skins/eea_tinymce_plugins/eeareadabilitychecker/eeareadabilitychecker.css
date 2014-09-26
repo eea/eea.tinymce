@@ -1,14 +1,14 @@
 .ploneSkin .charlimit-info {
     float: right;
     box-sizing: border-box;
-    width: 68.5%;
+    width: 60%;
 }
 
 .ploneSkin .readabilityChecker {
     position: relative;
     display: block;
     z-index: 10;
-    width: 31.5%;
+    width: 40%;
     color: white;
     padding: 0.2em;
     cursor: pointer;
