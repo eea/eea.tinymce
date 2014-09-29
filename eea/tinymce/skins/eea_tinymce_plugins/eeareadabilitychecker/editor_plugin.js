@@ -49,14 +49,17 @@
                 }
                 $el.click(function() {
                     ed.focus();
+                    var char_info = $character_limit_row.find('.charlimit-info').eq(0);
+                    var eea_char_count = parseInt(char_info.text().match("[0-9]+")[0], 10);
                     ed.windowManager.open({
                         file: url + "/eeareadabilitychecker",
-                        width: 400 ,
-                        height: 500,
+                        width: 550,
+                        height: 610,
                         inline: 1
                     },
                     {
-                        textstatistics: window.textstatistics
+                        textstatistics: window.textstatistics,
+                        charCount: eea_char_count
                     });
                 });
                 var $readability_value = $el.find($(".readabilityValue"));
@@ -75,9 +78,9 @@
                     if (grade < 30) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-exceeded');
                         $readability_level.text("low");
-                    } else if (grade < 60) {
+                    } else if (grade < 70) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
-                        $readability_level.text("normal");
+                        $readability_level.text("average");
                     } else {
                         $el.attr('class', 'readabilityChecker charlimit-info');
                         $readability_level.text("high");

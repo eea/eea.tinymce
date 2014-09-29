@@ -1,20 +1,68 @@
 <div id="stats" metal:define-macro="portlet">
     <h4><span id="stats-field"></span> Reading Ease</h4>
     <p>A higher score indicates easier readability; scores usually range between 0 and 100.</p>
-    <table border="0" cellspacing="0" cellpadding="5">
+    <table border="0">
         <tbody><tr>
-            <th style="width: 75%;">Readability Formula</th>
-            <th style="width: 25%;">Score</th>
+            <th>Readability Formula</th>
+            <th>Score</th>
         </tr>
         <tr>
             <td><a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch_Reading_Ease" target="_blank">Flesch-Kincaid Reading Ease</a></td>
             <td id="flesch_kincaid_reading_ease">-</td>
         </tr>
         </tbody></table>
+    <style  type="text/css">
+        #readability_ease_table {
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(30%,#777c1f), color-stop(70%,#ffa500), color-stop(100%,#f00f00));
+            background: -moz-linear-gradient(top, #777c1f 30%, #ffa500 70%, #f00f00 100%);
+            background: linear-gradient(to bottom, #777c1f 30%, #ffa500 70%, #f00f00 100%);
+            height: 130px;
+            color: white;
+            font-weight: bold;
+            padding: 0 1em;
+            width: 100%;
+        }
+        table {
+            margin-bottom: 0.75em;
+        }
+        th {
+            text-align: left;
+        }
+        #score-notes {
+            padding-left: 6em;
+        }
+    </style>
+
+    <table>
+        <tbody><tr>
+            <th>Score</th>
+            <th id="score-notes">Notes</th>
+        </tr>
+        </tbody>
+        </table>
+    <table   border="0" id="readability_ease_table">
+        <tbody>
+        <tr>
+            <td>90.0–100.0</td>
+            <td>easily understood by an average 11-year-old student</td>
+        </tr>
+        <tr>
+            <td>60.0–70.0</td>
+            <td>Standard English documents average</td>
+        </tr>
+        <tr>
+            <td>0.0–30.0</td>
+            <td>best understood by university graduates</td>
+        </tr>
+        </tbody></table>
 
     <h4>Text Statistics</h4>
     <table border="0" cellspacing="0" cellpadding="5" class="last_table">
         <tbody>
+        <tr>
+            <td>Character Count</td>
+            <td id="character_count">-</td>
+        </tr>
         <tr>
             <td>Syllable Count</td>
             <td id="syllable_count">-</td>
@@ -40,6 +88,10 @@
             <td id="words_per_sentence">-</td>
         </tr>
         </tbody></table>
+   <p><strong>Note:</strong> The "Flesch reading score" is a very nice "screening tool". It helps to find text that needs adjustments. Please note that "Readability" does not guarantee "Understandability". Some text may be simple to read (uses simple words and short sentences) and still be illogical or semantically incorrect. This score should never be used as the only indicator of readability/understandability. To have a correct picture of "text understandability", this score must be complemented with other indicators and a proper reading test with representative target audience.
+
+   </p>
+    <p>Read more: <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
     <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
     <script type="text/javascript" src="readability.js">
     </script>
