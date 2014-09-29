@@ -53,8 +53,8 @@
                     var eea_char_count = parseInt(char_info.text().match("[0-9]+")[0], 10);
                     ed.windowManager.open({
                         file: url + "/eeareadabilitychecker",
-                        width: 550,
-                        height: 610,
+                        width: 530,
+                        height: 620,
                         inline: 1
                     },
                     {
