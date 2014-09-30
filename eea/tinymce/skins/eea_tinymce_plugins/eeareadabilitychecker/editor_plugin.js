@@ -41,7 +41,7 @@
                 if ($character_limit_row.length < 1) {
                     return;
                 }
-                var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Readability score <span class='readabilityValue'></span> (<span class='readabilityLevel'></span>)</div>") ;
+                var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Readability score <span class='readabilityValue'></span> <span class='readabilityLevel'></span></div>") ;
                 $el.appendTo($character_limit_row);
                 var $char_limit = $el.prev();
                 if ($char_limit.hasClass("charlimit-exceeded")) {
@@ -77,13 +77,13 @@
                     $readability_value.html(grade);
                     if (grade < 30) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-exceeded');
-                        $readability_level.text("low");
+                        $readability_level.text("(low)");
                     } else if (grade < 70) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
-                        $readability_level.text("average");
+                        $readability_level.text("(average)");
                     } else {
                         $el.attr('class', 'readabilityChecker charlimit-info');
-                        $readability_level.text("high");
+                        $readability_level.text("(high)");
                     }
                     if ($char_limit.hasClass("charlimit-exceeded") || $char_limit.hasClass("charlimit-warn")) {
                         $el.addClass("charlimit-expanded");
