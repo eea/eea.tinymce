@@ -1,15 +1,7 @@
-// Remove error portlets
-$(document).ready(function(){
-    $('.portletError').remove();
-});
-
-
-
 // TextStatistics.js
 // Christopher Giffard (2012)
 // 1:1 API Fork of TextStatistics.php by Dave Child (Thanks mate!)
 // https://github.com/DaveChild/Text-Statistics
-
 
 (function(glob) {
 
@@ -154,7 +146,7 @@ $(document).ready(function(){
     TextStatistics.prototype.syllableCount = function(word) {
         var syllableCount = 0,
             prefixSuffixCount = 0,
-            wordPartCount = 0;
+            wordPartCount;
 
         // Prepare word - make lower case and remove non-word characters
         var lword = word.toLowerCase().replace(/[^a-z]/g, "");
@@ -210,8 +202,7 @@ $(document).ready(function(){
         return syllableCount || 1;
     };
 
-    function textStatistics(text) {
+    glob.textstatistics = function(text) {
         return new TextStatistics(text);
-    }
-    glob.textstatistics = textStatistics;
+    };
 }(window));

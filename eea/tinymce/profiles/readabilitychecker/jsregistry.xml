@@ -3,6 +3,7 @@
     <javascript
             id="textStatistics.js"
             authenticated="True"
+            compression="none"
             expression="python: 'edit' in request.URL0.split('/')[-1]"
             insert-after="++resource++eea.tinymce.plugins.js"
             />
