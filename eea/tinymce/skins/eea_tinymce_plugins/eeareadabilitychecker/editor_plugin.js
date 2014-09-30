@@ -54,7 +54,7 @@
                     ed.windowManager.open({
                         file: url + "/eeareadabilitychecker",
                         width: 530,
-                        height: 620,
+                        height: 635,
                         inline: 1
                     },
                     {
