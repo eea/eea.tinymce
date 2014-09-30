@@ -6,18 +6,18 @@
     i18n_domain="eea">
 
     <genericsetup:registerProfile
-            name="upgrade150"
-            title="EEA TinyMCE 1.5 Upgrade profile"
-            directory="profiles/upgrades/to_150"
-            description="EEA TinyMCE 1.5 Upgrade profile"
-            provides="Products.GenericSetup.interfaces.EXTENSION"
-            />
-
-    <genericsetup:registerProfile
             name="default"
             title="EEA TinyMCE"
             directory="profiles/default"
             description="EEA TinyMCE"
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+            />
+
+    <genericsetup:registerProfile
+            name="eeareadabilitychecker"
+            title="EEA TinyMCE Readability Checker"
+            directory="profiles/eeareadabilitychecker"
+            description="EEA TinyMCE Readability Checker plugin"
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />
 

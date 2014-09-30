@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+    <javascript
+            id="textStatistics.js"
+            authenticated="True"
+            expression="python: 'edit' in request.URL0.split('/')[-1]"
+            insert-after="++resource++eea.tinymce.plugins.js"
+            />
+</object>
