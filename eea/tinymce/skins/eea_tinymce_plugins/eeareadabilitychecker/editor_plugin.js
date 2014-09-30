@@ -1,5 +1,5 @@
 // jslint:disable
-/*global jQuery, tinymce, eeatinymceplugins, portal_url */
+/*global $, tinymce, portal_url, window */
 
 (function () {
     var debounce = function (func, threshold, execAsap) {
@@ -111,8 +111,8 @@
                 authorurl: "http://tinymce.moxiecode.com",
                 infourl: "http://wiki.moxiecode.com/index.php/TinyMCE:Plugins/template",
                 version: tinymce.majorVersion + "." + tinymce.minorVersion
-            }
-        },
+            };
+        }
 
     });
     tinymce.PluginManager.add("eeareadabilitychecker", tinymce.plugins.EEAReadabilityChecker);
