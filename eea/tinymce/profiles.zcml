@@ -15,8 +15,8 @@
 
     <genericsetup:registerProfile
             name="eeareadabilitychecker"
-            title="EEA TinyMCE Readability Checker"
-            directory="profiles/eeareadabilitychecker"
+            title="EEA TinyMCE - Readability Checker Plugin"
+            directory="profiles/readabilitychecker"
             description="EEA TinyMCE Readability Checker plugin"
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />

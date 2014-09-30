@@ -8,8 +8,6 @@
 
   <cmf:registerDirectory name="skins" directory="skins" recursive="True" />
 
-  <cmf:registerDirectory name="eeareadabilitychecker" directory="skins/eea_tinymce_plugins/eeareadabilitychecker" recursive="True" />
-
   <include file="profiles.zcml" />
 
   <include package=".browser" />

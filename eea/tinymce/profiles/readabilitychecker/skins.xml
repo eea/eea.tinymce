@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+    <object name="eeareadabilitychecker" meta_type="Filesystem Directory View"
+            directory="eea.tinymce:skins/eea_tinymce_plugins/eeareadabilitychecker" />
+
+    <skin-path name="*">
+        <layer name="eeareadabilitychecker"
+               insert-after="eea_tinymce_plugins"/>
+    </skin-path>
+
+</object>
