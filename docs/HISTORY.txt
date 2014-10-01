@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6-dev - (unreleased)
-----------------------
+1.6 - (2014-10-01)
+------------------
 * Feature: added readability plugin which in pair with the character count
   gives readability statistics for your text fields
   [ichimdav refs #6288]
