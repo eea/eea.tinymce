@@ -27,12 +27,10 @@
         }
         th {
             text-align: left;
+            padding-right: 1em;
         }
         td {
             padding-right: 1em;
-        }
-        #score-notes {
-            padding-left: 6em;
         }
 
         .stats-score {
@@ -51,31 +49,30 @@
 
         #stats-disclaimer {
             overflow-y: hidden;
-            max-height: 100%;
             margin-top: .5em;
 
             -webkit-transition-property: all;
             -webkit-transition-duration: .5s;
-            -webkit-transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+            -webkit-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
             -moz-transition-property: all;
             -moz-transition-duration: .5s;
-            -moz-transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+            -moz-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
             -ms-transition-property: all;
             -ms-transition-duration: .5s;
-            -ms-transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+            -ms-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
             transition-property: all;
             transition-duration: .5s;
-            transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+            transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
             height: 170px;
             width: 100%;
         }
 
         .state-closed {
-            max-height: 0 !important;
+            height: 0 !important;
         }
     </style>
 
