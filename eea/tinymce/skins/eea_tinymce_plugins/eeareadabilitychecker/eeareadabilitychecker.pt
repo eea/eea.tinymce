@@ -34,27 +34,45 @@
         #score-notes {
             padding-left: 6em;
         }
+
+        .stats-score {
+            min-width: 60px;
+        }
+        .stats-score-active:after {
+            content: "----->";
+            padding-left: .5em;
+        }
+        .align-top {
+            vertical-align: top;
+        }
+        .align-bottom {
+            vertical-align: bottom;
+        }
     </style>
 
     <table>
         <tbody><tr>
-            <th>Score</th>
+            <th>Your Score</th>
+            <th>Score Ratio</th>
             <th id="score-notes">Notes</th>
         </tr>
         </tbody>
         </table>
-    <table   border="0" id="readability_ease_table">
+    <table border="0" id="readability_ease_table">
         <tbody>
         <tr>
-            <td>90.0–100.0</td>
+            <td class="stats-score"></td>
+            <td class="stats-ratio">90.0–100.0</td>
             <td>easily understood by an average 11-year-old student</td>
         </tr>
         <tr>
-            <td>60.0–70.0</td>
+            <td class="stats-score"></td>
+            <td class="stats-ratio">60.0–70.0</td>
             <td>Standard English documents average</td>
         </tr>
         <tr>
-            <td>0.0–30.0</td>
+            <td class="stats-score"></td>
+            <td class="stats-ratio">0.0–30.0</td>
             <td>best understood by university graduates</td>
         </tr>
         </tbody></table>
