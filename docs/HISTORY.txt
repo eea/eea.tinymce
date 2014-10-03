@@ -3,6 +3,8 @@ Changelog
 
 1.7-dev - (unreleased)
 ----------------------
+* Change: changed condition for loading of textStatistics.js
+  [ichimdav refs #6288]
 * Feature: readability plugin now displays the score on the gradient table
   within the advanced view
   [ichimdav refs #6288]

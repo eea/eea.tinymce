@@ -2,9 +2,8 @@
 <object name="portal_javascripts">
     <javascript
             id="textStatistics.js"
-            authenticated="True"
             compression="none"
-            expression="python: 'edit' in request.URL0.split('/')[-1]"
+            expression="python: (not here.restrictedTraverse('@@plone_portal_state').anonymous()) and 'edit' in request.ACTUAL_URL.split('/')[-1]"
             insert-after="++resource++eea.tinymce.plugins.js"
             />
 </object>
