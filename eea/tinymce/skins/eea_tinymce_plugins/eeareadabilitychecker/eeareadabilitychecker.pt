@@ -37,7 +37,7 @@
             min-width: 60px;
         }
         .stats-score-active:after {
-            content: "----->";
+            content: "=====>";
             padding-left: .5em;
         }
         .align-top {
@@ -143,7 +143,7 @@
         </p>
         <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
     </div>
-    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="tiny_mce_popup.js"></script>
     <script type="text/javascript" src="readability.js">
     </script>
 </div>

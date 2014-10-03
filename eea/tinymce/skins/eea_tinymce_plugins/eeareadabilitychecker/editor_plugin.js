@@ -52,7 +52,7 @@
                     var char_info = $character_limit_row.find('.charlimit-info').eq(0);
                     var eea_char_count = parseInt(char_info.text().match("[0-9]+")[0], 10);
                     ed.windowManager.open({
-                        file: url + "/eeareadabilitychecker",
+                        file: portal_url + "/eeareadabilitychecker",
                         width: 530,
                         height: 650,
                         inline: 1

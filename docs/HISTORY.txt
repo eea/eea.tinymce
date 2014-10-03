@@ -3,6 +3,9 @@ Changelog
 
 1.7-dev - (unreleased)
 ----------------------
+* Feature: readability plugin now displays the score on the gradient table
+  within the advanced view
+  [ichimdav refs #6288]
 
 1.6 - (2014-10-01)
 ------------------
