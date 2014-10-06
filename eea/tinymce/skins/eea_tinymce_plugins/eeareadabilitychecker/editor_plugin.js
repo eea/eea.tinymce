@@ -29,8 +29,8 @@
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed, url) {
 
-            var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeareadabilitychecker/eeareadabilitychecker.css';
-            var charlimit_css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeacharlimit/css/eeacharlimit.css';
+            var css_url = portal_url + '/eeareadabilitychecker.css';
+            var charlimit_css_url = portal_url + '/eeacharlimit.css';
             tinymce.DOM.loadCSS(css_url);
             tinymce.DOM.loadCSS(charlimit_css_url);
 
@@ -52,8 +52,8 @@
                     var char_info = $character_limit_row.find('.charlimit-info').eq(0);
                     var eea_char_count = parseInt(char_info.text().match("[0-9]+")[0], 10);
                     ed.windowManager.open({
-                        file: portal_url + "/eeareadabilitychecker",
-                        width: 530,
+                        file: portal_url + "/portal_skins/eeareadabilitychecker/eeareadabilitychecker",
+                        width: 560,
                         height: 650,
                         inline: 1
                     },
