@@ -3,6 +3,10 @@ Changelog
 
 1.7-dev - (unreleased)
 ----------------------
+* Change: fixed box-sizing declaration for older versions of FF and Webkit
+  [ichimdav refs #6288]
+* Change: Added gradient to readability for IE9
+  [ichimdav refs #6288]
 * Change: changed condition for loading of textStatistics.js
   [ichimdav refs #6288]
 * Feature: readability plugin now displays the score on the gradient table
