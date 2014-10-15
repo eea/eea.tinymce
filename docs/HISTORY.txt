@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.7-dev - (unreleased)
-----------------------
+1.7 - (2014-10-15)
+------------------
 * Change: fixed box-sizing declaration for older versions of FF and Webkit
   [ichimdav refs #6288]
 * Change: Added gradient to readability for IE9
