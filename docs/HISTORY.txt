@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.8-dev - (unreleased)
+----------------------
+
 1.7 - (2014-10-15)
 ------------------
 * Change: fixed box-sizing declaration for older versions of FF and Webkit
