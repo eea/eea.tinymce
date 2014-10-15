@@ -69,6 +69,7 @@
                     var text = ed.getContent();
                     if (!text) {
                         $readability_value.html(0);
+                        $readability_level.text("");
                         $el.addClass('charlimit-info');
                         return;
                     }

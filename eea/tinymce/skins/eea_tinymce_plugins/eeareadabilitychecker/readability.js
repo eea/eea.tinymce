@@ -37,6 +37,9 @@
     var scores = q('.stats-score');
 
     var set_score_range = function(score) {
+        if (!window.parseInt(score, 10)) {
+            return;
+        }
         var low, medium, high;
         low = scores[2];
         medium = scores[1];
