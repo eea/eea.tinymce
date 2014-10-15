@@ -45,7 +45,7 @@ class EEACharPlugin(object):
     """
     implements(ITinyMCEPlugin)
     prefix = 'eeacharlimit'
-    title = 'EEA CharLimit'
+    title = 'EEA Text Statistics'
 
     def __init__(self):
         self.form_fields = FormFields(

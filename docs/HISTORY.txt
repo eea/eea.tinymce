@@ -3,6 +3,8 @@ Changelog
 
 1.8-dev - (unreleased)
 ----------------------
+* Change: renamed EEA Charlimit settings tab to EEA Text Statistics
+  [ichimdav refs #21327]
 
 1.7 - (2014-10-15)
 ------------------
