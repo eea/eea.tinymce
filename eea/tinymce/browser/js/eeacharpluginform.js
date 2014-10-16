@@ -1,3 +1,5 @@
+/* global portal_url, document */
+
 function populateThresholds(settings, ct, field) {
     jQuery.each(settings, function(idx, option) {
 
@@ -35,25 +37,30 @@ function populateCtypesEnabled(settings, ctypes_enabled_select) {
 }
 
 function validate_thresholds(low_threshold, high_threshold) {
+    var low_error = jQuery('#low_threshold_error');
+    var high_error = jQuery('#high_threshold_error');
     if (isNaN(parseInt(low_threshold, 10))) {
-        jQuery('#low_threshold_error').text('Invalid low threshold value');
-        jQuery('#low_threshold_error').show();
+        low_error.text('Invalid low threshold value')
+                 .show();
         return false;
     }
-    jQuery('#low_threshold_error').hide();
+    low_error.hide();
     if (isNaN(parseInt(high_threshold, 10))) {
-        jQuery('#high_threshold_error').text('Invalid high threshold value');
-        jQuery('#high_threshold_error').show();
+        high_error.text('Invalid high threshold value')
+                  .show();
         return false;
     }
-    jQuery('#high_threshold_error').hide();
+    high_error.hide();
     return true;
 }
 
 function deleteSetting(settings, ctype, field) {
-    var low_threshold = jQuery('#low_threshold').val();
-    var high_threshold = jQuery('#high_threshold').val();
-    if (low_threshold !== '' && high_threshold !== '') {
+    var low_threshold = jQuery('#low_threshold');
+    var high_threshold = jQuery('#high_threshold');
+    var low_threshold_val = low_threshold.val();
+    var high_threshold_val = high_threshold.val();
+    var status_text = jQuery('#status_text');
+    if (low_threshold_val !== '' && high_threshold_val !== '') {
         jQuery.each(settings, function(idx, option) {
             if (option.ctype === ctype) {
                 jQuery.each(option.settings, function(key, val) {
@@ -67,10 +74,10 @@ function deleteSetting(settings, ctype, field) {
             }
         });
         jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
-        jQuery('#low_threshold').val('');
-        jQuery('#high_threshold').val('');
-        jQuery('#status_text').text('Value removed');
-        jQuery('#status_text').show();
+        low_threshold.val('');
+        high_threshold.val('');
+        status_text.text('Value removed')
+                   .show();
         
         var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
         populateCtypesEnabled(settings, ctypes_enabled);
@@ -80,9 +87,11 @@ function deleteSetting(settings, ctype, field) {
 function updateSettings(settings) {
     var low_threshold = jQuery('#low_threshold').val();
     var high_threshold = jQuery('#high_threshold').val();
+    var status_text = jQuery('#status_text');
+    var ct_fields = jQuery('#ct_fields');
     if (validate_thresholds(low_threshold, high_threshold)) {
-        var ctype = jQuery('#ct_fields').attr('data-ct');
-        var field = jQuery('#ct_fields').val();
+        var ctype = ct_fields.attr('data-ct');
+        var field = ct_fields.val();
         var field_setting = false;
         var ctype_setting = false;
         var ct_setting = {ctype: ctype, settings: [
@@ -126,8 +135,8 @@ function updateSettings(settings) {
         }
 
         jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
-        jQuery('#status_text').text('Settings updated');
-        jQuery('#status_text').show();
+        status_text.text('Settings updated')
+                   .show();
 
         var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
         populateCtypesEnabled(settings, ctypes_enabled);
@@ -149,6 +158,7 @@ function populateCtypesAvailable(avail_ct_select) {
 
 function buildForm(settings, parent) {
     var self = this;
+    var body = $('body');
     self.settings = settings;
 
     var label_avail_ct = jQuery('<label/>', {
@@ -235,7 +245,7 @@ function buildForm(settings, parent) {
     high_threshold_error.appendTo(parent);
     high_threshold_error.hide();
 
-    jQuery('body').on('focus change', '.ctypes', function() {
+    body.on('focus change', '.ctypes', function() {
         var selected = jQuery(this).val();
         var ct_richfields_url = portal_url + '/ct_richfields.json';
         jQuery.ajax({
@@ -260,7 +270,7 @@ function buildForm(settings, parent) {
           });
     });
 
-    jQuery('body').on('focus change', '#ct_fields', function() {
+    body.on('focus change', '#ct_fields', function() {
         var ct = ct_fields.attr('data-ct');
         var field = ct_fields.val();
         populateThresholds(self.settings, ct, field);
@@ -294,9 +304,10 @@ function buildForm(settings, parent) {
     });
 
     remove_settings.on('click', function(evt) {
+        var ct_fields = jQuery('#ct_fields');
         evt.preventDefault();
-        var ctype = jQuery('#ct_fields').attr('data-ct');
-        var field = jQuery('#ct_fields').val();
+        var ctype = ct_fields.attr('data-ct');
+        var field = ct_fields.val();
         deleteSetting(settings, ctype, field);
     });
 
