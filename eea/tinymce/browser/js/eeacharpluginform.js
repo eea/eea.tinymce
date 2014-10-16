@@ -39,6 +39,9 @@ function populateCtypesEnabled(settings, ctypes_enabled_select) {
 function validate_thresholds(low_threshold, high_threshold) {
     var low_error = jQuery('#low_threshold_error');
     var high_error = jQuery('#high_threshold_error');
+    if (!low_threshold || !high_threshold) {
+        return null;
+    }
     if (isNaN(parseInt(low_threshold, 10))) {
         low_error.text('Invalid low threshold value')
                  .show();
@@ -89,7 +92,7 @@ function updateSettings(settings) {
     var high_threshold = jQuery('#high_threshold').val();
     var status_text = jQuery('#status_text');
     var ct_fields = jQuery('#ct_fields');
-    if (validate_thresholds(low_threshold, high_threshold)) {
+    if (validate_thresholds(low_threshold, high_threshold) !== false) {
         var ctype = ct_fields.attr('data-ct');
         var field = ct_fields.val();
         var field_setting = false;

@@ -31,8 +31,8 @@
 
             var css_url = portal_url + '/eeareadabilitychecker.css';
             var charlimit_css_url = portal_url + '/eeacharlimit.css';
-            tinymce.DOM.loadCSS(css_url);
             tinymce.DOM.loadCSS(charlimit_css_url);
+            tinymce.DOM.loadCSS(css_url);
 
             ed.onInit.add(function() {
 

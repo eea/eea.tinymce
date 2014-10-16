@@ -30,6 +30,9 @@ if (!Array.prototype.indexOf) {
 
             //Update the status_box with the required info
             function status_update(status_box, low_threshold, high_threshold) {
+                if (!low_threshold && !high_threshold) {
+                    return;
+                }
                 var message;
                 var char_num = self.getCountCharacters();
                 var default_text = 'Tot ' + char_num + ' characters.';
