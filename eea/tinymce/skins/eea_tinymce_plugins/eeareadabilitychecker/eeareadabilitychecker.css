@@ -21,6 +21,11 @@
     float: left;
     box-sizing: border-box;
 }
+
+.charlimit-row.fullwidth .readabilityChecker {
+    width: 100%;
+}
+
 .ploneSkin .charlimit-expanded {
     height: 41px;
 }

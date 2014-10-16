@@ -28,28 +28,30 @@
 
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed, url) {
-
             var css_url = portal_url + '/eeareadabilitychecker.css';
-            var charlimit_css_url = portal_url + '/eeacharlimit.css';
-            tinymce.DOM.loadCSS(charlimit_css_url);
             tinymce.DOM.loadCSS(css_url);
 
             ed.onInit.add(function() {
 
                 var $container = $(ed.getContainer());
-                var $character_limit_row = $container.find('.charlimit-row');
-                if ($character_limit_row.length < 1) {
+                var $char_limit_row = $container.find('.charlimit-row');
+                var $char_limit = $char_limit_row.children();
+                if ($char_limit_row.length < 1) {
                     return;
                 }
+                if ($char_limit.is(':empty')) {
+                    $char_limit.remove();
+                    $char_limit_row.addClass('fullwidth');
+                }
+
                 var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Readability score <span class='readabilityValue'></span> <span class='readabilityLevel'></span></div>") ;
-                $el.appendTo($character_limit_row);
-                var $char_limit = $el.prev();
+                $el.appendTo($char_limit_row);
                 if ($char_limit.hasClass("charlimit-exceeded")) {
                     $el.addClass("charlimit-expanded");
                 }
                 $el.click(function() {
                     ed.focus();
-                    var char_info = $character_limit_row.find('.charlimit-info').eq(0);
+                    var char_info = $char_limit_row.find('.charlimit-info').eq(0);
                     var eea_char_count = parseInt(char_info.text().match("[0-9]+")[0], 10);
                     ed.windowManager.open({
                         file: portal_url + "/portal_skins/eeareadabilitychecker/eeareadabilitychecker",
