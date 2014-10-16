@@ -23,7 +23,7 @@ class TinyMCEPluginsSettings(BrowserView):
     """ TinyMCEPluginsSettings Browserview
     """
 
-    def __call__(self, **kwargs):
+    def __call__(self):
         utility = queryUtility(ITinyMCE)
         plugin_settings = getattr(utility, 'eea_plugin_settings', {})
 
@@ -54,7 +54,7 @@ class AvailableCTypes(BrowserView):
 
 
 class CTRichFields(BrowserView):
-    """ CTRichFiels BrowserView
+    """ CTRichFields BrowserView
     """
 
     def __call__(self):
@@ -72,4 +72,3 @@ class CTRichFields(BrowserView):
                         result.append(field.getName())
 
         return jsonify(result, self.request.response)
-

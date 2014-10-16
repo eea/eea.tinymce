@@ -17,6 +17,7 @@ class EEACharPluginView(BrowserView):
     template = ViewPageTemplateFile('eeacharplugin.pt')
 
     def __init__(self, context, request):
+        super(EEACharPluginView, self).__init__(context, request)
         self.context = context
         self.request = request
 
@@ -28,7 +29,7 @@ class EEACharPluginWidget(TextAreaWidget):
     """ EEACharPlugin Widget
     """
 
-    def __init__(self, context, request, **kw):
+    def __init__(self, context, request):
         super(EEACharPluginWidget, self).__init__(context, request)
 
         self.portal_url = self.request['URL1']
@@ -109,4 +110,3 @@ class EEASaveReminder(object):
                 required=False,
                 ),
             )
-

@@ -245,6 +245,20 @@ function buildForm(settings, parent) {
     high_threshold_error.appendTo(parent);
     high_threshold_error.hide();
 
+    var label_readability = jQuery('<label/>', {
+        'for': 'readability_checker',
+        'text': 'Enable readability statistics?'
+    });
+    var readability_checker = jQuery('<input/>', {
+        'type': 'checkbox',
+        'name': 'readability_checker',
+        'id': 'readability_checker'
+    });
+    parent.append('<br />');
+
+    label_readability.appendTo(parent);
+    readability_checker.appendTo(parent);
+
     body.on('focus change', '.ctypes', function() {
         var selected = jQuery(this).val();
         var ct_richfields_url = portal_url + '/ct_richfields.json';
