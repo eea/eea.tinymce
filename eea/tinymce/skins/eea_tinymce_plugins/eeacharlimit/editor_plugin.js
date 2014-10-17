@@ -6,7 +6,7 @@ In order for the plugin to be active, a javascript object configuration object
 needs to be present and the content type, richwidget fields and threshold limits
 need to be defined.
  */
-/* global jQuery, tinymce, eeatinymceplugins, EEAPluginsUtils, portal_url */
+/*global jQuery, tinymce, eeatinymceplugins, EEAPluginsUtils, portal_url */
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(obj, start) {
@@ -80,7 +80,7 @@ if (!Array.prototype.indexOf) {
             }
 
             ed.onInit.add(function() {
-                $.getScript(portal_url + '/eeapluginsutils.js')
+                jQuery.getScript(portal_url + '/eeapluginsutils.js')
                     .done(function(){
                      if (!EEAPluginsUtils.hasEEATinyMCESettings()) {
                         return;

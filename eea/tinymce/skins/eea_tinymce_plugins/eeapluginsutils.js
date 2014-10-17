@@ -26,12 +26,12 @@ var debounce = function (func, threshold, execAsap) {
 var hasEEATinyMCESettings = function() {
     var eeatinymceplugins = window.eeatinymceplugins || "";
     var missing_settings_message;
+    var msg;
     if (!eeatinymceplugins) {
         (function(){
             missing_settings_message = "Couldn't load tinymceplugins.json";
-            window.console ?
-                window.console.log(missing_settings_message) :
-                window.alert(missing_settings_message);
+            msg = window.console ? window.console.log(missing_settings_message) :
+                             window.alert(missing_settings_message);
             return false;
         }());
     }
