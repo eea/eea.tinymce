@@ -80,8 +80,7 @@ EEACharPluginForm.deleteSetting = function(settings, ctype, field) {
         this.status_text.text('Value removed')
                    .show();
         
-        var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
-        this.populateCtypesEnabled(settings, ctypes_enabled);
+        this.populateCtypesEnabled(settings, this.ctypes_enabled);
     }
 };
 
@@ -137,8 +136,7 @@ EEACharPluginForm.updateSettings = function(settings) {
         this.status_text.text('Settings updated')
                    .show();
 
-        var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
-        this.populateCtypesEnabled(settings, ctypes_enabled);
+        this.populateCtypesEnabled(settings, this.ctypes_enabled);
     }
 };
 
@@ -175,21 +173,21 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
     avail_ct_select.appendTo(parent);
     parent.append('<br />');
 
-    this.populateCtypesAvailable(avail_ct_select);
+    self.populateCtypesAvailable(avail_ct_select);
 
-    var label_enabled_ct = jQuery('<label/>', {
+    self.label_enabled_ct = jQuery('<label/>', {
         'for': 'charlimit_ctypes_enabled',
         'text': 'Charlimit enabled for:'
     });
-    label_enabled_ct.appendTo(parent);
+    self.label_enabled_ct.appendTo(parent);
 
-    var ctypes_enabled = jQuery('<select/>', {
+    self.ctypes_enabled = jQuery('<select/>', {
         'id': 'charlimit_ctypes_enabled',
         'class': 'ctypes'
         });
 
-    self.populateCtypesEnabled(settings, ctypes_enabled);
-    ctypes_enabled.appendTo(parent);
+    self.populateCtypesEnabled(settings, self.ctypes_enabled);
+    self.ctypes_enabled.appendTo(parent);
     parent.append('<br />');
 
     self.label_rich_fields = jQuery('<label/>', {
