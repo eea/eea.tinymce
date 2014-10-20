@@ -88,10 +88,9 @@ EEACharPluginForm.deleteSetting = function(settings, ctype, field) {
 EEACharPluginForm.updateSettings = function(settings) {
     var low_threshold_val = this.low_threshold.val();
     var high_threshold_val = this.high_threshold.val();
-    var ct_fields = jQuery('#ct_fields');
     if (this.validate_thresholds(low_threshold_val, high_threshold_val) !== false) {
-        var ctype = ct_fields.attr('data-ct');
-        var field = ct_fields.val();
+        var ctype = this.ct_fields.attr('data-ct');
+        var field = this.ct_fields.val();
         var field_setting = false;
         var ctype_setting = false;
         var ct_setting = {ctype: ctype, settings: [
@@ -193,17 +192,17 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
     ctypes_enabled.appendTo(parent);
     parent.append('<br />');
 
-    var label_rich_fields = jQuery('<label/>', {
+    self.label_rich_fields = jQuery('<label/>', {
         'for': 'ct_fields',
         'text': 'Available rich fields:'
     });
-    label_rich_fields.appendTo(parent);
+    self.label_rich_fields.appendTo(parent);
 
-    var ct_fields = jQuery('<select/>', {
+    self.ct_fields = jQuery('<select/>', {
         'class': 'ct_fields',
         'id': 'ct_fields'
     });
-    ct_fields.appendTo(parent);
+    self.ct_fields.appendTo(parent);
     parent.append('<br />');
 
     self.label_low_threshold = jQuery('<label/>', {
@@ -275,19 +274,19 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
                     items.push( "<option value='" + val + "'>" + val + "</option>" );
                 });
 
-                ct_fields.html(items.join( "" ));
-                ct_fields.attr('data-ct', selected);
-                var field = ct_fields.val();
+                self.ct_fields.html(items.join( "" ))
+                              .attr('data-ct', selected);
+                var field = self.ct_fields.val();
 
-                label_rich_fields.text('Available rich fields for ' + selected + ':');
+                self.label_rich_fields.text('Available rich fields for ' + selected + ':');
                 self.populateThresholds(self.settings, selected, field);
                 self.status_text.hide();
           });
     });
 
     body.on('focus change', '#ct_fields', function() {
-        var ct = ct_fields.attr('data-ct');
-        var field = ct_fields.val();
+        var ct = self.ct_fields.attr('data-ct');
+        var field = self.ct_fields.val();
         self.populateThresholds(self.settings, ct, field);
         self.status_text.hide();
     });
@@ -319,10 +318,9 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
     });
 
     remove_settings.on('click', function(evt) {
-        var ct_fields = jQuery('#ct_fields');
         evt.preventDefault();
-        var ctype = ct_fields.attr('data-ct');
-        var field = ct_fields.val();
+        var ctype = self.ct_fields.attr('data-ct');
+        var field = self.ct_fields.val();
         self.deleteSetting(settings, ctype, field);
     });
 
