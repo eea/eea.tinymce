@@ -7,20 +7,20 @@
             $.ajaxSetup({
                 cache: true
             });
-            $.getScript(portal_url + '/eeapluginsutils.js', function() {
-                if (!EEAPluginsUtils.hasEEATinyMCESettings()) {
-                    return;
-                }
-                var css_url = portal_url + '/eeareadabilitychecker.css';
-                tinymce.DOM.loadCSS(css_url);
-
-                ed.onInit.add(function() {
+            var css_url = portal_url + '/eeareadabilitychecker.css';
+            tinymce.DOM.loadCSS(css_url);
+            ed.onInit.add(function() {
+                $.getScript(portal_url + '/eeapluginsutils.js', function() {
+                    if (!EEAPluginsUtils.hasEEATinyMCESettings()) {
+                        return;
+                    }
                     var $container = $(ed.getContainer());
                     var $char_limit_row = $container.find('.charlimit-row');
                     var $char_limit = $char_limit_row.children();
                     if ($char_limit_row.length < 1) {
                         return;
                     }
+
                     if ($char_limit.is(':empty')) {
                         $char_limit.remove();
                         $char_limit_row.addClass('fullwidth');
@@ -77,13 +77,13 @@
 
                     setReadabilityValue();
                     // recalculate score value on keyUp every 1.2sec
-                    ed.onKeyUp.add(utils.debounce(function() {
+                    ed.onKeyUp.add(EEAPluginsUtils.debounce(function() {
                         return setReadabilityValue();
                     }, 1200, false));
                     // recalculate score value when content is set
                     // such as the moment when you paste markup within
                     // the html plugin
-                    ed.onSetContent.add(utils.debounce(function() {
+                    ed.onSetContent.add(EEAPluginsUtils.debounce(function() {
                         return setReadabilityValue();
                     }, 500, false));
                 });
