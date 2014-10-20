@@ -64,24 +64,23 @@ EEACharPluginForm.deleteSetting = function(settings, ctype, field) {
     var high_threshold = jQuery('#high_threshold');
     var low_threshold_val = low_threshold.val();
     var high_threshold_val = high_threshold.val();
-    var status_text = jQuery('#status_text');
     if (low_threshold_val !== '' && high_threshold_val !== '') {
         jQuery.each(settings, function(idx, option) {
-            if (option.ctype === ctype) {
+            if (option && option.ctype === ctype) {
                 jQuery.each(option.settings, function(key, val) {
                         if (val.fieldname === field) {
                             option.settings.splice(key, 1);
                         }
                 });
             }
-            if (option.settings.length <= 0) {
+            if (option && option.settings.length <= 0) {
                 settings.splice(idx, 1);
             }
         });
         jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
         low_threshold.val('');
         high_threshold.val('');
-        status_text.text('Value removed')
+        this.status_text.text('Value removed')
                    .show();
         
         var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
@@ -92,7 +91,6 @@ EEACharPluginForm.deleteSetting = function(settings, ctype, field) {
 EEACharPluginForm.updateSettings = function(settings) {
     var low_threshold = jQuery('#low_threshold').val();
     var high_threshold = jQuery('#high_threshold').val();
-    var status_text = jQuery('#status_text');
     var ct_fields = jQuery('#ct_fields');
     if (this.validate_thresholds(low_threshold, high_threshold) !== false) {
         var ctype = ct_fields.attr('data-ct');
@@ -140,7 +138,7 @@ EEACharPluginForm.updateSettings = function(settings) {
         }
 
         jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
-        status_text.text('Settings updated')
+        this.status_text.text('Settings updated')
                    .show();
 
         var ctypes_enabled = jQuery('#charlimit_ctypes_enabled');
@@ -285,7 +283,7 @@ EEACharPluginForm.buildForm = function(settings, parent) {
 
                 label_rich_fields.text('Available rich fields for ' + selected + ':');
                 self.populateThresholds(self.settings, selected, field);
-                status_text.hide();
+                self.status_text.hide();
           });
     });
 
@@ -293,7 +291,7 @@ EEACharPluginForm.buildForm = function(settings, parent) {
         var ct = ct_fields.attr('data-ct');
         var field = ct_fields.val();
         self.populateThresholds(self.settings, ct, field);
-        status_text.hide();
+        self.status_text.hide();
     });
 
     var update_settings = jQuery('<a />', {
@@ -331,13 +329,13 @@ EEACharPluginForm.buildForm = function(settings, parent) {
     });
 
     parent.append('<br />');
-    var status_text = jQuery('<span />', {
+    self.status_text = jQuery('<span />', {
         'class': 'eea-icon eea-icon-info-circle',
         'id': 'status_text',
         'text': ''
     });
-    status_text.appendTo(parent);
-    status_text.hide();
+    self.status_text.appendTo(parent);
+    self.status_text.hide();
 };
 
 jQuery(document).ready(function() {
