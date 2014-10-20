@@ -74,7 +74,7 @@ EEACharPluginForm.deleteSetting = function(settings, ctype, field) {
                 settings.splice(idx, 1);
             }
         });
-        jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
+        this.$el.text(JSON.stringify(settings));
         this.low_threshold.val('');
         this.high_threshold.val('');
         this.status_text.text('Value removed')
@@ -134,7 +134,7 @@ EEACharPluginForm.updateSettings = function(settings) {
             settings.push(ctype_setting);
         }
 
-        jQuery("[id='tinymcepluginssettings.eea_char_limit']").text(JSON.stringify(settings));
+        this.$el.text(JSON.stringify(settings));
         this.status_text.text('Settings updated')
                    .show();
 
@@ -156,8 +156,9 @@ EEACharPluginForm.populateCtypesAvailable = function(avail_ct_select) {
 
 };
 
-EEACharPluginForm.buildForm = function(settings, parent) {
+EEACharPluginForm.buildForm = function(context, settings, parent) {
     var self = this;
+    self.$el = context;
     var body = $('body');
     self.settings = settings;
 
@@ -340,5 +341,5 @@ jQuery(document).ready(function() {
     textarea.hide();
     var charlimit_settings = textarea.text() || '[]';
     charlimit_settings = jQuery.parseJSON(charlimit_settings);
-    EEACharPluginForm.buildForm(charlimit_settings, textarea.parent());
+    EEACharPluginForm.buildForm(textarea, charlimit_settings, textarea.parent());
 });
