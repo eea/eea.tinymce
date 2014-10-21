@@ -3,6 +3,9 @@ Changelog
 
 1.8-dev - (unreleased)
 ----------------------
+* Upgrade step: from SITE/prefs_install_products_form run the upgrade for
+  EEA TinyMCE
+  [ichimdav refs #21327]
 * Change: renamed EEA Charlimit settings tab to EEA Text Statistics
   [ichimdav refs #21327]
 
