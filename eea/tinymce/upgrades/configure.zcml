@@ -31,5 +31,22 @@
                 />
 
     </genericsetup:upgradeSteps>
+    <genericsetup:upgradeSteps
+        source="1.5"
+        destination="1.8"
+        profile="eea.tinymce:default">
 
+        <genericsetup:upgradeStep
+            title="Upgrade tinymce settings"
+            handler="eea.tinymce.upgrades.evolve180.evolve_settings"
+            />
+
+        <genericsetup:upgradeDepends
+            title="Import all steps from eea.tinymce profile upgrade 1.8"
+            description="Add eeatinymceutils.js and migrate tinymce settings"
+            import_profile="eea.tinymce:upgrade180"
+            />
+
+
+    </genericsetup:upgradeSteps>
 </configure>

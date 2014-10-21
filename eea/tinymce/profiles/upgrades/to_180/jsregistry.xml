@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
- <javascript
-  id="++resource++eea.tinymce.plugins.js"
-  expression="python: (not here.restrictedTraverse('@@plone_portal_state').anonymous()) and 'edit' in request.ACTUAL_URL.split('/')[-1]" />
     <javascript
         id="eeatinymceutils.js"
         expression="python: (not here.restrictedTraverse('@@plone_portal_state').anonymous()) and 'edit' in request.ACTUAL_URL.split('/')[-1]"
+            insert-after="++resource++eea.tinymce.plugins.js"
         />
 </object>
+

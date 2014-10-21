@@ -14,6 +14,14 @@
             />
 
     <genericsetup:registerProfile
+        name="upgrade180"
+        title="EEA TinyMCE - Upgrade 180"
+        directory="profiles/upgrades/to_180"
+        description="EEA Tinymce upgrade profile for v1.8"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
             name="eeareadabilitychecker"
             title="EEA TinyMCE - Readability Checker Plugin"
             directory="profiles/readabilitychecker"
