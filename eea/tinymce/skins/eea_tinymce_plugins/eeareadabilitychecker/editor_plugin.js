@@ -1,5 +1,5 @@
 // jslint:disable
-/*global $, tinymce, portal_url, window, EEAPluginsUtils */
+/*global $, tinymce, portal_url, window, EEAPluginsUtils, eeatinymceplugins */
 
 (function () {
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
@@ -8,12 +8,43 @@
                 cache: true
             });
             var css_url = portal_url + '/eeareadabilitychecker.css';
-            tinymce.DOM.loadCSS(css_url);
             ed.onInit.add(function() {
                 $.getScript(portal_url + '/eeapluginsutils.js', function() {
                     if (!EEAPluginsUtils.hasEEATinyMCESettings()) {
                         return;
                     }
+                    var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
+                    var body_class = jQuery('body').attr('class');
+                    var field_id = ed.editorId;
+                    var shouldEnable = false;
+                    if (eeacharlimit_options) {
+                        eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
+                        jQuery.each(eeacharlimit_options, function( index, value ) {
+                            var marker = 'portaltype-' + value.ctype.toLowerCase();
+                            var field_active = false;
+                            var field_settings;
+                            if (body_class.indexOf(marker) < 0) {
+                                return;
+                            }
+                            jQuery.each(value.settings, function(key, val) {
+                                var value = val[field_id];
+                                if (value && value['readability_checker']) {
+                                    field_active = true;
+                                    field_settings = value;
+                                    return false;
+                                }
+                            });
+                            //Check if we should activate for this CT and field
+                            if (field_active === true ) {
+                                shouldEnable = true;
+                            }
+                        });
+                        if (!shouldEnable) {
+                            return;
+                        }
+                    }
+
+                    tinymce.DOM.loadCSS(css_url);
                     var $container = $(ed.getContainer());
                     var $char_limit_row = $container.find('.charlimit-row');
                     var $char_limit = $char_limit_row.children();
@@ -70,7 +101,7 @@
                             $el.attr('class', 'readabilityChecker charlimit-info');
                             $readability_level.text("(high)");
                         }
-                        if ($char_limit.hasClass("charlimit-exceeded") || $char_limit.hasClass("charlimit-warn")) {
+                        if ($char_limit.hasClass("charlimit-exceeded")) {
                             $el.addClass("charlimit-expanded");
                         }
                     };
