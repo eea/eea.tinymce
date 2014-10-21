@@ -101,11 +101,11 @@ if (!Array.prototype.indexOf) {
                                 field_id = ed.getParam('fullscreen_editor_id');
                                 row_id = 'charlimit-row-' + field_id;
                             }
-
                             jQuery.each(value.settings, function(key, val) {
-                                if (val.fieldname === field_id) {
+                                var value = val[field_id];
+                                if (value) {
                                     field_active = true;
-                                    field_settings = val;
+                                    field_settings = value;
                                     return false;
                                 }
                             });
