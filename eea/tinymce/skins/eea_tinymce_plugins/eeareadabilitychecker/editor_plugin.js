@@ -4,9 +4,6 @@
 (function () {
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed) {
-            $.ajaxSetup({
-                cache: true
-            });
             var css_url = portal_url + '/eeareadabilitychecker.css';
             ed.onInit.add(function() {
                 if (!EEATinyMCEUtils.hasEEATinyMCESettings()) {
@@ -56,7 +53,7 @@
                     $char_limit_row.addClass('fullwidth');
                 }
 
-                var $el =$("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Readability score <span class='readabilityValue'></span> <span class='readabilityLevel'></span></div>") ;
+                var $el = $("<div class='readabilityChecker charlimit-info'><span class='eea-icon eea-icon-question-circle eea-icon-lg'></span>Readability score <span class='readabilityValue'></span> <span class='readabilityLevel'></span></div>") ;
                 $el.appendTo($char_limit_row);
                 if ($char_limit.hasClass("charlimit-exceeded")) {
                     $el.addClass("charlimit-expanded");
