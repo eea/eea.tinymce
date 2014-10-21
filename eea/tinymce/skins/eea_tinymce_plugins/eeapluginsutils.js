@@ -24,10 +24,9 @@ var debounce = function (func, threshold, execAsap) {
 };
 
 var hasEEATinyMCESettings = function() {
-    var eeatinymceplugins = window.eeatinymceplugins || "";
     var missing_settings_message;
     var msg;
-    if (!eeatinymceplugins) {
+    if (!window.eeatinymceplugins) {
         (function(){
             missing_settings_message = "Couldn't load tinymceplugins.json";
             msg = window.console ? window.console.log(missing_settings_message) :
@@ -38,7 +37,7 @@ var hasEEATinyMCESettings = function() {
     return true;
 };
 
-window.EEAPluginsUtils = {
+window.EEATinyMCEUtils = {
     "version": 1.0,
     'debounce': debounce,
     'hasEEATinyMCESettings': hasEEATinyMCESettings
