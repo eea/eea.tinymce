@@ -32,7 +32,7 @@
 
     </genericsetup:upgradeSteps>
     <genericsetup:upgradeSteps
-        source="1.5"
+        source="1.6"
         destination="1.8"
         profile="eea.tinymce:default">
 

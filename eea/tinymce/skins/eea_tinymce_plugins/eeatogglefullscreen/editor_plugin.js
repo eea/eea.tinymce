@@ -1,7 +1,6 @@
 // jslint:disable
-/*global jQuery, tinymce, eeatinymceplugins, portal_url, window */
+/*global jQuery, tinymce, eeatinymceplugins, portal_url, window, EEATinyMCEUtils */
 (function () {
-
     tinymce.create("tinymce.plugins.EEAToggleFullScreenPlugin", {
         init: function (ed) {
             var self = this;
@@ -37,31 +36,6 @@
 
         },
 
-        debounce: function (func, threshold, execAsap) {
-            //http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
-            var timeout;
-
-            var obj = this;
-            return function debounced () {
-
-                function delayed () {
-                    if (!execAsap) {
-                        func.apply(obj, arguments);
-                    }
-                    timeout = null;
-                }
-
-                if (timeout) {
-                    clearTimeout(timeout);
-                }
-                else if (execAsap) {
-                    func.apply(obj, arguments);
-                }
-                timeout = setTimeout(delayed, threshold || 100);
-            };
-
-        },
-
         getInfo: function () {
             return {
                 longname: "EEA Toggle Fullscreen",
@@ -77,10 +51,13 @@
         },
 
         debouncedSetHeight: function () {
-            return this.debounce(this.setHeight, 200, false);
+            return EEATinyMCEUtils.debounce.call(this, this.setHeight, 200, false);
         },
 
         loadContent: function (ed) {
+            if (!EEATinyMCEUtils.hasEEATinyMCESettings()) {
+                return;
+            }
             var body = ed.getBody();
             var container = ed.getContainer();
             var fullscreen_for = false;
@@ -91,16 +68,6 @@
                         ed.execCommand('mceFullScreen');
                     }
                 };
-            }
-            var eeatinymceplugins = window.eeatinymceplugins || "";
-            var missing_settings_message;
-            if (!eeatinymceplugins) {
-                (function(){
-                    missing_settings_message = "Couldn't load tinymceplugins.json";
-                    return window.console ?
-                            window.console.log(missing_settings_message) :
-                            window.alert(missing_settings_message);
-                }());
             }
             var fullscreen_options = eeatinymceplugins.settings.eea_toggle_fullscreen;
             if (fullscreen_options !== undefined) {

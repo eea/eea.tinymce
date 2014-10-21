@@ -6,7 +6,7 @@ In order for the plugin to be active, a javascript object configuration object
 needs to be present and the content type, richwidget fields and threshold limits
 need to be defined.
  */
-/*global jQuery, tinymce, eeatinymceplugins, EEAPluginsUtils, portal_url */
+/*global jQuery, tinymce, eeatinymceplugins, EEATinyMCEUtils, portal_url */
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(obj, start) {
@@ -24,7 +24,6 @@ if (!Array.prototype.indexOf) {
     tinymce.create('tinymce.plugins.EEACharLimitPlugin', {
         init : function(ed) {
             var self = this;
-
             var css_url = portal_url + '/portal_skins/eea_tinymce_plugins/eeacharlimit/css/eeacharlimit.css';
             tinymce.DOM.loadCSS(css_url);
 
@@ -80,82 +79,79 @@ if (!Array.prototype.indexOf) {
             }
 
             ed.onInit.add(function() {
-                jQuery.getScript(portal_url + '/eeapluginsutils.js')
-                    .done(function(){
-                     if (!EEAPluginsUtils.hasEEATinyMCESettings()) {
-                        return;
-                    }
-                    var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
-                    if (eeacharlimit_options) {
-                        eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
-                        jQuery.each(eeacharlimit_options, function( index, value ) {
-                            var body_class = jQuery('body').attr('class');
-                            var marker = 'portaltype-' + value.ctype.toLowerCase();
-                            var field_id = ed.editorId;
-                            var row_id = 'charlimit-row-' + field_id;
-                            var field_active = false;
-                            var field_settings;
+                if (!EEATinyMCEUtils.hasEEATinyMCESettings()) {
+                    return;
+                }
+                var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
+                if (eeacharlimit_options) {
+                    eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
+                    jQuery.each(eeacharlimit_options, function( index, value ) {
+                        var body_class = jQuery('body').attr('class');
+                        var marker = 'portaltype-' + value.ctype.toLowerCase();
+                        var field_id = ed.editorId;
+                        var row_id = 'charlimit-row-' + field_id;
+                        var field_active = false;
+                        var field_settings;
 
-                            //If we're in fullscreen mode, check which field we're editing
-                            if (ed.getParam('fullscreen_is_enabled')) {
-                                field_id = ed.getParam('fullscreen_editor_id');
-                                row_id = 'charlimit-row-' + field_id;
-                            }
-                            jQuery.each(value.settings, function(key, val) {
-                                var value = val[field_id];
-                                if (value) {
-                                    field_active = true;
-                                    field_settings = value;
-                                    return false;
-                                }
-                            });
-
-                            //Check if we should activate for this CT and field
-                            if (body_class.indexOf(marker) >= 0 && field_active === true ) {
-                                var high_threshold = field_settings.high_threshold;
-                                var low_threshold = field_settings.low_threshold;
-                                var tinymce_row = jQuery('#' + row_id);
-                                var status_box = jQuery('#info-' + field_id);
-
-                                // Check if we have our custom row
-                                if (tinymce_row.length === 0) {
-                                    tinymce_row = jQuery('<tr />', {
-                                        'class': 'charlimit-row',
-                                        'id': 'charlimit-row-' + field_id
-                                    });
-                                }
-
-                                // Check if we have our status_box
-                                if (status_box.length === 0) {
-                                    status_box = jQuery('<div />', {
-                                        'class': 'charlimit-info',
-                                        'id': 'info-' + field_id
-                                    });
-                                    tinymce_row.append(status_box);
-                                }
-
-                                add_placeholder(ed.editorContainer, tinymce_row);
-                                // Update the character count after creation
-                                status_update(status_box, low_threshold, high_threshold);
-
-                                ed.onKeyUp.add(function() {
-                                    status_update(status_box, low_threshold, high_threshold);
-                                });
-
-                                // Redraw our custom tinymce table row when exiting fullscreen
-                                ed.onBeforeExecCommand.add(function(ed, cmd) {
-                                    if (cmd === 'mceFullScreen') {
-                                        if (ed.getParam('fullscreen_is_enabled')) {
-                                            var orig_field = ed.getParam('fullscreen_editor_id');
-                                            var container = tinymce.getInstanceById(orig_field).editorContainer;
-                                            add_placeholder(container, tinymce_row);
-                                        }
-                                    }
-                                });
+                        //If we're in fullscreen mode, check which field we're editing
+                        if (ed.getParam('fullscreen_is_enabled')) {
+                            field_id = ed.getParam('fullscreen_editor_id');
+                            row_id = 'charlimit-row-' + field_id;
+                        }
+                        jQuery.each(value.settings, function(key, val) {
+                            var value = val[field_id];
+                            if (value) {
+                                field_active = true;
+                                field_settings = value;
+                                return false;
                             }
                         });
-                    }
-                });
+
+                        //Check if we should activate for this CT and field
+                        if (body_class.indexOf(marker) >= 0 && field_active === true ) {
+                            var high_threshold = field_settings.high_threshold;
+                            var low_threshold = field_settings.low_threshold;
+                            var tinymce_row = jQuery('#' + row_id);
+                            var status_box = jQuery('#info-' + field_id);
+
+                            // Check if we have our custom row
+                            if (tinymce_row.length === 0) {
+                                tinymce_row = jQuery('<tr />', {
+                                    'class': 'charlimit-row',
+                                    'id': 'charlimit-row-' + field_id
+                                });
+                            }
+
+                            // Check if we have our status_box
+                            if (status_box.length === 0) {
+                                status_box = jQuery('<div />', {
+                                    'class': 'charlimit-info',
+                                    'id': 'info-' + field_id
+                                });
+                                tinymce_row.append(status_box);
+                            }
+
+                            add_placeholder(ed.editorContainer, tinymce_row);
+                            // Update the character count after creation
+                            status_update(status_box, low_threshold, high_threshold);
+
+                            ed.onKeyUp.add(function() {
+                                status_update(status_box, low_threshold, high_threshold);
+                            });
+
+                            // Redraw our custom tinymce table row when exiting fullscreen
+                            ed.onBeforeExecCommand.add(function(ed, cmd) {
+                                if (cmd === 'mceFullScreen') {
+                                    if (ed.getParam('fullscreen_is_enabled')) {
+                                        var orig_field = ed.getParam('fullscreen_editor_id');
+                                        var container = tinymce.getInstanceById(orig_field).editorContainer;
+                                        add_placeholder(container, tinymce_row);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
             });
             
             //Count the characters entered by the user, strip out the html and convert
