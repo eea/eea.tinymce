@@ -8,20 +8,17 @@ EEACharPluginForm.populateThresholds = function(settings, ct, field) {
 
         if (option.ctype === ct) {
             jQuery.each(option.settings, function(key, val) {
-                
-                if (val.fieldname === field) {
-                    self.low_threshold.val(val.low_threshold);
-                    self.high_threshold.val(val.high_threshold);
+                var item = val[field];
+                if (item) {
+                    self.setValues(item);
                     return false;
                 } else {
-                    self.low_threshold.val('');
-                    self.high_threshold.val('');
+                    self.resetValues();
                 }
             });
             return false;
         } else {
-             self.low_threshold.val('');
-             self.high_threshold.val('');
+            self.resetValues();
         }
     });
 };
@@ -58,78 +55,112 @@ EEACharPluginForm.validate_thresholds = function(low_threshold, high_threshold) 
     return true;
 };
 
-EEACharPluginForm.deleteSetting = function(settings, ctype, field) {
-    var low_threshold_val = this.low_threshold.val();
-    var high_threshold_val = this.high_threshold.val();
-    if (low_threshold_val !== '' && high_threshold_val !== '') {
-        jQuery.each(settings, function(idx, option) {
-            if (option && option.ctype === ctype) {
-                jQuery.each(option.settings, function(key, val) {
-                        if (val.fieldname === field) {
-                            option.settings.splice(key, 1);
-                        }
-                });
-            }
-            if (option && option.settings.length <= 0) {
-                settings.splice(idx, 1);
-            }
-        });
-        this.$el.text(JSON.stringify(settings));
-        this.low_threshold.val('');
-        this.high_threshold.val('');
-        this.status_text.text('Value removed')
-                   .show();
-        
-        this.populateCtypesEnabled(settings, this.ctypes_enabled);
+EEACharPluginForm.getSetting = function(settings, key) {
+    var i, length, value;
+    for (i=0, length=settings.length; i <= length; i += 1) {
+       value = settings[i];
+        if (value[key]) {
+            return value;
+        }
     }
+    return false;
 };
 
-EEACharPluginForm.updateSettings = function(settings) {
-    var low_threshold_val = this.low_threshold.val();
-    var high_threshold_val = this.high_threshold.val();
-    if (this.validate_thresholds(low_threshold_val, high_threshold_val) !== false) {
+EEACharPluginForm.setValues = function(item) {
+    this.form_inputs.each(function(idx, el) {
+        var value = item[el.name];
+        if (!value) {
+            return;
+        }
+        if (el.type === "checkbox") {
+            if (el.checked !== true) {
+                el.checked = true;
+            }
+        }
+        else {
+            if (el.value !== value) {
+                el.value = value;
+            }
+        }
+    });
+};
+
+EEACharPluginForm.resetValues = function() {
+  this.form_inputs.each(function(idx, el) {
+      if (el.type === "checkbox") {
+          if (el.checked) {
+              el.checked = false;
+          }
+      }
+      else {
+          if (el.value) {
+              el.value = "";
+          }
+      }
+  });
+};
+
+EEACharPluginForm.deleteSetting = function(settings, inputs, ctype, field) {
+    jQuery.each(settings, function(idx, option) {
+        if (option && option.ctype === ctype) {
+            jQuery.each(option.settings, function(key, val) {
+                    if (val[field]) {
+                        option.settings.splice(key, 1);
+                    }
+            });
+        }
+        if (option && option.settings.length <= 0) {
+            settings.splice(idx, 1);
+        }
+    });
+    this.$el.text(JSON.stringify(settings));
+    this.resetValues();
+    this.status_text.text('Value removed')
+               .show();
+
+    this.populateCtypesEnabled(settings, this.ctypes_enabled);
+};
+
+EEACharPluginForm.updateSettings = function(settings, inputs) {
+    var self = this;
+    var values = inputs.serializeArray();
         var ctype = this.ct_fields.attr('data-ct');
         var field = this.ct_fields.val();
-        var field_setting = false;
-        var ctype_setting = false;
-        var ct_setting = {ctype: ctype, settings: [
-                    {fieldname: field,
-                     low_threshold: low_threshold_val,
-                     high_threshold: high_threshold_val }
-                     ]};
+        var field_setting = true;
+        var ctype_setting = true;
+        var ct_setting = { ctype: ctype,
+            settings: [
+            ]
+        };
+        var settings_list = ct_setting.settings;
+        var ctype_field = {};
+        ctype_field[field] = {};
+        var ctype_fields = ctype_field[field];
+
+        jQuery.each(values, function(idx, option) {
+            ctype_fields[option.name] = option.value;
+        });
+        settings_list.push(ctype_field);
 
         jQuery.each(settings, function(idx, option) {
+            var that = this;
             if (option.ctype === ctype) {
                 jQuery.each(option.settings, function(key, val) {
-                    if (val.fieldname === field) {
-                        val.low_threshold = low_threshold_val;
-                        val.high_threshold = high_threshold_val;
+                    if (val[field]) {
+                        that.settings[key] = self.getSetting(ct_setting.settings, field);
                         field_setting = false;
                         return field_setting;
-                    } else {
-                        field_setting = {
-                            fieldname: field,
-                            low_threshold: low_threshold_val,
-                            high_threshold: high_threshold_val
-                        };
                     }
                 });
                 if (field_setting !== false) {
-                    option.settings.push(field_setting);
+                    option.settings.push(self.getSetting(ct_setting.settings, field));
                 }
                 ctype_setting = false;
-                return ctype_setting;
-            } else {
-                ctype_setting = ct_setting;
             }
         });
 
-        if (settings.length <= 0) {
-            ctype_setting = ct_setting;
-        }
-
         if ((ctype_setting !== false)) {
-            settings.push(ctype_setting);
+            settings.push(ct_setting);
         }
 
         this.$el.text(JSON.stringify(settings));
@@ -137,7 +168,6 @@ EEACharPluginForm.updateSettings = function(settings) {
                    .show();
 
         this.populateCtypesEnabled(settings, this.ctypes_enabled);
-    }
 };
 
 EEACharPluginForm.populateCtypesAvailable = function(avail_ct_select) {
@@ -156,6 +186,7 @@ EEACharPluginForm.populateCtypesAvailable = function(avail_ct_select) {
 EEACharPluginForm.buildForm = function(context, settings, parent) {
     var self = this;
     self.$el = context;
+    self.parent = parent;
     var body = $('body');
     self.settings = settings;
 
@@ -310,16 +341,19 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
     remove_icon.appendTo(remove_settings);
     remove_settings.appendTo(parent);
 
+    self.form_inputs = self.parent.find('input');
+
+    self.ctypes_enabled.focus();
     update_settings.on('click', function(evt) {
         evt.preventDefault();
-        self.updateSettings(settings);
+        self.updateSettings(self.settings, self.form_inputs);
     });
 
     remove_settings.on('click', function(evt) {
         evt.preventDefault();
         var ctype = self.ct_fields.attr('data-ct');
         var field = self.ct_fields.val();
-        self.deleteSetting(settings, ctype, field);
+        self.deleteSetting(self.settings, self.form_inputs, ctype, field);
     });
 
     parent.append('<br />');
