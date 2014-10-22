@@ -102,15 +102,17 @@ EEACharPluginForm.resetValues = function() {
 
 EEACharPluginForm.deleteSetting = function(settings, inputs, ctype, field) {
     jQuery.each(settings, function(idx, option) {
-        if (option && option.ctype === ctype) {
+        if (option.ctype === ctype) {
             jQuery.each(option.settings, function(key, val) {
                     if (val[field]) {
                         option.settings.splice(key, 1);
+                        return false;
                     }
             });
         }
-        if (option && option.settings.length <= 0) {
+        if (option.settings.length <= 0) {
             settings.splice(idx, 1);
+            return false;
         }
     });
     this.$el.text(JSON.stringify(settings));
