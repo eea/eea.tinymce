@@ -4,6 +4,7 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     width: 60%;
+    min-height: 25px;
 }
 
 .ploneSkin .readabilityChecker {
