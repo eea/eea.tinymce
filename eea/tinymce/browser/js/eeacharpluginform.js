@@ -183,6 +183,33 @@ EEACharPluginForm.populateCtypesAvailable = function(avail_ct_select) {
 
 };
 
+EEACharPluginForm.populateCtypesFields = function(selected) {
+    var self = this;
+    jQuery.ajax({
+        type: 'POST',
+        url: self.ct_richfields_url,
+        data: { ctype:  selected }
+    })
+        .done(function(data) {
+            if (!data.length) {
+                return;
+            }
+            var items = [];
+
+            jQuery.each( data, function( key, val ) {
+                items.push( "<option value='" + val + "'>" + val + "</option>" );
+            });
+
+            self.ct_fields.html(items.join( "" ))
+                .attr('data-ct', selected);
+            var field = self.ct_fields.val();
+
+            self.label_rich_fields.text('Available rich fields for ' + selected + ':');
+            self.populateThresholds(self.settings, selected, field);
+            self.status_text.hide();
+        });
+};
+
 EEACharPluginForm.buildForm = function(context, settings, parent) {
     var self = this;
     self.$el = context;
@@ -287,30 +314,11 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
 
     label_readability.appendTo(parent);
     readability_checker.appendTo(parent);
+    self.ct_richfields_url = portal_url + '/ct_richfields.json';
 
     body.on('focus change', '.ctypes', function() {
         var selected = jQuery(this).val();
-        var ct_richfields_url = portal_url + '/ct_richfields.json';
-        jQuery.ajax({
-            type: 'POST',
-                url: ct_richfields_url,
-                data: { ctype:  selected }
-            })
-            .done(function(data) {
-                var items = [];
-
-                jQuery.each( data, function( key, val ) {
-                    items.push( "<option value='" + val + "'>" + val + "</option>" );
-                });
-
-                self.ct_fields.html(items.join( "" ))
-                              .attr('data-ct', selected);
-                var field = self.ct_fields.val();
-
-                self.label_rich_fields.text('Available rich fields for ' + selected + ':');
-                self.populateThresholds(self.settings, selected, field);
-                self.status_text.hide();
-          });
+        self.populateCtypesFields(selected);
     });
 
     body.on('focus change', '#ct_fields', function() {
@@ -342,8 +350,6 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
     remove_settings.appendTo(parent);
 
     self.form_inputs = self.parent.find('input');
-
-    self.ctypes_enabled.focus();
     update_settings.on('click', function(evt) {
         evt.preventDefault();
         self.updateSettings(self.settings, self.form_inputs);
@@ -364,6 +370,7 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
     });
     self.status_text.appendTo(parent);
     self.status_text.hide();
+    self.populateCtypesFields(self.ctypes_enabled.find('option').eq(0).val());
 };
 
 jQuery(document).ready(function() {
