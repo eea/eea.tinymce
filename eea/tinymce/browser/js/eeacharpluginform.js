@@ -234,7 +234,7 @@ EEACharPluginForm.buildForm = function(context, settings, parent) {
 
     self.label_enabled_ct = jQuery('<label/>', {
         'for': 'charlimit_ctypes_enabled',
-        'text': 'Charlimit enabled for:'
+        'text': 'Text statistics enabled for:'
     });
     self.label_enabled_ct.appendTo(parent);
 

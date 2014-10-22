@@ -52,8 +52,8 @@ class EEACharPlugin(object):
         self.form_fields = FormFields(
             schema.Text(
                 __name__='eea_char_limit',
-                title=_(u"EEA CharLimit for Portal Types"),
-                description=_(u"EEA Charlimit settings"),
+                title=_(u"EEA Text Statistics for Portal Types"),
+                description=_(u"EEA Text Statistics settings"),
                 required=False,
                 ),
             )
