@@ -16,7 +16,7 @@ def evolve_settings(setuptool):
     char_settings = charlimit_settings.get('eea_char_limit')
     if not char_settings:
         return
-    json_settings = json.loads(char_settings[1:-1])
+    json_settings = json.loads(char_settings)
     for item in json_settings:
         new_list = []
         value_list = item['settings']
