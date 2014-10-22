@@ -37,8 +37,16 @@ var hasEEATinyMCESettings = function() {
     return true;
 };
 
+function add_tinymce_table_row(parent_id, elem) {
+    var parent = jQuery('#' + parent_id);
+    var tiny_table = parent.find(jQuery('.mceLayout'));
+
+    tiny_table.find('tr[class="mceFirst"]').after(elem);
+}
+
 window.EEATinyMCEUtils = {
     "version": 1.0,
     'debounce': debounce,
-    'hasEEATinyMCESettings': hasEEATinyMCESettings
+    'hasEEATinyMCESettings': hasEEATinyMCESettings,
+    'add_tinymce_table_row': add_tinymce_table_row
 };

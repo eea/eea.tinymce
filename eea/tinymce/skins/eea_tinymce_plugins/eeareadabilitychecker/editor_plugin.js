@@ -45,7 +45,12 @@
                 var $char_limit_row = $container.find('.charlimit-row');
                 var $char_limit = $char_limit_row.children();
                 if ($char_limit_row.length < 1) {
-                    return;
+                    $char_limit_row = jQuery('<tr />', {
+                        'class': 'charlimit-row',
+                        'id': 'charlimit-row-' + field_id
+                    });
+                    EEATinyMCEUtils.add_tinymce_table_row(ed.editorContainer, $char_limit_row);
+                    $char_limit_row.addClass('fullwidth');
                 }
 
                 if ($char_limit.is(':empty')) {

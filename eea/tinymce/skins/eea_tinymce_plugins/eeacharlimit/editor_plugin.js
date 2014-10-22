@@ -71,12 +71,6 @@ if (!Array.prototype.indexOf) {
                 status_box.text(default_text + message);
             }
 
-            function add_placeholder(parent_id, elem) {
-                var parent = jQuery('#' + parent_id);
-                var tiny_table = parent.find(jQuery('.mceLayout'));
-
-                tiny_table.find('tr[class="mceFirst"]').after(elem);
-            }
 
             ed.onInit.add(function() {
                 if (!EEATinyMCEUtils.hasEEATinyMCESettings()) {
@@ -111,6 +105,9 @@ if (!Array.prototype.indexOf) {
                         if (body_class.indexOf(marker) >= 0 && field_active === true ) {
                             var high_threshold = field_settings.high_threshold;
                             var low_threshold = field_settings.low_threshold;
+                            if (!high_threshold || !low_threshold) {
+                                return;
+                            }
                             var tinymce_row = jQuery('#' + row_id);
                             var status_box = jQuery('#info-' + field_id);
 
@@ -131,7 +128,7 @@ if (!Array.prototype.indexOf) {
                                 tinymce_row.append(status_box);
                             }
 
-                            add_placeholder(ed.editorContainer, tinymce_row);
+                            EEATinyMCEUtils.add_tinymce_table_row(ed.editorContainer, tinymce_row);
                             // Update the character count after creation
                             status_update(status_box, low_threshold, high_threshold);
 
@@ -145,7 +142,7 @@ if (!Array.prototype.indexOf) {
                                     if (ed.getParam('fullscreen_is_enabled')) {
                                         var orig_field = ed.getParam('fullscreen_editor_id');
                                         var container = tinymce.getInstanceById(orig_field).editorContainer;
-                                        add_placeholder(container, tinymce_row);
+                                        EEATinyMCEUtils.add_tinymce_table_row(container, tinymce_row);
                                     }
                                 }
                             });
