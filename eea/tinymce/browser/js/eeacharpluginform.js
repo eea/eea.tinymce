@@ -193,9 +193,6 @@ EEACharPluginForm.populateCtypesFields = function(selected) {
         data: { ctype:  selected }
     })
         .done(function(data) {
-            if (!data.length) {
-                return;
-            }
             var items = [];
 
             jQuery.each( data, function( key, val ) {
