@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.8-dev - (unreleased)
-----------------------
+1.8 - (2014-11-20)
+------------------
 * Upgrade step: from SITE/prefs_install_products_form run the upgrade for
   EEA TinyMCE
   [ichimdav refs #21327]
