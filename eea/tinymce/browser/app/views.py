@@ -1,12 +1,13 @@
 """ Plugins Settings
 """
+import json
+
+from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.TinyMCE.interfaces.utility import ITinyMCE
-from eea.tinymce.interfaces import ITinyMCEPlugin
-from zope.component import queryUtility
 from zope.component import getUtilitiesFor
-from Products.CMFCore.utils import getToolByName
-import json
+from zope.component import queryUtility
+from eea.tinymce.interfaces import ITinyMCEPlugin
 
 
 def jsonify(obj, response=None, status=None):
