@@ -5,6 +5,6 @@ if(window.eeatinymceplugins === undefined){
   };
 }
 
-jQuery.getJSON("/www/tinymceplugins.json", function( data ) {
+jQuery.getJSON("tinymceplugins.json", function( data ) {
     eeatinymceplugins.settings = data;
 });
