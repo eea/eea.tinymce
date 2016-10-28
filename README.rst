@@ -1,6 +1,6 @@
-======================
+===========
 EEA TinyMCE
-======================
+===========
 .. image:: http://ci.eionet.europa.eu/job/eea.tinymce-www/badge/icon
   :target: http://ci.eionet.europa.eu/job/eea.tinymce-www/lastBuild
 .. image:: http://ci.eionet.europa.eu/job/eea.tinymce-plone4/badge/icon
@@ -16,9 +16,8 @@ Contents
 Main features
 =============
 
-1.
-2.
-3.
+1. TinyMCE enhancements
+
 
 Install
 =======
@@ -28,19 +27,6 @@ Install
   https://github.com/eea/eea.tinymce/tree/master/buildouts/plone4
 - Install eea.tinymce within Site Setup > Add-ons
 
-Getting started
-===============
-
-1.
-2.
-3.
-
-Dependencies
-============
-
-1.
-2.
-3.
 
 Source code
 ===========
@@ -54,7 +40,7 @@ Copyright and license
 The Initial Owner of the Original Code is European Environment Agency (EEA).
 All Rights Reserved.
 
-The EEA Progress Bar (the Original Code) is free software;
+The EEA TinyMCE (the Original Code) is free software;
 you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later
