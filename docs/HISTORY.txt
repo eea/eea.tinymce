@@ -3,6 +3,10 @@ Changelog
 
 2.1.dev0 - (unreleased)
 -----------------------
+* Bug fix: removed www prefix from eeatinymceplugins.js.
+  This way this file can load the json for non eea sites that might
+  use this plugin
+  [ichim-david]
 
 2.0 - (2016-05-19)
 ------------------
