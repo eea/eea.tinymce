@@ -2,6 +2,23 @@
 /*global jQuery, tinymce, portal_url, window, EEATinyMCEUtils, eeatinymceplugins */
 
 (function ($) {
+
+    // 82316 set readability data on form submit
+    var $edit_form = $("form");
+    var setReadabilityScores = function (form) {
+        form.attr('data-faceted-submit', true);
+        form.submit(function(ev){
+            var that = this;
+            ev.preventDefault();
+            $.get(portal_url + '/eea_readability').then(function(data, status){
+                that.submit();
+            });
+        });
+    };
+    if (!$edit_form.attr('data-faceted-submit')) {
+        setReadabilityScores($edit_form);
+    }
+
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed) {
             var css_url = portal_url + '/eeareadabilitychecker.css';
@@ -117,9 +134,10 @@
                 ed.onSetContent.add(EEATinyMCEUtils.debounce.call(this, function() {
                     return setReadabilityValue();
                 }, 500, false));
+
+
             });
         },
-
         getInfo: function () {
             return {
                 longname: "EEA Readability Checker",
