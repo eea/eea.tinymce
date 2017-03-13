@@ -1,7 +1,7 @@
 // jslint:disable
-/*global $, tinymce, portal_url, window, EEATinyMCEUtils, eeatinymceplugins */
+/*global jQuery, tinymce, portal_url, window, EEATinyMCEUtils, eeatinymceplugins */
 
-(function () {
+(function ($) {
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed) {
             var css_url = portal_url + '/eeareadabilitychecker.css';
@@ -10,25 +10,24 @@
                     return;
                 }
                 var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
-                var body_class = jQuery('body').attr('class');
+                var body_class = $('body').attr('class');
                 var field_id = ed.editorId;
-                var shouldEnable = false;
+                var shouldEnable;
                 if (eeacharlimit_options) {
-                    eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
-                    jQuery.each(eeacharlimit_options, function( index, value ) {
+                    eeacharlimit_options = $.parseJSON(eeacharlimit_options);
+                    $.each(eeacharlimit_options, function( index, value ) {
                         var marker = 'portaltype-' + value.ctype.toLowerCase();
                         var field_active = false;
-                        var field_settings;
                         if (body_class.indexOf(marker) < 0) {
                             return;
                         }
-                        jQuery.each(value.settings, function(key, val) {
+                        $.each(value.settings, function(key, val) {
                             var value = val[field_id];
                             if (value && value['readability_checker']) {
                                 field_active = true;
-                                field_settings = value;
                                 return false;
                             }
+                            return true;
                         });
                         //Check if we should activate for this CT and field
                         if (field_active === true ) {
@@ -45,7 +44,7 @@
                 var $char_limit_row = $container.find('.charlimit-row');
                 var $char_limit = $char_limit_row.children();
                 if ($char_limit_row.length < 1) {
-                    $char_limit_row = jQuery('<tr />', {
+                    $char_limit_row = $('<tr />', {
                         'class': 'charlimit-row',
                         'id': 'charlimit-row-' + field_id
                     });
@@ -134,4 +133,4 @@
     });
     tinymce.PluginManager.add("eeareadabilitychecker", tinymce.plugins.EEAReadabilityChecker);
 
-}());
+}(jQuery));
