@@ -1,4 +1,4 @@
-<div id="stats" metal:define-macro="portlet">
+<div id="stats" metal:define-macro="portlet" tal:condition="not:context/@@plone_portal_state/anonymous">
     <h4><span id="stats-field"></span> Reading Ease</h4>
     <p>A higher score indicates easier readability; scores usually range between 0 and 100.</p>
     <table border="0">
@@ -24,29 +24,19 @@
             padding: 0 1em;
             width: 100%;
         }
-        table {
+        .readability_table {
             margin-bottom: 0.75em;
         }
-        th {
+       .readability_table th {
             text-align: left;
             padding-right: 1em;
         }
-        td {
+       .readability_table td {
             padding-right: 1em;
         }
 
         .stats-score {
             min-width: 60px;
-        }
-        .stats-score-active:after {
-            content: "=====>";
-            padding-left: .5em;
-        }
-        .align-top {
-            vertical-align: top;
-        }
-        .align-bottom {
-            vertical-align: bottom;
         }
 
         #stats-disclaimer {
@@ -78,15 +68,16 @@
         }
     </style>
 
-    <table>
+    <table class="readability_table">
         <tbody><tr>
             <th>Your Score</th>
             <th>Score Ratio</th>
             <th id="score-notes">Notes</th>
         </tr>
         </tbody>
-        </table>
-    <table border="0" id="readability_ease_table">
+    </table>
+
+    <table border="0" id="readability_ease_table" class="readability_table">
         <tbody>
         <tr>
             <td class="stats-score"></td>
@@ -145,7 +136,8 @@
         </p>
         <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
     </div>
-    <script type="text/javascript" src="tiny_mce_popup.js"></script>
+
+    <script type="text/javascript" src="tiny_mce_popup.js" tal:condition="python: 'eeareadabilitychecker' in request['URL0']"></script>
     <script type="text/javascript" src="readability.js">
     </script>
 </div>
