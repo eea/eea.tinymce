@@ -8,6 +8,10 @@
     padding: 0.2em;
 }
 
+.ploneSkin .charlimit-count {
+    color: white;
+}
+
 .ploneSkin .charlimit-exceeded {
     background-color: red;
     color: white;

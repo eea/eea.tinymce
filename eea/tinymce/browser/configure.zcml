@@ -25,7 +25,7 @@
     />
 
   <browser:page
-    name="eea_readability"
+    name="set_eea_readability_score"
     for="*"
     class=".app.readability.EEAReadabilityPlugin"
     permission="zope2.View"

@@ -10,7 +10,19 @@
         form.submit(function(ev){
             var that = this;
             ev.preventDefault();
-            $.get(portal_url + '/eea_readability').then(function(data, status){
+            var $charlimits = $(".charlimit-row");
+            var data = {}
+            $charlimits.each(function(idx, el){
+                var $el = $(el);
+                var id = el.id;
+                var text = id.substring(14, id.length);
+                data[text] = {
+                    'count': $el.find('.charlimit-count').text(),
+                    'level': $el.find('.readabilityLevel').text(),
+                    'value': $el.find('.readabilityValue').text()
+                }
+            });
+            $.get(portal_url + '/set_eea_readability_score', data).then(function(data, status) {
                 that.submit();
             });
         });
