@@ -14,12 +14,16 @@ class EEAReadabilityPlugin(BrowserView):
         self.anno = IAnnotations(context)
         self.context = context
         self.request = request
+        self.key = 'readability_scores'
 
     def __call__(self):
         """ call """
         form_values = json.loads(self.request.form.keys()[0])
-        key = 'readability_scores'
-        scores = self.anno.setdefault(key, {})
+        scores = self.anno.setdefault(self.key, {})
         for value in form_values:
             scores[value] = form_values[value]
         return ""
+
+    def get_scores(self):
+        """ get_scores """
+        return self.anno.get(self.key, {})

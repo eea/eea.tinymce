@@ -31,6 +31,14 @@
     permission="zope2.View"
   />
 
+  <browser:page
+    name="get_eea_readability_score"
+    for="*"
+    class=".app.readability.EEAReadabilityPlugin"
+    permission="zope2.View"
+    allowed_attributes="get_scores"
+  />
+
   <browser:resource
     name="eea.tinymce.eeacharpluginform.js"
     file="./js/eeacharpluginform.js"

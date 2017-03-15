@@ -1,144 +1,149 @@
 <div id="stats" metal:define-macro="portlet" tal:condition="not:context/@@plone_portal_state/anonymous">
-    <h4><span id="stats-field"></span> Reading Ease</h4>
-    <p>A higher score indicates easier readability; scores usually range between 0 and 100.</p>
-    <table border="0">
-        <tbody><tr>
-            <th>Readability Formula</th>
-            <th>Score</th>
-        </tr>
-        <tr>
-            <td><a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch_Reading_Ease" target="_blank">Flesch-Kincaid Reading Ease</a></td>
-            <td id="flesch_kincaid_reading_ease">-</td>
-        </tr>
-        </tbody></table>
-    <style  type="text/css">
-        #readability_ease_table {
-            background: #777c1f;
-            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIzMCUiIHN0b3AtY29sb3I9IiM3NzdjMWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI3MCUiIHN0b3AtY29sb3I9IiNmZmE1MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjAwZjAwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==); /* IE9 */
-            background:-webkit-gradient(linear, left top, left bottom, color-stop(30%,#777c1f), color-stop(70%,#ffa500), color-stop(100%,#f00f00));
-            background: -moz-linear-gradient(top, #777c1f 30%, #ffa500 70%, #f00f00 100%);
-            background: linear-gradient(to bottom, #777c1f 30%, #ffa500 70%, #f00f00 100%);
-            height: 130px;
-            color: white;
-            font-weight: bold;
-            padding: 0 1em;
-            width: 100%;
-        }
-        .readability_table {
-            margin-bottom: 0.75em;
-        }
-       .readability_table th {
-            text-align: left;
-            padding-right: 1em;
-        }
-       .readability_table td {
-            padding-right: 1em;
-        }
+    <tal:defines tal:define="within_popup python: 'eeareadabilitychecker' in request['URL0'];
+                             scores_view nocall:context/get_eea_readability_score;
+                             scores python: scores_view.get_scores() if not within_popup else ''">
+        <h4><span id="stats-field"></span> Reading Ease</h4>
+        <h3 tal:content="scores"></h3>
+        <p>A higher score indicates easier readability; scores usually range between 0 and 100.</p>
+        <table border="0">
+            <tbody><tr>
+                <th>Readability Formula</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td><a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch_Reading_Ease" target="_blank">Flesch-Kincaid Reading Ease</a></td>
+                <td id="flesch_kincaid_reading_ease">-</td>
+            </tr>
+            </tbody></table>
+        <style  type="text/css">
+            #readability_ease_table {
+                background: #777c1f;
+                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIzMCUiIHN0b3AtY29sb3I9IiM3NzdjMWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI3MCUiIHN0b3AtY29sb3I9IiNmZmE1MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjAwZjAwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==); /* IE9 */
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(30%,#777c1f), color-stop(70%,#ffa500), color-stop(100%,#f00f00));
+                background: -moz-linear-gradient(top, #777c1f 30%, #ffa500 70%, #f00f00 100%);
+                background: linear-gradient(to bottom, #777c1f 30%, #ffa500 70%, #f00f00 100%);
+                height: 130px;
+                color: white;
+                font-weight: bold;
+                padding: 0 1em;
+                width: 100%;
+            }
+            .readability_table {
+                margin-bottom: 0.75em;
+            }
+            .readability_table th {
+                text-align: left;
+                padding-right: 1em;
+            }
+            .readability_table td {
+                padding-right: 1em;
+            }
 
-        .stats-score {
-            min-width: 60px;
-        }
+            .stats-score {
+                min-width: 60px;
+            }
 
-        #stats-disclaimer {
-            overflow-y: hidden;
-            margin-top: .5em;
+            #stats-disclaimer {
+                overflow-y: hidden;
+                margin-top: .5em;
 
-            -webkit-transition-property: all;
-            -webkit-transition-duration: .5s;
-            -webkit-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
+                -webkit-transition-property: all;
+                -webkit-transition-duration: .5s;
+                -webkit-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
-            -moz-transition-property: all;
-            -moz-transition-duration: .5s;
-            -moz-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
+                -moz-transition-property: all;
+                -moz-transition-duration: .5s;
+                -moz-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
-            -ms-transition-property: all;
-            -ms-transition-duration: .5s;
-            -ms-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
+                -ms-transition-property: all;
+                -ms-transition-duration: .5s;
+                -ms-transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
-            transition-property: all;
-            transition-duration: .5s;
-            transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
+                transition-property: all;
+                transition-duration: .5s;
+                transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
 
-            height: 170px;
-            width: 100%;
-        }
+                height: 235px;
+                width: 100%;
+            }
 
-        .state-closed {
-            height: 0 !important;
-        }
-    </style>
+            .state-closed {
+                height: 0 !important;
+            }
+        </style>
 
-    <table class="readability_table">
-        <tbody><tr>
-            <th>Your Score</th>
-            <th>Score Ratio</th>
-            <th id="score-notes">Notes</th>
-        </tr>
-        </tbody>
-    </table>
+        <table class="readability_table">
+            <tbody><tr>
+                <th>Your Score</th>
+                <th>Score Ratio</th>
+                <th id="score-notes">Notes</th>
+            </tr>
+            </tbody>
+        </table>
 
-    <table border="0" id="readability_ease_table" class="readability_table">
-        <tbody>
-        <tr>
-            <td class="stats-score"></td>
-            <td class="stats-ratio">90.0–100.0</td>
-            <td>easily understood by an average 11-year-old student</td>
-        </tr>
-        <tr>
-            <td class="stats-score"></td>
-            <td class="stats-ratio">60.0–70.0</td>
-            <td>Standard English documents average</td>
-        </tr>
-        <tr>
-            <td class="stats-score"></td>
-            <td class="stats-ratio">0.0–30.0</td>
-            <td>best understood by university graduates</td>
-        </tr>
-        </tbody></table>
+        <table border="0" id="readability_ease_table" class="readability_table">
+            <tbody>
+            <tr>
+                <td class="stats-score"></td>
+                <td class="stats-ratio">90.0–100.0</td>
+                <td>easily understood by an average 11-year-old student</td>
+            </tr>
+            <tr>
+                <td class="stats-score"></td>
+                <td class="stats-ratio">60.0–70.0</td>
+                <td>Standard English documents average</td>
+            </tr>
+            <tr>
+                <td class="stats-score"></td>
+                <td class="stats-ratio">0.0–30.0</td>
+                <td>best understood by university graduates</td>
+            </tr>
+            </tbody></table>
 
-    <h4>Text Statistics</h4>
-    <table border="0" cellspacing="0" cellpadding="5" class="last_table">
-        <tbody>
-        <tr>
-            <td>Character Count</td>
-            <td id="character_count">-</td>
-        </tr>
-        <tr>
-            <td>Syllable Count</td>
-            <td id="syllable_count">-</td>
-        </tr>
-        <tr>
-            <td>Word Count</td>
-            <td id="word_count">-</td>
-        </tr>
-        <tr>
-            <td>Sentence Count</td>
-            <td id="sentence_count">-</td>
-        </tr>
-        <tr>
-            <td>Characters per Word</td>
-            <td id="letters_per_word">-</td>
-        </tr>
-        <tr>
-            <td>Syllables per Word</td>
-            <td id="syllables_per_word">-</td>
-        </tr>
-        <tr>
-            <td>Words per Sentence</td>
-            <td id="words_per_sentence">-</td>
-        </tr>
-        </tbody></table>
-    <button id="stats-preview" onclick="document.getElementById('stats-disclaimer').classList.toggle('state-closed');" >Learn more about this readability index</button>
+        <h4>Text Statistics</h4>
+        <table border="0" cellspacing="0" cellpadding="5" class="last_table">
+            <tbody>
+            <tr>
+                <td>Character Count</td>
+                <td id="character_count">-</td>
+            </tr>
+            <tr>
+                <td>Syllable Count</td>
+                <td id="syllable_count">-</td>
+            </tr>
+            <tr>
+                <td>Word Count</td>
+                <td id="word_count">-</td>
+            </tr>
+            <tr>
+                <td>Sentence Count</td>
+                <td id="sentence_count">-</td>
+            </tr>
+            <tr>
+                <td>Characters per Word</td>
+                <td id="letters_per_word">-</td>
+            </tr>
+            <tr>
+                <td>Syllables per Word</td>
+                <td id="syllables_per_word">-</td>
+            </tr>
+            <tr>
+                <td>Words per Sentence</td>
+                <td id="words_per_sentence">-</td>
+            </tr>
+            </tbody></table>
+        <button id="stats-preview" onclick="document.getElementById('stats-disclaimer').classList.toggle('state-closed');" >Learn more about this readability index</button>
 
-    <div id="stats-disclaimer" class="state-closed">
-        <p><strong>Note:</strong> The "Flesch reading score" is a very nice "screening tool". It helps to find text that needs adjustments. Please note that "Readability" does not guarantee "Understandability". Some text may be simple to read (uses simple words and short sentences) and still be illogical or semantically incorrect. This score should never be used as the only indicator of readability/understandability. To have a correct picture of "text understandability", this score must be complemented with other indicators and a proper reading test with representative target audience.
+        <div id="stats-disclaimer" class="state-closed">
+            <p><strong>Note:</strong> The "Flesch reading score" is a very nice "screening tool". It helps to find text that needs adjustments. Please note that "Readability" does not guarantee "Understandability". Some text may be simple to read (uses simple words and short sentences) and still be illogical or semantically incorrect. This score should never be used as the only indicator of readability/understandability. To have a correct picture of "text understandability", this score must be complemented with other indicators and a proper reading test with representative target audience.
 
-        </p>
-        <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
-    </div>
+            </p>
+            <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
+        </div>
 
-    <script type="text/javascript" src="tiny_mce_popup.js" tal:condition="python: 'eeareadabilitychecker' in request['URL0']"></script>
-    <script type="text/javascript" src="readability.js">
-    </script>
+        <script type="text/javascript" src="tiny_mce_popup.js" tal:condition="within_popup"></script>
+        <script type="text/javascript" src="readability.js">
+        </script>
+    </tal:defines>
 </div>
 

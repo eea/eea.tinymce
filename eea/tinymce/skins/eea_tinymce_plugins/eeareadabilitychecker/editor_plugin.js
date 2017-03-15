@@ -5,6 +5,7 @@
 
     // 82316 set readability data on form submit
     var $edit_form = $("form");
+    var context_url = window.context_url || $("base").attr('href');
     var setReadabilityScores = function (form) {
         form.attr('data-faceted-submit', true);
         form.submit(function(ev){
@@ -22,7 +23,7 @@
                     'value': $el.find('.readabilityValue').text()
                 };
             });
-            $.post(portal_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
+            $.post(context_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
                 that.submit();
             });
         });
