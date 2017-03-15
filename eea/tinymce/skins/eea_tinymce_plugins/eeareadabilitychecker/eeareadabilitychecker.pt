@@ -1,9 +1,8 @@
 <div id="stats" metal:define-macro="portlet" tal:condition="not:context/@@plone_portal_state/anonymous">
     <tal:defines tal:define="within_popup python: 'eeareadabilitychecker' in request['URL0'];
                              scores_view nocall:context/get_eea_readability_score;
-                             scores python: scores_view.get_scores() if not within_popup else ''">
+                             scores python: scores_view.get_scores() if not within_popup else {}">
         <h4><span id="stats-field"></span> Reading Ease</h4>
-        <h3 tal:content="scores"></h3>
         <p>A higher score indicates easier readability; scores usually range between 0 and 100.</p>
         <table border="0">
             <tbody><tr>
@@ -12,7 +11,7 @@
             </tr>
             <tr>
                 <td><a href="http://en.wikipedia.org/wiki/Flesch-Kincaid#Flesch_Reading_Ease" target="_blank">Flesch-Kincaid Reading Ease</a></td>
-                <td id="flesch_kincaid_reading_ease">-</td>
+                <td id="flesch_kincaid_reading_ease" tal:content="python:scores.get('readability_value', '-')">-</td>
             </tr>
             </tbody></table>
         <style  type="text/css">
@@ -103,34 +102,38 @@
         <h4>Text Statistics</h4>
         <table border="0" cellspacing="0" cellpadding="5" class="last_table">
             <tbody>
-            <tr>
-                <td>Character Count</td>
-                <td id="character_count">-</td>
-            </tr>
-            <tr>
-                <td>Syllable Count</td>
-                <td id="syllable_count">-</td>
-            </tr>
+            <tal:within_popup tal:condition="within_popup">
+                <tr>
+                    <td>Character Count</td>
+                    <td id="character_count">-</td>
+                </tr>
+                <tr>
+                    <td>Syllable Count</td>
+                    <td id="syllable_count">-</td>
+                </tr>
+            </tal:within_popup>
             <tr>
                 <td>Word Count</td>
-                <td id="word_count">-</td>
+                <td id="word_count" tal:content="python:scores.get('word_count', '-')">-</td>
             </tr>
             <tr>
                 <td>Sentence Count</td>
-                <td id="sentence_count">-</td>
+                <td id="sentence_count" tal:content="python:scores.get('sentence_count', '-')">-</td>
             </tr>
-            <tr>
-                <td>Characters per Word</td>
-                <td id="letters_per_word">-</td>
-            </tr>
-            <tr>
-                <td>Syllables per Word</td>
-                <td id="syllables_per_word">-</td>
-            </tr>
-            <tr>
-                <td>Words per Sentence</td>
-                <td id="words_per_sentence">-</td>
-            </tr>
+            <tal:within_popup tal:condition="within_popup">
+                <tr>
+                    <td>Characters per Word</td>
+                    <td id="letters_per_word">-</td>
+                </tr>
+                <tr>
+                    <td>Syllables per Word</td>
+                    <td id="syllables_per_word">-</td>
+                </tr>
+                <tr>
+                    <td>Words per Sentence</td>
+                    <td id="words_per_sentence">-</td>
+                </tr>
+            </tal:within_popup>
             </tbody></table>
         <button id="stats-preview" onclick="document.getElementById('stats-disclaimer').classList.toggle('state-closed');" >Learn more about this readability index</button>
 
@@ -141,9 +144,10 @@
             <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
         </div>
 
-        <script type="text/javascript" src="tiny_mce_popup.js" tal:condition="within_popup"></script>
-        <script type="text/javascript" src="readability.js">
-        </script>
+        <tal:within_popup tal:condition="within_popup">
+            <script type="text/javascript" src="tiny_mce_popup.js"></script>
+        </tal:within_popup>
+        <script type="text/javascript" src="readability.js"></script>
     </tal:defines>
 </div>
 

@@ -17,10 +17,14 @@
                 var $el = $(el);
                 var id = el.id;
                 var text = id.substring(14, id.length);
+                var field_text = document.getElementById(text).innerText;
+                var text_statistics = window.textstatistics(field_text);
                 data[text] = {
-                    'count': $el.find('.charlimit-count').text(),
-                    'level': $el.find('.readabilityLevel').text(),
-                    'value': $el.find('.readabilityValue').text()
+                    'character_count': $el.find('.charlimit-count').text(),
+                    'sentence_count': text_statistics.sentenceCount(),
+                    'word_count': text_statistics.wordCount(),
+                    'readability_level': $el.find('.readabilityLevel').text(),
+                    'readability_value': $el.find('.readabilityValue').text()
                 };
             });
             $.post(context_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
@@ -110,42 +114,45 @@
                 var $readability_value = $el.find($(".readabilityValue"));
                 var $readability_level = $el.find($(".readabilityLevel"));
 
-                var setReadabilityValue = function() {
-                    var text = ed.getContent();
+                var setReadabilityValue = function($el, text, grade, $value, $level) {
                     if (!text) {
-                        $readability_value.html(0);
-                        $readability_level.text("");
+                        $value.html(0);
+                        $level.text("");
                         $el.addClass('charlimit-info');
                         return;
                     }
-                    var text_count_obj = window.textstatistics(text);
-                    var grade = text_count_obj.fleschKincaidReadingEase();
-                    $readability_value.html(grade);
+                    $value.html(grade);
                     if (grade < 30) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-exceeded');
-                        $readability_level.text("(low)");
+                        $level.text("(low)");
                     } else if (grade < 70) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
-                        $readability_level.text("(average)");
+                        $level.text("(average)");
                     } else {
                         $el.attr('class', 'readabilityChecker charlimit-info');
-                        $readability_level.text("(high)");
+                        $level.text("(high)");
                     }
                     if ($char_limit.hasClass("charlimit-exceeded")) {
                         $el.addClass("charlimit-expanded");
                     }
                 };
-
-                setReadabilityValue();
+                var text = ed.getContent();
+                var text_count_obj = window.textstatistics(text);
+                var grade = text_count_obj.fleschKincaidReadingEase().toFixed(1);
+                setReadabilityValue($el, text, grade, $readability_value, $readability_level);
                 // recalculate score value on keyUp every 1.2sec
                 ed.onKeyUp.add(EEATinyMCEUtils.debounce.call(this, function() {
-                    return setReadabilityValue();
+                    var text_count_obj = window.textstatistics(this.getContent());
+                    var grade = text_count_obj.fleschKincaidReadingEase().toFixed(1);
+                    setReadabilityValue($el, text, grade, $readability_value, $readability_level);
                 }, 1200, false));
                 // recalculate score value when content is set
                 // such as the moment when you paste markup within
                 // the html plugin
                 ed.onSetContent.add(EEATinyMCEUtils.debounce.call(this, function() {
-                    return setReadabilityValue();
+                    var text_count_obj = window.textstatistics(this.getContent());
+                    var grade = text_count_obj.fleschKincaidReadingEase().toFixed(1);
+                    setReadabilityValue($el, text, grade, $readability_value, $readability_level);
                 }, 500, false));
 
 

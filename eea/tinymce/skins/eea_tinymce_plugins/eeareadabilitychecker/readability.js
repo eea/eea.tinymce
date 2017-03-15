@@ -1,11 +1,16 @@
 /* global tinyMCE */
 (function(){
 
-    var editor = tinyMCE.activeEditor;
-    var text = editor.getContent();
-    var editor_params = editor.windowManager.params;
-    var textStatistics = editor_params.textstatistics;
-    var char_count_num = editor_params.charCount;
+    var char_count_num;
+    var textStatistics;
+    var editor_params;
+    var editor = window.tinyMCE ? tinyMCE.activeEditor : false;
+    var text = editor ? editor.getContent() : '';
+    if (editor) {
+        editor_params = editor.windowManager.params;
+        textStatistics = editor_params.textstatistics;
+        char_count_num = editor_params.charCount;
+    }
     var $ = document.getElementById.bind(document);
     var q = document.querySelectorAll.bind(document);
     window.textstatistics = textStatistics;

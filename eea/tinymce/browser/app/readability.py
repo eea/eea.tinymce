@@ -27,12 +27,17 @@ class EEAReadabilityPlugin(BrowserView):
     def get_scores(self):
         """ get_scores """
         scores = self.anno.get(self.key, {})
-        key_metrics = {'word_count': 0, 'sentences_count': 0, 'read_count': 0}
+        key_metrics = {'word_count': 0, 'sentence_count': 0, 'readability_value': 0}
+        enabled_for = 0
         for value in scores.values():
-            if not value['value']:
+            if not value.get('readability_value'):
                 continue
-            key_metrics['word_count'] += int(value['count'])
-            # key_metrics['sentences_count'] += value['sentences_count']
-            key_metrics['read_count'] += float(value['value'])
+            enabled_for += 1
+            key_metrics['word_count'] += int(value.get('word_count', 0))
+            key_metrics['sentence_count'] += value.get('sentence_count', 0)
+            key_metrics['readability_value'] += float(value.get('readability_value', 0))
+        # make an average score when we have more than 1 text field for which readability is enabled
+        if enabled_for > 1:
+            key_metrics['readability_value'] = "{0:.2f}".format(key_metrics['readability_value'] / enabled_for)
         return key_metrics
 
