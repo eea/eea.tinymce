@@ -26,4 +26,13 @@ class EEAReadabilityPlugin(BrowserView):
 
     def get_scores(self):
         """ get_scores """
-        return self.anno.get(self.key, {})
+        scores = self.anno.get(self.key, {})
+        key_metrics = {'word_count': 0, 'sentences_count': 0, 'read_count': 0}
+        for value in scores.values():
+            if not value['value']:
+                continue
+            key_metrics['word_count'] += int(value['count'])
+            # key_metrics['sentences_count'] += value['sentences_count']
+            key_metrics['read_count'] += float(value['value'])
+        return key_metrics
+
