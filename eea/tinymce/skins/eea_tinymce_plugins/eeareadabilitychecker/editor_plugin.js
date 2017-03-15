@@ -11,7 +11,7 @@
             var that = this;
             ev.preventDefault();
             var $charlimits = $(".charlimit-row");
-            var data = {}
+            var data = {};
             $charlimits.each(function(idx, el){
                 var $el = $(el);
                 var id = el.id;
@@ -20,9 +20,9 @@
                     'count': $el.find('.charlimit-count').text(),
                     'level': $el.find('.readabilityLevel').text(),
                     'value': $el.find('.readabilityValue').text()
-                }
+                };
             });
-            $.get(portal_url + '/set_eea_readability_score', data).then(function(data, status) {
+            $.post(portal_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
                 that.submit();
             });
         });
