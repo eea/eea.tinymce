@@ -72,6 +72,18 @@
             .state-closed {
                 height: 0 !important;
             }
+
+            /* classes added by readability.js as such a css unused linter will find the styles as unused */
+            .stats-score-active:after {
+                content: "=====>";
+                padding-left: .5em;
+            }
+            .align-top {
+                vertical-align: top;
+            }
+            .align-bottom {
+                vertical-align: bottom;
+            }
         </style>
 
         <table class="readability_table">
