@@ -1,4 +1,7 @@
-<div id="stats" metal:define-macro="portlet" tal:condition="not:context/@@plone_portal_state/anonymous">
+<div id="stats" metal:define-macro="portlet"
+         tal:define="anonymous context/@@plone_portal_state/anonymous;
+                     edit_page python: 'edit' in request.get('URL0')"
+         tal:condition="python: not anonymous and not edit_page">
     <tal:defines tal:define="within_popup python: 'eeareadabilitychecker' in request['URL0'];
                              scores_view nocall:context/get_eea_readability_score;
                              scores python: scores_view.get_scores() if not within_popup else {}">
