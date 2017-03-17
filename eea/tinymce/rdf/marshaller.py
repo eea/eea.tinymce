@@ -40,14 +40,14 @@ class Readability2SurfModifier(object):
 
         eea_surf = surf.ns.EEA
         store.reader.graph.bind('eea', eea_surf, override=True)
-        details_progress = session.get_class(surf.ns.EEA.textField)
+        details_progress = session.get_class(surf.ns.EEA.textAnalysis)
 
         for key, val in scores.items():
-            rdfp = session.get_resource(key, details_progress)
-            rdfp[surf.ns.EEA['readabilityValue']] = val.get(
+            rdfp = session.get_resource("#" + key, details_progress)
+            rdfp[surf.ns.EEA['fleschReadingEaseScore']] = val.get(
                                                         'readability_value', 1)
-            rdfp[surf.ns.EEA['wordCount']] = val.get('wordCount', 1)
-            rdfp[surf.ns.EEA['sentenceCount']] = val.get('sentenceCount', 1)
+            rdfp[surf.ns.EEA['wordCount']] = val.get('word_count', 1)
+            rdfp[surf.ns.EEA['sentenceCount']] = val.get('sentence_count', 1)
             rdfp.update()
             output.append(rdfp)
 
