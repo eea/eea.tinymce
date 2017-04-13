@@ -1,7 +1,7 @@
 <div id="stats" metal:define-macro="portlet"
          tal:define="anonymous context/@@plone_portal_state/anonymous;
                      edit_page python: 'edit' in request.get('URL0')"
-         tal:condition="python: not anonymous and not edit_page">
+         tal:condition="python: not anonymous and not edit_page" class="portlet">
     <tal:defines tal:define="within_popup python: 'eeareadabilitychecker' in request['URL0'];
                              scores_view nocall:context/get_eea_readability_score;
                              scores python: scores_view.get_scores() if not within_popup else {}">
@@ -150,14 +150,17 @@
                 </tr>
             </tal:within_popup>
             </tbody></table>
-        <button id="stats-preview" onclick="document.getElementById('stats-disclaimer').classList.toggle('state-closed');" >Learn more about this readability index</button>
-
-        <div id="stats-disclaimer" class="state-closed">
-            <p><strong>Note:</strong> The "Flesch reading score" is a very nice "screening tool". It helps to find text that needs adjustments. Please note that "Readability" does not guarantee "Understandability". Some text may be simple to read (uses simple words and short sentences) and still be illogical or semantically incorrect. This score should never be used as the only indicator of readability/understandability. To have a correct picture of "text understandability", this score must be complemented with other indicators and a proper reading test with representative target audience.
-
-            </p>
-            <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
-        </div>
+            
+        <tal:within_popup tal:condition="within_popup">
+            <button id="stats-preview" onclick="document.getElementById('stats-disclaimer').classList.toggle('state-closed');" >Learn more about this readability index</button>
+    
+            <div id="stats-disclaimer" class="state-closed">
+                <p><strong>Note:</strong> The "Flesch reading score" is a very nice "screening tool". It helps to find text that needs adjustments. Please note that "Readability" does not guarantee "Understandability". Some text may be simple to read (uses simple words and short sentences) and still be illogical or semantically incorrect. This score should never be used as the only indicator of readability/understandability. To have a correct picture of "text understandability", this score must be complemented with other indicators and a proper reading test with representative target audience.
+    
+                </p>
+                <p><strong>Read more:</strong> <span class="link-external"><a class="external-link" href="http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests#Flesch_Reading_Ease" target="_self" title="">Wikipedia</a></span>, <span class="link-pdf"><span class="link-external"><a rel="nofollow" class="external text" href="http://www.impact-information.com/impactinfo/readability02.pdf">The Principles of Readability by William H. DuBay</a></span></span> — a brief introduction to readability research</p>
+            </div>
+        </tal:within_popup>
 
         <tal:within_popup tal:condition="within_popup">
             <script type="text/javascript" src="tiny_mce_popup.js"></script>
