@@ -49,7 +49,7 @@ class Readability2SurfModifier(object):
             'readability_value', scores_len) / scores_len)
         resource[surf.ns.EEA['wordCount']] = word_count
         resource[surf.ns.EEA['sentenceCount']] = score.get('sentence_count')
-        resource[surf.ns.EEA['readingTime']] = int(round(word_count / 228))
+        resource[surf.ns.EEA['readingTime']] = int(round(word_count / 228.0))
 
         resource.save()
         return resource
