@@ -4,7 +4,7 @@ import surf
 from eea.rdfmarshaller.interfaces import ISurfResourceModifier
 from eea.relations.content.interfaces import IBaseObject
 from zope.annotation import IAnnotations
-from zope.component import adapts, getMultiAdapter
+from zope.component import adapts
 from zope.interface import implements
 
 
@@ -39,7 +39,7 @@ class Readability2SurfModifier(object):
         scores = scores.items()
         scores_len = len(scores)
         score = {'word_count': 0, 'readability_value': 0.0, 'sentence_count': 0}
-        for key, val in scores:
+        for _key, val in scores:
             if not val.get('readability_value'):
                 continue
             score['word_count'] += val.get('word_count', 0)

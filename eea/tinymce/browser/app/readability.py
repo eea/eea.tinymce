@@ -3,7 +3,6 @@
 from Products.Five import BrowserView
 from zope.annotation import IAnnotations
 import json
-import math
 
 
 class EEAReadabilityPlugin(BrowserView):
