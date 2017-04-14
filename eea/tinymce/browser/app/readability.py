@@ -43,6 +43,8 @@ class EEAReadabilityPlugin(BrowserView):
         if enabled_for > 1:
             key_metrics['readability_value'] = "{0:.0f}".format(
                             key_metrics['readability_value'] / enabled_for)
+        if key_metrics['readability_value'] == 0:
+            return {}
         return key_metrics
 
 
