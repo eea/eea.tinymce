@@ -6,6 +6,7 @@ from eea.relations.content.interfaces import IBaseObject
 from zope.annotation import IAnnotations
 from zope.component import adapts, getMultiAdapter
 from zope.interface import implements
+from math import trunc
 
 
 class Readability2SurfModifier(object):
@@ -19,15 +20,11 @@ class Readability2SurfModifier(object):
         self.context = context
 
     def run(self, resource, *args, **kwargs):
-        """
-            <eea:readabilityScores>
-              <eea:textField>
-                <dcterms:title>Title of dataset</dcterms:title>
-                <eea:readabilityValue>6</eea:readabilityLevel>
-                <eea:wordCount>6</eea:wordCount>
-                <eea:sentenceCount>6</eea:sentenceCount>
-              </eea:textField>
-            </eea:readabilityScores>
+        """ output
+            <eea:fleschReadingEaseScore>57.0</eea:fleschReadingEaseScore>
+            <eea:wordCount>446</eea:wordCount>
+            <eea:sentenceCount>63</eea:sentenceCount>
+            <eea:readingTime>9</eea:readingTime>
         """
         anno = IAnnotations(self.context)
         scores = anno.get('readability_scores')
@@ -40,17 +37,19 @@ class Readability2SurfModifier(object):
 
         eea_surf = surf.ns.EEA
         store.reader.graph.bind('eea', eea_surf, override=True)
-        details_progress = session.get_class(surf.ns.EEA.textAnalysis)
+        scores = scores.items()
+        scores_len = len(scores)
+        score = {'word_count': 0, 'readability_value': 0.0, 'sentence_count': 0}
+        for key, val in scores:
+            score['word_count'] += val.get('word_count', 0)
+            score['sentence_count'] += val.get('sentence_count', 0)
+            score['readability_value'] += float(val.get('readability_value', 0))
+        word_count = score.get('word_count')
+        resource[surf.ns.EEA['fleschReadingEaseScore']] = trunc(score.get(
+            'readability_value', scores_len) / scores_len)
+        resource[surf.ns.EEA['wordCount']] = word_count
+        resource[surf.ns.EEA['sentenceCount']] = score.get('sentence_count')
+        resource[surf.ns.EEA['readingTime']] = int(round(word_count / 228))
 
-        for key, val in scores.items():
-            rdfp = session.get_resource("#" + key, details_progress)
-            rdfp[surf.ns.EEA['fleschReadingEaseScore']] = val.get(
-                                                        'readability_value', 1)
-            rdfp[surf.ns.EEA['wordCount']] = val.get('word_count', 1)
-            rdfp[surf.ns.EEA['sentenceCount']] = val.get('sentence_count', 1)
-            rdfp.update()
-            output.append(rdfp)
-
-        resource['eea_readabilityScores'] = output
         resource.save()
         return resource
