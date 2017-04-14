@@ -3,6 +3,9 @@ Changelog
 
 2.2.dev0 - (unreleased)
 -----------------------
+* Feature: expose text statistics as a portlet and provide rdf output
+  for reading time, word count, sentence count and flesch score
+  [ichim-david refs #82316]
 
 2.1 - (2016-10-31)
 ------------------
