@@ -34,7 +34,7 @@ if (!Array.prototype.indexOf) {
                 }
                 var message;
                 var char_num = self.getCountCharacters();
-                var default_text = 'Tot ' + char_num + ' characters.';
+                var default_text = 'Tot ' + '<span class="charlimit-count">' + char_num + '</span>' + ' characters.';
 
                 if (char_num <= low_threshold) {
                     var under_threshold = low_threshold - char_num;
@@ -48,7 +48,7 @@ if (!Array.prototype.indexOf) {
                     }
                 } else if (char_num > low_threshold && char_num <= high_threshold) {
                     message = ' (warning, we aim for ' + low_threshold + ' characters)';
-                    
+
                     if (status_box.hasClass('charlimit-exceeded')) {
                         status_box.removeClass('charlimit-exceeded');
                     }
@@ -68,7 +68,7 @@ if (!Array.prototype.indexOf) {
                     }
                 }
 
-                status_box.text(default_text + message);
+                status_box.html(default_text + message);
             }
 
 
@@ -150,7 +150,7 @@ if (!Array.prototype.indexOf) {
                     });
                 }
             });
-            
+
             //Count the characters entered by the user, strip out the html and convert
             //chars like &nbsp to a single character
             self.getCountCharacters = function() {

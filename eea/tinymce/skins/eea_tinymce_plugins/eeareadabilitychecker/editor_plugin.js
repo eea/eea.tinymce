@@ -1,7 +1,41 @@
 // jslint:disable
-/*global $, tinymce, portal_url, window, EEATinyMCEUtils, eeatinymceplugins */
+/*global jQuery, tinymce, portal_url, window, EEATinyMCEUtils, eeatinymceplugins */
 
-(function () {
+(function ($) {
+
+    // 82316 set readability data on form submit
+    var $edit_form = $("form");
+    var context_url = window.context_url || $("base").attr('href');
+    var setReadabilityScores = function (form) {
+        form.attr('data-faceted-submit', true);
+        form.submit(function(ev){
+            var that = this;
+            ev.preventDefault();
+            var $charlimits = $(".charlimit-row");
+            var data = {};
+            $charlimits.each(function(idx, el){
+                var $el = $(el);
+                var id = el.id;
+                var text = id.substring(14, id.length);
+                var field_text = document.getElementById(text).innerText;
+                var text_statistics = window.textstatistics(field_text);
+                data[text] = {
+                    'character_count': $el.find('.charlimit-count').text(),
+                    'sentence_count': text_statistics.sentenceCount(),
+                    'word_count': text_statistics.wordCount(),
+                    'readability_level': $el.find('.readabilityLevel').text(),
+                    'readability_value': $el.find('.readabilityValue').text()
+                };
+            });
+            $.post(context_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
+                that.submit();
+            });
+        });
+    };
+    if (!$edit_form.attr('data-faceted-submit')) {
+        setReadabilityScores($edit_form);
+    }
+
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed) {
             var css_url = portal_url + '/eeareadabilitychecker.css';
@@ -10,25 +44,24 @@
                     return;
                 }
                 var eeacharlimit_options = eeatinymceplugins.settings.eea_char_limit;
-                var body_class = jQuery('body').attr('class');
+                var body_class = $('body').attr('class');
                 var field_id = ed.editorId;
-                var shouldEnable = false;
+                var shouldEnable;
                 if (eeacharlimit_options) {
-                    eeacharlimit_options = jQuery.parseJSON(eeacharlimit_options);
-                    jQuery.each(eeacharlimit_options, function( index, value ) {
+                    eeacharlimit_options = $.parseJSON(eeacharlimit_options);
+                    $.each(eeacharlimit_options, function( index, value ) {
                         var marker = 'portaltype-' + value.ctype.toLowerCase();
                         var field_active = false;
-                        var field_settings;
                         if (body_class.indexOf(marker) < 0) {
                             return;
                         }
-                        jQuery.each(value.settings, function(key, val) {
+                        $.each(value.settings, function(key, val) {
                             var value = val[field_id];
                             if (value && value['readability_checker']) {
                                 field_active = true;
-                                field_settings = value;
                                 return false;
                             }
+                            return true;
                         });
                         //Check if we should activate for this CT and field
                         if (field_active === true ) {
@@ -45,7 +78,7 @@
                 var $char_limit_row = $container.find('.charlimit-row');
                 var $char_limit = $char_limit_row.children();
                 if ($char_limit_row.length < 1) {
-                    $char_limit_row = jQuery('<tr />', {
+                    $char_limit_row = $('<tr />', {
                         'class': 'charlimit-row',
                         'id': 'charlimit-row-' + field_id
                     });
@@ -81,46 +114,50 @@
                 var $readability_value = $el.find($(".readabilityValue"));
                 var $readability_level = $el.find($(".readabilityLevel"));
 
-                var setReadabilityValue = function() {
-                    var text = ed.getContent();
+                var setReadabilityValue = function($el, text, grade, $value, $level) {
                     if (!text) {
-                        $readability_value.html(0);
-                        $readability_level.text("");
+                        $value.html(0);
+                        $level.text("");
                         $el.addClass('charlimit-info');
                         return;
                     }
-                    var text_count_obj = window.textstatistics(text);
-                    var grade = text_count_obj.fleschKincaidReadingEase();
-                    $readability_value.html(grade);
+                    $value.html(grade);
                     if (grade < 30) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-exceeded');
-                        $readability_level.text("(low)");
+                        $level.text("(low)");
                     } else if (grade < 70) {
                         $el.attr('class', 'readabilityChecker charlimit-info charlimit-warn');
-                        $readability_level.text("(average)");
+                        $level.text("(average)");
                     } else {
                         $el.attr('class', 'readabilityChecker charlimit-info');
-                        $readability_level.text("(high)");
+                        $level.text("(high)");
                     }
                     if ($char_limit.hasClass("charlimit-exceeded")) {
                         $el.addClass("charlimit-expanded");
                     }
                 };
-
-                setReadabilityValue();
+                var text = ed.getContent();
+                var text_count_obj = window.textstatistics(text);
+                var grade = text_count_obj.fleschKincaidReadingEase().toFixed(1);
+                setReadabilityValue($el, text, grade, $readability_value, $readability_level);
                 // recalculate score value on keyUp every 1.2sec
                 ed.onKeyUp.add(EEATinyMCEUtils.debounce.call(this, function() {
-                    return setReadabilityValue();
+                    var text_count_obj = window.textstatistics(this.getContent());
+                    var grade = text_count_obj.fleschKincaidReadingEase().toFixed(1);
+                    setReadabilityValue($el, text, grade, $readability_value, $readability_level);
                 }, 1200, false));
                 // recalculate score value when content is set
                 // such as the moment when you paste markup within
                 // the html plugin
                 ed.onSetContent.add(EEATinyMCEUtils.debounce.call(this, function() {
-                    return setReadabilityValue();
+                    var text_count_obj = window.textstatistics(this.getContent());
+                    var grade = text_count_obj.fleschKincaidReadingEase().toFixed(1);
+                    setReadabilityValue($el, text, grade, $readability_value, $readability_level);
                 }, 500, false));
+
+
             });
         },
-
         getInfo: function () {
             return {
                 longname: "EEA Readability Checker",
@@ -134,4 +171,4 @@
     });
     tinymce.PluginManager.add("eeareadabilitychecker", tinymce.plugins.EEAReadabilityChecker);
 
-}());
+}(jQuery));

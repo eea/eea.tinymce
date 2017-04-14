@@ -1,14 +1,19 @@
 /* global tinyMCE */
 (function(){
 
-    var editor = tinyMCE.activeEditor;
-    var text = editor.getContent();
-    var editor_params = editor.windowManager.params;
-    var textStatistics = editor_params.textstatistics;
-    var char_count_num = editor_params.charCount;
+    var char_count_num;
+    var textStatistics;
+    var editor_params;
+    var editor = window.tinyMCE ? tinyMCE.activeEditor : false;
+    var text = editor ? editor.getContent() : '';
+    if (editor) {
+        editor_params = editor.windowManager.params;
+        textStatistics = editor_params.textstatistics;
+        char_count_num = editor_params.charCount;
+    }
     var $ = document.getElementById.bind(document);
     var q = document.querySelectorAll.bind(document);
-    window.textstatistics = textStatistics;
+    textStatistics = textStatistics || window.textstatistics;
     var flesch_reading_ease = $("flesch_kincaid_reading_ease");
     var syllable_count = $("syllable_count");
     var char_count = $("character_count");
@@ -22,7 +27,7 @@
         if (!$text) {
             return;
         }
-        var text_count_obj = window.textstatistics($text);
+        var text_count_obj = textStatistics($text);
         flesch_reading_ease.innerHTML = text_count_obj.fleschKincaidReadingEase();
         syllable_count.innerHTML = text_count_obj.syllableCount(text_count_obj.text);
         char_count.innerHTML = char_count_num;

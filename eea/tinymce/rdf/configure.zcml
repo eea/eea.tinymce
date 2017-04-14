@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="eea">
+
+  <configure zcml:condition="installed eea.rdfmarshaller">
+    <subscriber factory=".marshaller.Readability2SurfModifier"
+      for="eea.relations.content.interfaces.IBaseObject"
+      provides="eea.rdfmarshaller.interfaces.ISurfResourceModifier" />
+  </configure>
+
+</configure>
