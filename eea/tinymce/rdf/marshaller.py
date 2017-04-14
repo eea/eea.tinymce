@@ -6,7 +6,6 @@ from eea.relations.content.interfaces import IBaseObject
 from zope.annotation import IAnnotations
 from zope.component import adapts, getMultiAdapter
 from zope.interface import implements
-from math import trunc
 
 
 class Readability2SurfModifier(object):
@@ -41,12 +40,14 @@ class Readability2SurfModifier(object):
         scores_len = len(scores)
         score = {'word_count': 0, 'readability_value': 0.0, 'sentence_count': 0}
         for key, val in scores:
+            if not val.get('readability_value'):
+                continue
             score['word_count'] += val.get('word_count', 0)
             score['sentence_count'] += val.get('sentence_count', 0)
             score['readability_value'] += float(val.get('readability_value', 0))
         word_count = score.get('word_count')
-        resource[surf.ns.EEA['fleschReadingEaseScore']] = trunc(score.get(
-            'readability_value', scores_len) / scores_len)
+        resource[surf.ns.EEA['fleschReadingEaseScore']] = int(round(score.get(
+            'readability_value', scores_len) / scores_len))
         resource[surf.ns.EEA['wordCount']] = word_count
         resource[surf.ns.EEA['sentenceCount']] = score.get('sentence_count')
         resource[surf.ns.EEA['readingTime']] = int(round(word_count / 228.0))
