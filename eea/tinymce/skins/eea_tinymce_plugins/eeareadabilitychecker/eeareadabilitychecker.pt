@@ -2,11 +2,11 @@
          tal:define="anonymous context/@@plone_portal_state/anonymous;
                     within_popup python: 'eeareadabilitychecker' in request['URL0'];
                     edit_page python: 'edit' in request.get('URL0');"
-         tal:condition="python: not anonymous and not edit_page or within_popup">
+         tal:condition="python: not anonymous and not edit_page">
     <div id="stats" class="portlet"
          tal:define="scores_view nocall:context/get_eea_readability_score;
                     scores python: scores_view.get_scores() if not within_popup else {};"
-         tal:condition="python:True if within_popup else False">
+         tal:condition="python:True if within_popup else scores">
 
         <h4><span id="stats-field"></span> Reading Ease</h4>
         <p>A higher score indicates easier readability; scores usually range between 0 and 100.</p>
