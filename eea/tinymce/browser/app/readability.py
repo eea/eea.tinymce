@@ -34,10 +34,10 @@ class EEAReadabilityPlugin(BrowserView):
             if not value.get('readability_value'):
                 continue
             enabled_for += 1
-            key_metrics['word_count'] += int(value.get('word_count', 0))
-            key_metrics['sentence_count'] += value.get('sentence_count', 0)
+            key_metrics['word_count'] += int(value.get('word_count') or 0)
+            key_metrics['sentence_count'] += value.get('sentence_count') or 0
             key_metrics['readability_value'] += int(round(float(value.get(
-                'readability_value', 0))))
+                'readability_value') or 0)))
         # make an average score when we have more than 1 text field for
         # which readability is enabled
         if enabled_for > 1:
