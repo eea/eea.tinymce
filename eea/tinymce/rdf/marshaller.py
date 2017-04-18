@@ -42,9 +42,10 @@ class Readability2SurfModifier(object):
         for _key, val in scores:
             if not val.get('readability_value'):
                 continue
-            score['word_count'] += val.get('word_count', 0)
-            score['sentence_count'] += val.get('sentence_count', 0)
-            score['readability_value'] += float(val.get('readability_value', 0))
+            score['word_count'] += val.get('word_count') or 0
+            score['sentence_count'] += val.get('sentence_count') or 0
+            score['readability_value'] += float(val.get('readability_value')
+                                                or 0)
         word_count = score.get('word_count')
         resource[surf.ns.EEA['fleschReadingEaseScore']] = int(round(score.get(
             'readability_value', scores_len) / scores_len))
