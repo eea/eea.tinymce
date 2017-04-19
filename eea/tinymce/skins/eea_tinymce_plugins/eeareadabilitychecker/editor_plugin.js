@@ -3,39 +3,6 @@
 
 (function ($) {
 
-    // 82316 set readability data on form submit
-    var $edit_form = $("form");
-    var context_url = window.context_url || $("base").attr('href');
-    var setReadabilityScores = function (form) {
-        form.attr('data-faceted-submit', true);
-        form.submit(function(ev){
-            var that = this;
-            ev.preventDefault();
-            var $charlimits = $(".charlimit-row");
-            var data = {};
-            $charlimits.each(function(idx, el){
-                var $el = $(el);
-                var id = el.id;
-                var text = id.substring(14, id.length);
-                var field_text = document.getElementById(text).innerText;
-                var text_statistics = window.textstatistics(field_text);
-                data[text] = {
-                    'character_count': $el.find('.charlimit-count').text(),
-                    'sentence_count': text_statistics.sentenceCount(),
-                    'word_count': text_statistics.wordCount(),
-                    'readability_level': $el.find('.readabilityLevel').text(),
-                    'readability_value': $el.find('.readabilityValue').text()
-                };
-            });
-            $.post(context_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
-                that.submit();
-            });
-        });
-    };
-    if (!$edit_form.attr('data-faceted-submit')) {
-        setReadabilityScores($edit_form);
-    }
-
     tinymce.create("tinymce.plugins.EEAReadabilityChecker", {
         init: function (ed) {
             var css_url = portal_url + '/eeareadabilitychecker.css';
@@ -71,6 +38,40 @@
                     if (!shouldEnable) {
                         return;
                     }
+                }
+
+                // 82316 set readability data on form submit
+                var $edit_form = $("form");
+                var context_url = window.context_url || $("base").attr('href');
+                var setReadabilityScores = function (form) {
+                    form.attr('data-faceted-submit', true);
+                    form.submit(function(ev){
+                        var that = this;
+                        ev.preventDefault();
+                        var $charlimits = $(".charlimit-row");
+                        var data = {};
+                        $charlimits.each(function(idx, el){
+                            var $el = $(el);
+                            var id = el.id;
+                            var text = id.substring(14, id.length);
+                            var field_text = document.getElementById(text).innerText;
+                            var text_statistics = window.textstatistics(field_text);
+                            data[text] = {
+                                'character_count': $el.find('.charlimit-count').text(),
+                                'sentence_count': text_statistics.sentenceCount(),
+                                'word_count': text_statistics.wordCount(),
+                                'readability_level': $el.find('.readabilityLevel').text(),
+                                'readability_value': $el.find('.readabilityValue').text()
+                            };
+                        });
+                        $.post(context_url + '/set_eea_readability_score', JSON.stringify(data)).then(function(data, status) {
+                            that.submit();
+                        });
+                    });
+                };
+
+                if (!$edit_form.attr('data-faceted-submit')) {
+                    setReadabilityScores($edit_form);
                 }
 
                 tinymce.DOM.loadCSS(css_url);

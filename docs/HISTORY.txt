@@ -3,6 +3,9 @@ Changelog
 
 2.4.dev0 - (unreleased)
 -----------------------
+* Bug fix: enabled saving of reading statistics only if we have at least 1
+  field with statistics enabled
+  [ichim-david refs #82316]
 
 2.3 - (2017-04-19)
 ------------------
