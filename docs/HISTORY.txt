@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.3.dev0 - (unreleased)
------------------------
+2.3 - (2017-04-19)
+------------------
 * Change: time to read takes into consideration only fields which have reading
   statistics enabled
   [ichim-david refs #82316]
