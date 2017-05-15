@@ -1,7 +1,7 @@
 """ EEA.Tinymce 180 upgrade steps
 """
-from Products.TinyMCE.interfaces.utility import ITinyMCE
 import json
+from Products.TinyMCE.interfaces.utility import ITinyMCE
 from zope.component import queryUtility
 
 
@@ -28,7 +28,3 @@ def evolve_settings(setuptool):
         item['settings'] = new_list
     charlimit_settings['eea_char_limit'] = json.dumps(json_settings)
     return True
-
-
-
-

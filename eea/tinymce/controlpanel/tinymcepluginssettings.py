@@ -3,11 +3,11 @@
 from eea.tinymce.interfaces import ITinyMCEPlugin
 from persistent.dict import PersistentDict
 from zope.component import getUtility
+from zope.component import getUtilitiesFor
+from zope.formlib.form import EditForm, FormFields, setUpWidgets, action
 from Products.TinyMCE.interfaces.utility import ITinyMCE
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.component import getUtilitiesFor
-from zope.formlib.form import EditForm, FormFields, setUpWidgets, action
 
 
 class TinyMCEPluginsEditForm(EditForm):

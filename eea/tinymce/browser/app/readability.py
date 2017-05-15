@@ -1,8 +1,8 @@
 """ Readability logic
 """
+import json
 from Products.Five import BrowserView
 from zope.annotation import IAnnotations
-import json
 
 
 class EEAReadabilityPlugin(BrowserView):
@@ -46,5 +46,3 @@ class EEAReadabilityPlugin(BrowserView):
         if key_metrics['readability_value'] == 0:
             return {}
         return key_metrics
-
-
