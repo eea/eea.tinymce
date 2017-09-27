@@ -32,7 +32,10 @@ class Readability2SurfModifier(object):
             return output
 
         session = resource.session
-        store = session.get_default_store()
+        try:
+            store = session.default_store
+        except AttributeError:
+            store = session.get_default_store()
 
         eea_surf = surf.ns.EEA
         store.reader.graph.bind('eea', eea_surf, override=True)
