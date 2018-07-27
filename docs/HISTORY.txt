@@ -3,6 +3,8 @@ Changelog
 
 3.0.dev0 - (unreleased)
 -----------------------
+* Bug fix: Fix TinyMCE plugins JSON within portal_factory
+  [avoinea refs #97380]
 * Change: updated URLs pointing to eea.europa.eu with https://
   [alecghica refs #95849]
 
