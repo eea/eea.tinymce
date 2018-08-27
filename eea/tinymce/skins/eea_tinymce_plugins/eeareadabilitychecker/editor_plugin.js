@@ -42,7 +42,7 @@
 
                 // 82316 set readability data on form submit
                 var $edit_form = $("form");
-                var context_url = window.context_url || $("base").attr('href');
+                var context_url = window.context_url || jQuery('body').data('base-url') || jQuery("base").attr('href') || "";
                 var setReadabilityScores = function (form) {
                     form.attr('data-faceted-submit', true);
                     form.submit(function(ev){
