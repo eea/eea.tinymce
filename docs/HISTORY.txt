@@ -3,6 +3,8 @@ Changelog
 
 3.2-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fix IE error adding Polyfill for endsWith.
+  [GhitaB refs #5]
 
 3.1 - (2018-08-27)
 ---------------------
