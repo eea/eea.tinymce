@@ -3,6 +3,8 @@ Changelog
 
 3.3-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fix tinymce on translation edit page"
+  [szabozo0 refs #97792]
 
 3.2 - (2018-10-02)
 ---------------------
