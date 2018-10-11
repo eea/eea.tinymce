@@ -30,6 +30,11 @@
     background-color: #FFF;
 }
 
-#content .mceLayout.mceFullScreen{
+#content .mceLayout.mceFullScreen,
+#content table.mceLayout{
     display:table;
+}
+
+#content table.mceLayout .mceIframeContainer{
+    display:block;
 }
