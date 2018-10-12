@@ -1,6 +1,11 @@
 Changelog
 =========
 
+3.3 - (2018-10-11)
+---------------------
+* Bug fix: Fix tinymce on translation edit page"
+  [szabozo0 refs #97792]
+
 3.2 - (2018-10-02)
 ---------------------
 * Bug fix: Fix IE error adding Polyfill for endsWith.
