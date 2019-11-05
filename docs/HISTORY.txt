@@ -2,7 +2,9 @@ Changelog
 =========
 
 3.5-dev0 - (unreleased)
----------------------
+-----------------------
+* Bug fix: increase size of readability checker boxes
+  [ichim-david refs #110784]
 
 3.4 - (2019-01-28)
 ---------------------

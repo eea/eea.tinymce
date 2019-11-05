@@ -28,7 +28,7 @@
 }
 
 .ploneSkin .charlimit-expanded {
-    height: 41px;
+    min-height: 41px;
 }
 
 .ploneSkin .readabilityChecker span,
