@@ -20,9 +20,9 @@
 
         loadContent: function (ed) {
             var tinyMCETemplateList = [
-                {title: "Figure", src: "/www/SITE/portal_skins/eea_tinymce_plugins/eeatemplateinit/templates/figure", decription:"Figure title and image"},
+                {title: "Figure", src: "/www/SITE/portal_skins/eea_tinymce_plugins/eeatemplateinit/templates/figure", decription:"Figure title and image"}
             ];
-            ed.settings.template_templates = tinyMCETemplateList;
+            ed.settings.template_templates = window.globalTinyMCETemplateList || tinyMCETemplateList;
         }
     });
     tinymce.PluginManager.add("eeatemplateinit", tinymce.plugins.EEATemplateInitPlugin);
