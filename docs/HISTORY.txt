@@ -9,22 +9,22 @@ Changelog
   [ichim-david refs #110784]
 
 3.4 - (2019-01-28)
----------------------
+--------------------------
 * Jenkins: Add sonarqube step
   [avoinea refs #101552]
 
 3.3 - (2018-10-11)
----------------------
+--------------------------
 * Bug fix: Fix tinymce on translation edit page"
   [szabozo0 refs #97792]
 
 3.2 - (2018-10-02)
----------------------
+--------------------------
 * Bug fix: Fix IE error adding Polyfill for endsWith.
   [GhitaB refs #5]
 
 3.1 - (2018-08-27)
----------------------
+--------------------------
 * Change: Get base-url from body data `base-url`
   [avoinea refs #97843]
 
