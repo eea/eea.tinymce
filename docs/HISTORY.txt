@@ -1,6 +1,9 @@
 Changelog
 =========
 
+3.6-dev0 - (unreleased)
+---------------------------
+
 3.5 - (2019-12-04)
 -----------------------
 * Feature: added several tinymce templates for the template plugin
