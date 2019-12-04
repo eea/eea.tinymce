@@ -3,6 +3,8 @@ Changelog
 
 3.5-dev0 - (unreleased)
 -----------------------
+* Feature: added several tinymce templates for the template plugin
+  [ichim-david refs #104471]
 * Bug fix: increase size of readability checker boxes
   [ichim-david refs #110784]
 
