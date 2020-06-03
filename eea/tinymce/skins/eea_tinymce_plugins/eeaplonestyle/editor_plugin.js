@@ -109,19 +109,26 @@
             style_type === "Wrap selection with" ||
             style_type === "Box styles"
           ) {
-            ed.focus();
+            ed.focus();eeaplonestyle/editor_plugin.js:
             bookmark = ed.selection.getBookmark();
+            var has_selection = ed.selection.getContent();
+            var selection = has_selection || e.outerHTML;
             wrapped_template =
               "<" +
               tag +
               ' class="' +
               className +
               '">' +
-              ed.selection.getContent() +
+              selection +
               "</" +
               tag +
               ">";
-            ed.selection.setContent(wrapped_template);
+            if (!has_selection) {
+              e.parentNode.replaceChild(jQuery(wrapped_template)[0], e);
+            } else {
+              ed.selection.setContent(wrapped_template);
+            }
+
             ed.selection.moveToBookmark(bookmark);
           } else if (tag === "span") {
             ed.formatter.apply(styles[parseInt(v)].title);

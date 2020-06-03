@@ -42,7 +42,7 @@
   <browser:page
     for="*"
     name="eea-tinymce-getstyle"
-    class=".style.TinyMCEStyle"
+    class=".app.style.TinyMCEStyle"
     attribute="getStyle"
     permission="zope2.View"
   />

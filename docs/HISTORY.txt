@@ -3,6 +3,16 @@ Changelog
 
 3.6-dev0 - (unreleased)
 ---------------------------
+* Feature: Box styles now wrap selected tag if no text selection is performed,
+  this way you can click inside a p tag, select a box style and that p tag will
+  be wrapped with the box style, or you can select several tags such as a p and
+  an ul and the entire selected region with be wrapped by the box style
+  [ichim-david refs #117294]
+* Feature: added @@eea-tinymce-getstyle browserView to be used instead of the
+  regular tinymce-getstyle in order to get styles per context instead of portal
+  [ichim-david refs #117294]
+* Change: modified eeatemplateinit templates to latest markup
+  [ichim-david refs #117294]
 
 3.5 - (2019-12-04)
 -----------------------
