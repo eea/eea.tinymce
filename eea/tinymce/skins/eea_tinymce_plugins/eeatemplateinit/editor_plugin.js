@@ -70,7 +70,7 @@
         {
           title: "Max column image",
           src:
-            "/portal_skins/eea_tinymce_plugins/eeatemplateinit/templates/fullwidth-image-container",
+            "/portal_skins/eea_tinymce_plugins/eeatemplateinit/templates/max-container-image",
           decription: "Image is max 1400px"
         },
         {
