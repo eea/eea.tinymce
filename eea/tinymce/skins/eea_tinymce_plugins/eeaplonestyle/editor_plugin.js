@@ -109,7 +109,7 @@
             style_type === "Wrap selection with" ||
             style_type === "Box styles"
           ) {
-            ed.focus();eeaplonestyle/editor_plugin.js:
+            ed.focus();
             bookmark = ed.selection.getBookmark();
             var has_selection = ed.selection.getContent();
             var selection = has_selection || e.outerHTML;
