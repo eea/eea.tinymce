@@ -5,11 +5,7 @@
     width: 100% !important;
     min-height: 400px;
 }
- 
-.ploneSkin table.mceLayout td.mceToolbar {
-    height: 85px;
-}
- 
+
 /* #18086: Improvements to the tinymce fullscreen mode
 **  center editor since we have a fixed width layout
 */

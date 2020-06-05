@@ -39,6 +39,14 @@
     allowed_attributes="get_scores"
   />
 
+  <browser:page
+    for="*"
+    name="eea-tinymce-getstyle"
+    class=".app.style.TinyMCEStyle"
+    attribute="getStyle"
+    permission="zope2.View"
+  />
+
   <browser:resource
     name="eea.tinymce.eeacharpluginform.js"
     file="./js/eeacharpluginform.js"
