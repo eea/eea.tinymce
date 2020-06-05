@@ -1,6 +1,9 @@
 Changelog
 =========
 
+3.7-dev0 - (unreleased)
+---------------------------
+
 3.6 - (2020-06-05)
 ---------------------------
 * Feature: Box styles now wrap selected tag if no text selection is performed,
