@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6-dev0 - (unreleased)
+3.6 - (2020-06-05)
 ---------------------------
 * Feature: Box styles now wrap selected tag if no text selection is performed,
   this way you can click inside a p tag, select a box style and that p tag will
