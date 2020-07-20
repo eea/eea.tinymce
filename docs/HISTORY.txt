@@ -3,6 +3,9 @@ Changelog
 
 3.7-dev0 - (unreleased)
 ---------------------------
+* Change: tweaked readability score portlet removing some older browser css
+  support and tweaked size so that it fits a smaller right column
+  [ichim-david refs #111968]
 
 3.6 - (2020-06-05)
 ---------------------------
