@@ -3,6 +3,8 @@ Changelog
 
 3.7-dev0 - (unreleased)
 ---------------------------
+* Bug fix: fixed description setting for eeatemplateinit templates
+  [ichim-david refs #119674]
 * Change: tweaked readability score portlet removing some older browser css
   support and tweaked size so that it fits a smaller right column
   [ichim-david refs #111968]
