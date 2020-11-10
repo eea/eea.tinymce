@@ -3,6 +3,9 @@ Changelog
 
 3.7-dev0 - (unreleased)
 ---------------------------
+* Change: tweaked template classes for eeatemplateinit plugin to reflect
+  the newest documentation
+  [ichim-david refs #119674]
 * Bug fix: fixed description setting for eeatemplateinit templates
   [ichim-david refs #119674]
 * Change: tweaked readability score portlet removing some older browser css
