@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.7-dev0 - (unreleased)
+3.7 - (2020-11-10)
 ---------------------------
 * Change: tweaked template classes for eeatemplateinit plugin to reflect
   the newest documentation
