@@ -1,13 +1,13 @@
 // jslint:disable
 /*global jQuery, tinymce, eeatinymceplugins, portal_url */
 
-(function () {
+(function() {
   tinymce.create("tinymce.plugins.EEATemplateInitPlugin", {
-    init: function (ed) {
+    init: function(ed) {
       ed.onLoadContent.add(this.loadContent, this);
     },
 
-    getInfo: function () {
+    getInfo: function() {
       return {
         longname: "EEA Template Init",
         author: "David Ichim",
@@ -17,7 +17,7 @@
       };
     },
 
-    loadContent: function (ed) {
+    loadContent: function(ed) {
       var tinyMCETemplateList = [
         {
           title: "Figure",
@@ -29,7 +29,7 @@
           title: "One tile",
           src:
             "/portal_skins/eea_tinymce_plugins/eeatemplateinit/templates/tiles-1-item",
-          description: "Fullwidth section with one tile content",
+          description: "Fullwidth section with one tile content"
         },
         {
           title: "Two tiles",
@@ -68,10 +68,11 @@
           description: "Image spans entire browser width"
         },
         {
-          title: "Max column image",
+          title: "Widescreen column image",
           src:
             "/portal_skins/eea_tinymce_plugins/eeatemplateinit/templates/max-container-image",
-          description: "Content is placed outside of content area, image is 100% width with max 1400px"
+          description:
+            "Content is placed outside of content area, image is 100% with max 1400px width "
         },
         {
           title: "Pullquote full",
