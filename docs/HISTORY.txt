@@ -1,6 +1,17 @@
 Changelog
 =========
 
+3.7 - (2020-11-10)
+---------------------------
+* Change: tweaked template classes for eeatemplateinit plugin to reflect
+  the newest documentation
+  [ichim-david refs #119674]
+* Bug fix: fixed description setting for eeatemplateinit templates
+  [ichim-david refs #119674]
+* Change: tweaked readability score portlet removing some older browser css
+  support and tweaked size so that it fits a smaller right column
+  [ichim-david refs #111968]
+
 3.6 - (2020-06-05)
 ---------------------------
 * Feature: Box styles now wrap selected tag if no text selection is performed,
